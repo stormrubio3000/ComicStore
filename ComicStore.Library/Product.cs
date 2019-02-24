@@ -8,10 +8,10 @@ namespace ComicStore.Library
     {
 
         private double _Price;
-
         private string _Name;
-
         private int _Inventory;
+
+
 
         public double Price
         {
