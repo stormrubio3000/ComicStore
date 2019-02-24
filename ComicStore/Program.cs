@@ -20,6 +20,16 @@ namespace ComicStore
              * Todo: option to load stored data
              * Todo: option to save data
              */
+
+
+
+
+            //finish framework for classes
+            //add repository clas
+            //make console outputs with menu
+            //do the testing stuff
+            //add saving
+            //add loading
         }
     }
 }

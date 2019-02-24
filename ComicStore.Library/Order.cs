@@ -44,8 +44,9 @@ namespace ComicStore.Library
             {
                 if (value?.Any() != true)
                 {
-                    throw new ArgumentException("Cannot accept a null or empty list. ");
+                    throw new ArgumentException("Cannot accept a null or empty list of products in order. ");
                 }
+                _Products = value;
             }
         }
 
