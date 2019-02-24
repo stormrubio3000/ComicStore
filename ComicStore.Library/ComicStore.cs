@@ -6,8 +6,6 @@ namespace ComicStore.Library
 {
     public class ComicStore
     {
-        //locationname
-        //list of products
         private string _Location;
         private List<Product> _Inventory;
 
