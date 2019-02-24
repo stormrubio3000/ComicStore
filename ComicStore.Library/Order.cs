@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ComicStore.Library
 {
-    class Order
+     public class Order
     {
         private int _ID;
         private double _Total = 0.00;

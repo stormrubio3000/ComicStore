@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ComicStore.Library
 {
-    class Product
+    public class Product
     {
 
         private double _Price;

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ComicStore.Library
 {
-    class Customer
+    public class Customer
     {
         private string _Name;
         private string _Email;

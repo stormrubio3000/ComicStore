@@ -1,18 +1,47 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ComicStore.Library
 {
     public class ComicStore
     {
-        /* Todo: add comic store
-         * Todo: show comic store
-         * Todo: edit comic store
-         * Todo: review comic store
-         * Todo: delete review for store
-         * Todo: delete comic stores
-         * Todo: make members for the comicstore class
-         * Todo: add products
-         * Todo: show products in stock
-         */
+        //locationname
+        //list of products
+        private string _Location;
+        private List<Product> _Inventory;
+
+
+        public string Name
+        {
+            get => _Location;
+            set
+            {
+                if (String.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentException("Name of location must not be empty. ");
+                }
+                _Location= value;
+            }
+        }
+
+
+
+        public List<Product> Inventory
+        {
+            get => _Inventory;
+            set
+            {
+                if (value?.Any() != true)
+                {
+                    throw new ArgumentException("Cannot accept a null or empty list for inventory products. ");
+                }
+                _Inventory = value;
+            }
+        }
+
+
+
+
     }
 }
