@@ -68,17 +68,38 @@ namespace ComicStore.Library
 
 
         //search product name
+        /*
+        public IEnumerable<ComicStore> GetProduct(string search = null)
+        {
+
+        }
+        */
 
         //add product
+        public void AddProduct(Product product, ComicStore comicstore)
+        {
+            comicstore.Inventory.Add(product);
+        }
+
+
 
         //delete product
+        public void DeleteProduct(Product product)
+        {
+            var store = _data.First(x => x.Inventory.Any(y => y.Name == product.Name));
+            store.Inventory.Remove(store.Inventory.First(x => x.Name == product.Name));
+        }
+
+
 
         //update product name
-
-        // add more product inventory
-
-        //add product to cart
-
+        public Product UpdateProduct(Product product, string name)
+        {
+            var store = _data.First(x => x.Inventory.Any(y => y.Name == name));
+            var placeholder = store.Invetory.IndexOf(store.Inventory.First(y => y.Name == name));
+            store.Inventory[placeholder] = product;
+        }
+        
 
 
 
