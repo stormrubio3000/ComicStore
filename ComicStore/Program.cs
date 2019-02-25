@@ -19,6 +19,7 @@ namespace ComicStore
             {
                 MainMenu();
                 string choice = "11";
+                string temp = "";
 
                 try
                 {
@@ -35,15 +36,31 @@ namespace ComicStore
                         choice = Console.ReadLine();
                         if (choice == "1")
                         {
-                            
+                            Console.WriteLine("Please enter a Store Name to add");
+                            temp = Console.ReadLine();
+                            var placeholder = new ComicStore();
+                            placeholder.Name(temp);
+                            csrepo.AddComicStore(placeholder);
                         }
                         else if (choice == "2")
                         {
-
+                            Console.WriteLine("Please enter a Store Name to delete");
+                            temp = Console.ReadLine();
+                            var placeholder = new ComicStore();
+                            placeholder.Name(temp);
+                            csrepo.DeleteComicStore(placeholder);
                         }
                         else if (choice == "3")
                         {
-
+                            Console.WriteLine("Please enter a Store Name to update");
+                            temp = Console.ReadLine();
+                            var placeholder = new ComicStore();
+                            placeholder.Name(temp);
+                            Console.WriteLine("Please enter the new name. ");
+                            string temp2 = Console.ReadLine();
+                            var placeholder2 = new ComicStore();
+                            placeholder2.Name(temp2);
+                            csrepo.UpdateComicStore(placeholder, placeholder2);
                         }
                         else
                         {

@@ -62,10 +62,10 @@ namespace ComicStore.Library
 
 
         //update comic 
-        public void UpdateComicStore (Comicstore comicstore)
+        public void UpdateComicStore (Comicstore old, string ne)
         {
-            DeleteComicStore(comicstore);
-            AddComicStore(comicstore);
+            DeleteComicStore(old);
+            AddComicStore(ne);
         }
 
 
