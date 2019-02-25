@@ -30,7 +30,7 @@ namespace ComicStore
                     }
                     else if (choice == "1")
                     {
-                        Console.WriteLine("1: Add a Store");
+                        Console.WriteLine("/b/b1: Add a Store");
                         Console.WriteLine("2: Delete a Store");
                         Console.WriteLine("3: Update a Store");
                         choice = Console.ReadLine();
@@ -69,35 +69,59 @@ namespace ComicStore
                     }
                     else if (choice == "2")
                     {
-
+                        Console.WriteLine("/b/b1: Show All Stores. ");
+                        Console.WriteLine("/b/b1: Show One Store. ");
+                        choice = Console.ReadLine();
+                        if (choice == "1")
+                        {
+                            var stores = csrepo.GetComicStore().ToList();
+                            for (int i =0; i < stores.Count; i++)
+                            {
+                                Console.WriteLine(i + ": " + stores.Name);
+                            }
+                        }
+                        else if (choice == "2")
+                        {
+                            Console.WriteLine("Please enter the store name. ");
+                            temp = Console.ReadLine();
+                            var store = csrepo.GetComicStore(temp).ToList();
+                            for (int i = 0; i < stores.Count; i++)
+                            {
+                                Console.WriteLine(i + ": " + stores.Name);
+                            }
+                        }
+                        else
+                        {
+                            throw new ArgumentException("Please pick a valid option. ");
+                        }
                     }
                     else if (choice == "3")
                     {
-
+                        Console.WriteLine("ToDo");
                     }
                     else if (choice == "4")
                     {
-
+                        Console.WriteLine("ToDo");
                     }
                     else if (choice == "5")
                     {
-
+                        Console.WriteLine("ToDo");
                     }
                     else if (choice == "6")
                     {
-
+                        Console.WriteLine("ToDo");
                     }
                     else if (choice == "7")
                     {
-
+                        Console.WriteLine("ToDo");
                     }
                     else if (choice == "8")
                     {
-
+                        Console.WriteLine("ToDo");
                     }
                     else if (choice == "9")
                     {
-
+                        Console.WriteLine("ToDo");
                     }
                     else
                     {
@@ -113,11 +137,7 @@ namespace ComicStore
                 choice = "11";
             }
 
-            /* Todo: console needs menu of options
-             * Todo: option to add comic store
-             * Todo: option to show comic store
-             * Todo: option to edit comic store
-             * Todo: option to delete comic stores
+            /* 
              * Todo: to show all products
              * Todo: Add a product
              * option to update product
