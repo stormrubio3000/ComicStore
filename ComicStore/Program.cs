@@ -21,46 +21,55 @@ namespace ComicStore
                     Console.WriteLine("Please enter a valid Input");
                 }
 
-
-                if(choice == "0")
+                try
                 {
-                    break;
+                    if (choice == "0")
+                    {
+                        break;
+                    }
+                    else if (choice == "1")
+                    {
+                        Console.WriteLine("1: Add a Store");
+                        Console.WriteLine("1: Delete a Store");
+                        Console.WriteLine("1: Update a Store");
+
+                    }
+                    else if (choice == "2")
+                    {
+
+                    }
+                    else if (choice == "3")
+                    {
+
+                    }
+                    else if (choice == "4")
+                    {
+
+                    }
+                    else if (choice == "5")
+                    {
+
+                    }
+                    else if (choice == "6")
+                    {
+
+                    }
+                    else if (choice == "7")
+                    {
+
+                    }
+                    else if (choice == "8")
+                    {
+
+                    }
+                    else if (choice == "9")
+                    {
+
+                    }
                 }
-                else if (choice == "1")
+                catch(ArgumentException e)
                 {
-
-                }
-                else if (choice == "2")
-                {
-
-                }
-                else if (choice == "3")
-                {
-
-                }
-                else if (choice == "4")
-                {
-
-                }
-                else if (choice == "5")
-                {
-
-                }
-                else if (choice == "6")
-                {
-
-                }
-                else if (choice == "7")
-                {
-
-                }
-                else if (choice == "8")
-                {
-
-                }
-                else if (choice == "9")
-                {
-
+                    Console.WriteLine(e);
                 }
 
 
@@ -111,7 +120,7 @@ namespace ComicStore
             Console.WriteLine("7. Show Cart. ");
             Console.WriteLine("8. Add Item to Cart. ");
             Console.WriteLine("9. Remove Item from Cart. ");
-            Console.WriteLine("0. Remove Item from Cart. ");
+            Console.WriteLine("0. Quit. ");
         }
     }
 }
