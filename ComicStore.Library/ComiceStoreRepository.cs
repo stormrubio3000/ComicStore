@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+
+
 namespace ComicStore.Library
 {
     class ComiceStoreRepository
     {
         //handles the add/delete/edit for comicstores and products.
-        private readonly ICollection<ComicStore> _data;
+        private readonly ICollection<Comicstore> _data;
 
 
 
@@ -20,7 +22,7 @@ namespace ComicStore.Library
 
         //search comic
 
-        public IEnumerable<ComicStore> GetComicStore(string search = null)
+        public IEnumerable<Comicstore> GetComicStore(string search = null)
         {
             if (search == null)
             {
@@ -41,7 +43,7 @@ namespace ComicStore.Library
         //add comic 
 
 
-        public void AddComicStore ( ComicStore comicstore)
+        public void AddComicStore ( Comicstore comicstore)
         {
             if (_data.Any(c => c.Name == comicstore.Name))
             {
@@ -53,14 +55,14 @@ namespace ComicStore.Library
 
         //delete comic 
 
-        public void DeleteComicStore (ComicStore comicstore)
+        public void DeleteComicStore (Comicstore comicstore)
         {
             _data.Delete(comicstore);
         }
 
 
         //update comic 
-        public void UpdateComicStore (ComicStore comicstore)
+        public void UpdateComicStore (Comicstore comicstore)
         {
             DeleteComicStore(comicstore);
             AddComicStore(comicstore);
@@ -76,13 +78,13 @@ namespace ComicStore.Library
             }
             else
             {
-                return _data.Select(x => x.Inventory).Where(r => r.Name.Contains(search)));
+                return _data.Select(x => x.Inventory).Where(r => r.Name.Contains(search));
             }
         }
         
 
         //add product
-        public void AddProduct(Product product, ComicStore comicstore)
+        public void AddProduct(Product product, Comicstore comicstore)
         {
             comicstore.Inventory.Add(product);
         }

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ComicStore.Library
 {
-    public class ComicStore
+    public class Comicstore
     {
         private string _Location;
         private List<Product> _Inventory;

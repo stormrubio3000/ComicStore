@@ -1,28 +1,28 @@
 ﻿using System;
+using System.Collections.Generic;
+using ComicStore.Library;
 
 namespace ComicStore
 {
-    class Program
+    static class Program
     {
         static void Main(string[] args)
         {
+            var CSdata = new List<Comicstore>;
+            var Cdata = new List<Customer>;
+
+            var csrepo = new ComicStoreRepository(CSdata);
+            //var crepo = new CustomerRepository(Cdata);
             Console.WriteLine("Welcome to Comic League United the 7th largest comic supply store in the tri-state area./b");
 
             while (true)
             {
                 MainMenu();
                 string choice = "11";
-                try
-                {
-                    choice = Console.ReadLine();
-                }
-                catch
-                {
-                    Console.WriteLine("Please enter a valid Input");
-                }
 
                 try
                 {
+                    choice = Console.ReadLine();
                     if (choice == "0")
                     {
                         break;
@@ -30,9 +30,25 @@ namespace ComicStore
                     else if (choice == "1")
                     {
                         Console.WriteLine("1: Add a Store");
-                        Console.WriteLine("1: Delete a Store");
-                        Console.WriteLine("1: Update a Store");
+                        Console.WriteLine("2: Delete a Store");
+                        Console.WriteLine("3: Update a Store");
+                        choice = Console.ReadLine();
+                        if (choice == "1")
+                        {
+                            
+                        }
+                        else if (choice == "2")
+                        {
 
+                        }
+                        else if (choice == "3")
+                        {
+
+                        }
+                        else
+                        {
+                            throw new ArgumentException("Please pick a valid option. ");
+                        }
                     }
                     else if (choice == "2")
                     {
@@ -65,6 +81,10 @@ namespace ComicStore
                     else if (choice == "9")
                     {
 
+                    }
+                    else
+                    {
+                        throw new ArgumentException("Please pick a valid option. ");
                     }
                 }
                 catch(ArgumentException e)
