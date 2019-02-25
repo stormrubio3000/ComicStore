@@ -68,12 +68,18 @@ namespace ComicStore.Library
 
 
         //search product name
-        /*
-        public IEnumerable<ComicStore> GetProduct(string search = null)
+        public List<Product> GetProduct(string search = null)
         {
-
+            if (search == null)
+            {
+                return _data.Select(x => x.Inventory).Distinct().ToList();
+            }
+            else
+            {
+                return _data.Select(x => x.Inventory).Where(r => r.Name.Contains(search)));
+            }
         }
-        */
+        
 
         //add product
         public void AddProduct(Product product, ComicStore comicstore)
