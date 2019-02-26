@@ -105,7 +105,44 @@ namespace ComicStore
                     }
                     else if (choice == "3")
                     {
-                        Console.WriteLine("ToDo");
+                        Console.WriteLine("");
+                        Console.WriteLine("");
+                        Console.WriteLine("1: Add a Product");
+                        Console.WriteLine("2: Delete a Product");
+                        Console.WriteLine("3: Update a Product");
+                        choice = Console.ReadLine();
+                        if (choice == "1")
+                        {
+                            Console.WriteLine("Please enter a Store Name to add");
+                            temp = Console.ReadLine();
+                            var placeholder = new Comicstore();
+                            placeholder.Name = temp;
+                            csrepo.AddComicStore(placeholder);
+                        }
+                        else if (choice == "2")
+                        {
+                            Console.WriteLine("Please enter a Store Name to delete");
+                            temp = Console.ReadLine();
+                            var placeholder = new Comicstore();
+                            placeholder.Name = temp;
+                            csrepo.DeleteComicStore(placeholder);
+                        }
+                        else if (choice == "3")
+                        {
+                            Console.WriteLine("Please enter a Store Name to update");
+                            temp = Console.ReadLine();
+                            var placeholder = new Comicstore();
+                            placeholder.Name = temp;
+                            Console.WriteLine("Please enter the new name. ");
+                            string temp2 = Console.ReadLine();
+                            var placeholder2 = new Comicstore();
+                            placeholder2.Name = temp2;
+                            csrepo.UpdateComicStore(placeholder, placeholder2);
+                        }
+                        else
+                        {
+                            throw new ArgumentException("Please pick a valid option. ");
+                        }
                     }
                     else if (choice == "4")
                     {
