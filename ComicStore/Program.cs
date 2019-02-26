@@ -244,8 +244,6 @@ namespace ComicStore
             }
 
             /* 
-             * Todo: to show all products
-             * Todo: option to show what products are in a location
              * Todo: Add customer
              * Todo: delete customer
              * Todo: update customer
