@@ -70,19 +70,33 @@ namespace ComicStore.Library
 
 
         //search product name
-        /*
-        public List<Product> GetProduct(string search = null)
+        
+        public IEnumerable<Product> GetProduct(string search = null)
         {
             if (search == null)
             {
-                return _data.Select(x => x.Inventory).Distinct().ToList();
+                foreach (var item in _data.Select(x => x.Inventory).Distinct())
+                {
+                    foreach (var pro in item)
+                    {
+                        yield return pro;
+                    }
+                    
+                }
             }
             else
             {
-                return _data.Select(x => x.Inventory).Where(r => r.Name.Contains(search));
+                foreach (var item in _data.Select(x => x.Inventory))
+                {
+                    
+                    foreach (var pro in item.Where(r => r.Name.Contains(search)))
+                    {
+                        yield return pro;
+                    }
+                }
             }
         }
-        */
+        
 
         //add product
         public void AddProduct(Product product, string comicstore)

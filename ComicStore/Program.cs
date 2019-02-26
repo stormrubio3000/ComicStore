@@ -31,6 +31,7 @@ namespace ComicStore
                     }
                     else if (choice == "1")
                     {
+                        choice = "11";
                         Console.WriteLine("");
                         Console.WriteLine("");
                         Console.WriteLine("1: Add a Store");
@@ -72,6 +73,7 @@ namespace ComicStore
                     }
                     else if (choice == "2")
                     {
+                        choice = "11";
                         Console.WriteLine("");
                         Console.WriteLine("");
                         Console.WriteLine("1: Show All Stores. ");
@@ -105,6 +107,7 @@ namespace ComicStore
                     }
                     else if (choice == "3")
                     {
+                        choice = "11";
                         Console.WriteLine("");
                         Console.WriteLine("");
                         Console.WriteLine("1: Add a Product");
@@ -168,7 +171,43 @@ namespace ComicStore
                     }
                     else if (choice == "4")
                     {
-                        Console.WriteLine("ToDo");
+                        choice = "11";
+                        Console.WriteLine("");
+                        Console.WriteLine("");
+                        Console.WriteLine("1: Show All Products");
+                        Console.WriteLine("2: Show A Product");
+                        choice = Console.ReadLine();
+
+                        if (choice == "1")
+                        {
+                            var stores = csrepo.GetProduct().ToList();
+                            for (int i = 0; i < stores.Count; i++)
+                            {
+                                Console.WriteLine(i + ": " + stores[i].Name);
+                            }
+
+                        }
+                        else if (choice == "2")
+                        {
+                            Console.WriteLine("Please enter the product name. ");
+                            temp = Console.ReadLine();
+                            var store = csrepo.GetProduct(temp).ToList();
+                            for (int i = 0; i < store.Count; i++)
+                            {
+                                Console.WriteLine("");
+                                Console.WriteLine("");
+                                Console.WriteLine(store[i].Name);
+                                Console.WriteLine("In Inventory: " + store[i].Inventory);
+                                Console.WriteLine("Current Price: " + store[i].Price);
+                            }
+
+                        }
+                        else
+                        {
+                            throw new ArgumentException("Please pick a valid option. ");
+                        }
+
+
                     }
                     else if (choice == "5")
                     {
