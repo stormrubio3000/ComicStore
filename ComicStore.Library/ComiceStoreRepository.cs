@@ -85,9 +85,10 @@ namespace ComicStore.Library
         */
 
         //add product
-        public void AddProduct(Product product, Comicstore comicstore)
+        public void AddProduct(Product product, string comicstore)
         {
-            comicstore.Inventory.Add(product);
+            Comicstore store = _data.First(x => x.Name == comicstore);
+            store.Inventory.Add(product);
         }
 
 

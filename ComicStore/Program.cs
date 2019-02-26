@@ -113,12 +113,23 @@ namespace ComicStore
                         choice = Console.ReadLine();
                         if (choice == "1")
                         {
-                            Console.WriteLine("Please enter a Store Name to add");
+                            //ToDo: add more exception checking for inputs.
+                            var placeholder = new Product();
+                            Console.WriteLine("Please enter a Product Name.");
                             temp = Console.ReadLine();
-                            var placeholder = new Comicstore();
                             placeholder.Name = temp;
-                            csrepo.AddComicStore(placeholder);
+                            Console.WriteLine("Please enter the number of products in inventory.");
+                            temp = Console.ReadLine();
+                            placeholder.Inventory = Convert.ToInt32(temp);
+                            Console.WriteLine("Please enter the price of the product.");
+                            temp = Console.ReadLine();
+                            placeholder.Price = Convert.ToDouble(temp);
+                            Console.WriteLine("Please enter a Store Name to add the Product.");
+                            temp = Console.ReadLine();
+
+                            csrepo.AddProduct(placeholder, temp);
                         }
+                        /*
                         else if (choice == "2")
                         {
                             Console.WriteLine("Please enter a Store Name to delete");
@@ -139,6 +150,7 @@ namespace ComicStore
                             placeholder2.Name = temp2;
                             csrepo.UpdateComicStore(placeholder, placeholder2);
                         }
+                        */
                         else
                         {
                             throw new ArgumentException("Please pick a valid option. ");
