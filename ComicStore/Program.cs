@@ -115,29 +115,30 @@ namespace ComicStore
                         {
                             //ToDo: add more exception checking for inputs.
                             var placeholder = new Product();
+                            int inv = 1;
+                            double price = 5.00;
                             Console.WriteLine("Please enter a Product Name.");
                             temp = Console.ReadLine();
                             placeholder.Name = temp;
                             Console.WriteLine("Please enter the number of products in inventory.");
                             temp = Console.ReadLine();
-                            placeholder.Inventory = Convert.ToInt32(temp);
+                            int.TryParse(temp, out inv);
+                            placeholder.Inventory = inv;
                             Console.WriteLine("Please enter the price of the product.");
                             temp = Console.ReadLine();
-                            placeholder.Price = Convert.ToDouble(temp);
+                            double.TryParse(temp, out price);
+                            placeholder.Price = price;
                             Console.WriteLine("Please enter a Store Name to add the Product.");
                             temp = Console.ReadLine();
 
                             csrepo.AddProduct(placeholder, temp);
                         }
-                        /*
                         else if (choice == "2")
                         {
-                            Console.WriteLine("Please enter a Store Name to delete");
+                            Console.WriteLine("Please enter a product Name to delete");
                             temp = Console.ReadLine();
-                            var placeholder = new Comicstore();
-                            placeholder.Name = temp;
-                            csrepo.DeleteComicStore(placeholder);
-                        }
+                            csrepo.DeleteProduct(temp);
+                        }/*
                         else if (choice == "3")
                         {
                             Console.WriteLine("Please enter a Store Name to update");
@@ -196,7 +197,6 @@ namespace ComicStore
 
             /* 
              * Todo: to show all products
-             * Todo: Add a product
              * option to update product
              * Todo: option to show what products are in a location
              * Todo: option to delete product
