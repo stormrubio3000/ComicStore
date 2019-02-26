@@ -250,7 +250,9 @@ namespace ComicStore
              * Todo: Add product to cart
              * Todo: Show cart and total
              * Todo: option to load stored data
-             * Todo: option to save data
+             * Todo: option to save datas
+             * Todo: All unit tests
+             * Todo: SQL database for saving and loading
              */
 
 
