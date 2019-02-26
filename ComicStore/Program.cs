@@ -113,7 +113,6 @@ namespace ComicStore
                         choice = Console.ReadLine();
                         if (choice == "1")
                         {
-                            //ToDo: add more exception checking for inputs.
                             var placeholder = new Product();
                             int inv = 1;
                             double price = 5.00;
@@ -138,20 +137,30 @@ namespace ComicStore
                             Console.WriteLine("Please enter a product Name to delete");
                             temp = Console.ReadLine();
                             csrepo.DeleteProduct(temp);
-                        }/*
+                        }
                         else if (choice == "3")
                         {
-                            Console.WriteLine("Please enter a Store Name to update");
+                            Console.WriteLine("Please enter a product Name to Update");
                             temp = Console.ReadLine();
-                            var placeholder = new Comicstore();
+                            csrepo.DeleteProduct(temp);
+                            var placeholder = new Product();
+                            double price = 5.00;
+                            int inv = 1;
+                            Console.WriteLine("Please enter a new Product Name.");
+                            temp = Console.ReadLine();
                             placeholder.Name = temp;
-                            Console.WriteLine("Please enter the new name. ");
-                            string temp2 = Console.ReadLine();
-                            var placeholder2 = new Comicstore();
-                            placeholder2.Name = temp2;
-                            csrepo.UpdateComicStore(placeholder, placeholder2);
+                            Console.WriteLine("Please enter the new price of the product.");
+                            temp = Console.ReadLine();
+                            double.TryParse(temp, out price);
+                            placeholder.Price = price;
+                            Console.WriteLine("Please enter the new number of products in inventory.");
+                            temp = Console.ReadLine();
+                            int.TryParse(temp, out inv);
+                            placeholder.Inventory = inv;
+
+                            csrepo.AddProduct(placeholder, temp);
                         }
-                        */
+                        
                         else
                         {
                             throw new ArgumentException("Please pick a valid option. ");
@@ -197,10 +206,7 @@ namespace ComicStore
 
             /* 
              * Todo: to show all products
-             * option to update product
              * Todo: option to show what products are in a location
-             * Todo: option to delete product
-             * Todo: Add to product inventory 
              * Todo: Add customer
              * Todo: delete customer
              * Todo: update customer
@@ -222,9 +228,9 @@ namespace ComicStore
             Console.WriteLine("4. Show a Product. ");
             Console.WriteLine("5. Edit a Customer. ");
             Console.WriteLine("6. Show a Customer. ");
-            Console.WriteLine("7. Show Cart. ");
-            Console.WriteLine("8. Add Item to Cart. ");
-            Console.WriteLine("9. Remove Item from Cart. ");
+            Console.WriteLine("7. Edit Cart. ");
+            Console.WriteLine("8. Show Cart. ");
+            Console.WriteLine("9. Show Order History. ");
             Console.WriteLine("0. Quit. ");
         }
     }
