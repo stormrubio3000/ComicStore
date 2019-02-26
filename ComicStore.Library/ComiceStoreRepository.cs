@@ -6,14 +6,14 @@ using System.Linq;
 
 namespace ComicStore.Library
 {
-    class ComiceStoreRepository
+    public class ComiceStoreRepository
     {
         //handles the add/delete/edit for comicstores and products.
         private readonly ICollection<Comicstore> _data;
 
 
 
-        public ComiceStoreRepository(ICollection<ComicStore> data)
+        public ComiceStoreRepository(ICollection<Comicstore> data)
         {
             _data = data ?? throw new ArgumentNullException(nameof(data));
         }
@@ -57,12 +57,12 @@ namespace ComicStore.Library
 
         public void DeleteComicStore (Comicstore comicstore)
         {
-            _data.Delete(comicstore);
+            _data.Remove(comicstore);
         }
 
 
         //update comic 
-        public void UpdateComicStore (Comicstore old, string ne)
+        public void UpdateComicStore (Comicstore old, Comicstore ne)
         {
             DeleteComicStore(old);
             AddComicStore(ne);
@@ -70,6 +70,7 @@ namespace ComicStore.Library
 
 
         //search product name
+        /*
         public List<Product> GetProduct(string search = null)
         {
             if (search == null)
@@ -81,7 +82,7 @@ namespace ComicStore.Library
                 return _data.Select(x => x.Inventory).Where(r => r.Name.Contains(search));
             }
         }
-        
+        */
 
         //add product
         public void AddProduct(Product product, Comicstore comicstore)
@@ -101,10 +102,10 @@ namespace ComicStore.Library
 
 
         //update product name
-        public Product UpdateProduct(Product product, string name)
+        public void UpdateProduct(Product product, string name)
         {
             var store = _data.First(x => x.Inventory.Any(y => y.Name == name));
-            var placeholder = store.Invetory.IndexOf(store.Inventory.First(y => y.Name == name));
+            var placeholder = store.Inventory.IndexOf(store.Inventory.First(y => y.Name == name));
             store.Inventory[placeholder] = product;
         }
         

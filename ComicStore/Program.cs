@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ComicStore.Library;
 
 namespace ComicStore
@@ -8,10 +9,10 @@ namespace ComicStore
     {
         static void Main(string[] args)
         {
-            var CSdata = new List<Comicstore>;
-            var Cdata = new List<Customer>;
+            var CSdata = new List<Comicstore>();
+            var Cdata = new List<Customer>();
 
-            var csrepo = new ComicStoreRepository(CSdata);
+            var csrepo = new ComiceStoreRepository(CSdata);
             //var crepo = new CustomerRepository(Cdata);
             Console.WriteLine("Welcome to Comic League United the 7th largest comic supply store in the tri-state area./b");
 
@@ -38,28 +39,28 @@ namespace ComicStore
                         {
                             Console.WriteLine("Please enter a Store Name to add");
                             temp = Console.ReadLine();
-                            var placeholder = new ComicStore();
-                            placeholder.Name(temp);
+                            var placeholder = new Comicstore();
+                            placeholder.Name = temp;
                             csrepo.AddComicStore(placeholder);
                         }
                         else if (choice == "2")
                         {
                             Console.WriteLine("Please enter a Store Name to delete");
                             temp = Console.ReadLine();
-                            var placeholder = new ComicStore();
-                            placeholder.Name(temp);
+                            var placeholder = new Comicstore();
+                            placeholder.Name = temp;
                             csrepo.DeleteComicStore(placeholder);
                         }
                         else if (choice == "3")
                         {
                             Console.WriteLine("Please enter a Store Name to update");
                             temp = Console.ReadLine();
-                            var placeholder = new ComicStore();
-                            placeholder.Name(temp);
+                            var placeholder = new Comicstore();
+                            placeholder.Name = temp;
                             Console.WriteLine("Please enter the new name. ");
                             string temp2 = Console.ReadLine();
-                            var placeholder2 = new ComicStore();
-                            placeholder2.Name(temp2);
+                            var placeholder2 = new Comicstore();
+                            placeholder2.Name = temp2;
                             csrepo.UpdateComicStore(placeholder, placeholder2);
                         }
                         else
@@ -77,7 +78,7 @@ namespace ComicStore
                             var stores = csrepo.GetComicStore().ToList();
                             for (int i =0; i < stores.Count; i++)
                             {
-                                Console.WriteLine(i + ": " + stores.Name);
+                                Console.WriteLine(i + ": " + stores[i].Name);
                             }
                         }
                         else if (choice == "2")
@@ -85,9 +86,9 @@ namespace ComicStore
                             Console.WriteLine("Please enter the store name. ");
                             temp = Console.ReadLine();
                             var store = csrepo.GetComicStore(temp).ToList();
-                            for (int i = 0; i < stores.Count; i++)
+                            for (int i = 0; i < store.Count; i++)
                             {
-                                Console.WriteLine(i + ": " + stores.Name);
+                                Console.WriteLine(i + ": " + store[i].Name);
                             }
                         }
                         else

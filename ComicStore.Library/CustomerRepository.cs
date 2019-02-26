@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ComicStore.Library
 {
-    class CustomerRepository
+    public class CustomerRepository
     {
         //Handles the add/delete/edit/search for customer and Orders
     }
