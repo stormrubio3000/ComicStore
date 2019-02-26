@@ -159,8 +159,6 @@ namespace ComicStore
              * Todo: Show cart and total
              * Todo: option to load stored data
              * Todo: option to save data
-             * Todo: fix deleteing comicstores function
-             * Todo: fix updating comicstores function
              */
 
 

@@ -57,7 +57,7 @@ namespace ComicStore.Library
 
         public void DeleteComicStore (Comicstore comicstore)
         {
-            _data.Remove(comicstore);
+            _data.Remove(_data.First(x => x.Name == comicstore.Name));
         }
 
 
