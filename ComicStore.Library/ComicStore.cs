@@ -7,7 +7,7 @@ namespace ComicStore.Library
     public class Comicstore
     {
         private string _Location;
-        private List<Product> _Inventory;
+        private List<Product> _Inventory = new List<Product>();
 
 
         public string Name
