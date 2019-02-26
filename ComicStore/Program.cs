@@ -31,7 +31,9 @@ namespace ComicStore
                     }
                     else if (choice == "1")
                     {
-                        Console.WriteLine("/b/b1: Add a Store");
+                        Console.WriteLine("");
+                        Console.WriteLine("");
+                        Console.WriteLine("1: Add a Store");
                         Console.WriteLine("2: Delete a Store");
                         Console.WriteLine("3: Update a Store");
                         choice = Console.ReadLine();
@@ -70,8 +72,10 @@ namespace ComicStore
                     }
                     else if (choice == "2")
                     {
-                        Console.WriteLine("/b/b1: Show All Stores. ");
-                        Console.WriteLine("/b/b1: Show One Store. ");
+                        Console.WriteLine("");
+                        Console.WriteLine("");
+                        Console.WriteLine("1: Show All Stores. ");
+                        Console.WriteLine("2: Show One Store. ");
                         choice = Console.ReadLine();
                         if (choice == "1")
                         {
@@ -88,8 +92,11 @@ namespace ComicStore
                             var store = csrepo.GetComicStore(temp).ToList();
                             for (int i = 0; i < store.Count; i++)
                             {
-                                Console.WriteLine(i + ": " + store[i].Name);
+                                Console.WriteLine("");
+                                Console.WriteLine("");
+                                Console.WriteLine(store[i].Name);
                             }
+                            //ToDo: add in inventory output
                         }
                         else
                         {
@@ -152,17 +159,10 @@ namespace ComicStore
              * Todo: Show cart and total
              * Todo: option to load stored data
              * Todo: option to save data
+             * Todo: fix deleteing comicstores function
+             * Todo: fix updating comicstores function
              */
 
-
-
-
-
-            //add repository clas
-            //make console outputs with menu
-            //do the testing stuff
-            //add saving
-            //add loading
 
        
         }
