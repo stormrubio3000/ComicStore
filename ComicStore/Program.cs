@@ -296,9 +296,6 @@ namespace ComicStore
             }
 
             /* 
-             * Todo: Add customer
-             * Todo: delete customer
-             * Todo: update customer
              * Todo: Add product to cart
              * Todo: remove product from cart
              * Todo: Show cart and total
