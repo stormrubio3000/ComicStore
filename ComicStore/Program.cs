@@ -248,7 +248,9 @@ namespace ComicStore
              * Todo: delete customer
              * Todo: update customer
              * Todo: Add product to cart
+             * Todo: remove product from cart
              * Todo: Show cart and total
+             * Todo: Show customer order history
              * Todo: option to load stored data
              * Todo: option to save datas
              * Todo: All unit tests
