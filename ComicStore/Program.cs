@@ -13,7 +13,7 @@ namespace ComicStore
             var Cdata = new List<Customer>();
 
             var csrepo = new ComiceStoreRepository(CSdata);
-            //var crepo = new CustomerRepository(Cdata);
+            var crepo = new CustomerRepository(Cdata);
             Console.WriteLine("Welcome to Comic League United the 7th largest comic supply store in the tri-state area./b");
 
             while (true)
@@ -82,7 +82,7 @@ namespace ComicStore
                         if (choice == "1")
                         {
                             var stores = csrepo.GetComicStore().ToList();
-                            for (int i =0; i < stores.Count; i++)
+                            for (int i = 0; i < stores.Count; i++)
                             {
                                 Console.WriteLine(i + ": " + stores[i].Name);
                             }
@@ -163,7 +163,7 @@ namespace ComicStore
 
                             csrepo.AddProduct(placeholder, temp);
                         }
-                        
+
                         else
                         {
                             throw new ArgumentException("Please pick a valid option. ");
@@ -209,10 +209,62 @@ namespace ComicStore
 
 
                     }
-                    else if (choice == "5")
+                    else if (choice == "5")//working
                     {
-                        Console.WriteLine("ToDo");
+                        choice = "11";
+                        Console.WriteLine("");
+                        Console.WriteLine("");
+                        Console.WriteLine("1: Add a Customer");
+                        Console.WriteLine("2: Delete a Customer");
+                        Console.WriteLine("3: Update a Customer");
+                        choice = Console.ReadLine();
+                        if (choice == "1")
+                        {
+                            Console.WriteLine("Please enter the name of the customer. ");
+                            temp = Console.ReadLine();
+                            var cust = new Customer();
+                            cust.Name = temp;
+                            Console.WriteLine("Please enter the customers email. ");
+                            temp = Console.ReadLine();
+                            cust.Email = temp;
+                            crepo.AddCustomer(cust);
+                        }
+                        else if (choice == "2")
+                        {
+                            Console.WriteLine("Please enter the name of the customer. ");
+                            temp = Console.ReadLine();
+                            var cust = new Customer();
+                            cust.Name = temp;
+                            Console.WriteLine("Please enter the customers email. ");
+                            temp = Console.ReadLine();
+                            cust.Email = temp;
+                            crepo.DeleteCustomer(cust);
+                        }
+                        else if (choice == "3")
+                        {
+                            Console.WriteLine("Please enter the name of the customer to edit. ");
+                            temp = Console.ReadLine();
+                            var cust = new Customer();
+                            cust.Name = temp;
+                            Console.WriteLine("Please enter the customers email. ");
+                            temp = Console.ReadLine();
+                            cust.Email = temp;
+                            var cust2 = new Customer();
+                            Console.WriteLine("Please enter the new name of the customer. ");
+                            temp = Console.ReadLine();
+                            cust2.Name = temp;
+                            Console.WriteLine("Please enter the new customers email. ");
+                            temp = Console.ReadLine();
+                            cust2.Email = temp;
+                            crepo.UpdateCustomer(cust,cust2);
+
+                        }
+                        else
+                        {
+                            throw new ArgumentException("Please pick a valid option. ");
+                        }
                     }
+
                     else if (choice == "6")
                     {
                         Console.WriteLine("ToDo");

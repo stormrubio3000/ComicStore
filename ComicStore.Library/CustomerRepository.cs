@@ -53,7 +53,7 @@ namespace ComicStore.Library
 
         public void DeleteCustomer(Customer customer)
         {
-            _data.Remove(_data.First(x => x.Name == customer.Name));
+            _data.Remove(_data.First(x => x.Name == customer.Name && x.Email == customer.Email));
         }
 
 
