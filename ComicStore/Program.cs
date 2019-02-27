@@ -14,7 +14,12 @@ namespace ComicStore
 
             var csrepo = new ComiceStoreRepository(CSdata);
             var crepo = new CustomerRepository(Cdata);
-            Console.WriteLine("Welcome to Comic League United the 7th largest comic supply store in the tri-state area./b");
+            string curr_cust;
+            Console.WriteLine("Welcome to Comic League United the 7th largest comic supply store in the tri-state area.");
+            Console.WriteLine("Please login in order make a new customer. ");
+            Console.WriteLine("Please enter Customer name now. ");
+            curr_cust = Console.ReadLine();
+            //ToDo: add check to see if current cust is a new cust or returning.
 
             while (true)
             {
@@ -209,7 +214,7 @@ namespace ComicStore
 
 
                     }
-                    else if (choice == "5")//working
+                    else if (choice == "5")
                     {
                         choice = "11";
                         Console.WriteLine("");
@@ -267,7 +272,8 @@ namespace ComicStore
 
                     else if (choice == "6")
                     {
-                        Console.WriteLine("ToDo");
+                        crepo.GetCustomer(curr_cust);
+                        //ToDo: add in product history show.
                     }
                     else if (choice == "7")
                     {
@@ -317,7 +323,7 @@ namespace ComicStore
             Console.WriteLine("3. Edit a Product. ");
             Console.WriteLine("4. Show a Product. ");
             Console.WriteLine("5. Edit a Customer. ");
-            Console.WriteLine("6. Show a Customer. ");
+            Console.WriteLine("6. Show Customer Info. ");
             Console.WriteLine("7. Edit Cart. ");
             Console.WriteLine("8. Show Cart. ");
             Console.WriteLine("9. Show Order History. ");
