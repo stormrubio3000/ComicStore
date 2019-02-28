@@ -25,12 +25,7 @@ namespace ComicStore
             curr_email = Console.ReadLine();
 
 
-            //ToDo: add check to see if current cust is a new cust or returning.
-            var curr_cust = new Customer()
-            {
-                Name = curr_name,
-                Email = curr_email
-            };
+            crepo.CheckCustomer(curr_name, curr_email);
 
             while (true)
             {
@@ -111,13 +106,16 @@ namespace ComicStore
                             Console.WriteLine("Please enter the store name. ");
                             temp = Console.ReadLine();
                             var store = csrepo.GetComicStore(temp).ToList();
-                            for (int i = 0; i < store.Count; i++)
+                            foreach (var item in store)
                             {
                                 Console.WriteLine("");
                                 Console.WriteLine("");
-                                Console.WriteLine(store[i].Name);
+                                Console.WriteLine(item.Name);
+                                foreach (var inv in item.Inventory)
+                                {
+                                    Console.WriteLine(inv.Name + "   Price: " + inv.Price + "   In Stock: " + inv.Inventory);
+                                }
                             }
-                            //ToDo: add in inventory output
                         }
                         else
                         {
@@ -340,10 +338,10 @@ namespace ComicStore
                         }
                         Console.WriteLine("Total: " + total);
                     }
-                    else if (choice == "9")//working
+                    else if (choice == "9")
                     {
                         Console.Clear();
-                        var orders = crepo.GetHistory(curr_name);//list of orders
+                        var orders = crepo.GetHistory(curr_name);
                         foreach (var item in orders)
                         {
                             Console.WriteLine("Order ID: " + item.ID);
@@ -362,7 +360,9 @@ namespace ComicStore
                 }
                 catch(ArgumentException e)
                 {
+                    Console.Clear();
                     Console.WriteLine(e);
+                    Console.ReadLine();
                 }
 
 

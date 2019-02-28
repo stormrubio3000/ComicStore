@@ -35,6 +35,23 @@ namespace ComicStore.Library
             }
         }
 
+
+        public Customer CheckCustomer(string name, string email)
+        {
+            if (_data.Any(c => c.Name == name))
+            {
+                return _data.First(c => c.Name == name);
+            }
+            else
+            {
+                return new Customer()
+                {
+                    Name = name,
+                    Email = email
+                };
+            }
+
+        }
         //add customer 
 
 
