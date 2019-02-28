@@ -90,9 +90,9 @@ namespace ComicStore.Library
 
 
         //delete product
-        public void DeleteProduct(string product, int amount = 1)
+        public void DeleteProduct(string product, string customer, int amount = 1)
         {
-            var cust = _data.First(x => x.Products.Any(y => y.Name == product));
+            var cust = _data.First(x => x.Products.Any(y => y.Name == product && x.Name == customer));
             cust.Products.Remove(cust.Products.First(x => x.Name == product));
         }
 
