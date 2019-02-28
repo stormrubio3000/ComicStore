@@ -287,7 +287,16 @@ namespace ComicStore
                     {
                         Console.Clear();
                         crepo.GetCustomer(curr_name);
-                        //ToDo: add in order history show.
+                        var orders = crepo.GetHistory(curr_name);
+                        foreach (var item in orders)
+                        {
+                            Console.WriteLine("Order ID: " + item.ID);
+                            Console.WriteLine("Order Total: " + item.Total);
+                            foreach (var prod in item.Products)
+                            {
+                                Console.WriteLine(prod.Name + "   " + prod.Price);
+                            }
+                        }
                     }
                     else if (choice == "7")
                     {
@@ -296,6 +305,7 @@ namespace ComicStore
                         Console.WriteLine("");
                         Console.WriteLine("1: Add a product to your cart");
                         Console.WriteLine("2: Delete a product from your cart");
+                        Console.WriteLine("3: Checkout");
                         choice = Console.ReadLine();
                         Console.Clear();
                         if (choice == "1")
@@ -320,6 +330,22 @@ namespace ComicStore
                             int.TryParse(temper, out inv);
                             crepo.DeleteProduct(temp, curr_name, inv);
 
+                        }
+                        else if (choice == "3")
+                        {
+                            Console.Clear();
+                            double total = 0;
+                            var cart = crepo.GetProduct(curr_name);
+                            foreach (var item in cart)
+                            {
+                                Console.WriteLine(item.Name + ":   " + item.Price);
+                                total = total + item.Price;
+                            }
+                            Console.WriteLine("Total: " + total);
+                            //ToDo: add cart to order history for customer
+                            Console.WriteLine("Thank you for shopping with us come back soon. ");
+                            Console.ReadLine();
+                            break;
                         }
                         else
                         {
@@ -374,11 +400,6 @@ namespace ComicStore
              * Todo: SQL database for saving and loading
              * ToDo: Add way/option to save cart to cust history.
              */
-
-            //customer should have order list and product list
-            //product list is current cart
-            //order list is just order history
-       
         }
 
         static public  void MainMenu()
