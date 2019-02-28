@@ -80,6 +80,16 @@ namespace ComicStore.Library
         }
 
 
+        public IEnumerable<Product> GetHistory(string cust)//working
+        {
+            var _cust = _data.First(x => x.Name == cust);
+            foreach (var item in _cust.Products)
+            {
+                yield return item;
+            }
+        }
+
+
 
 
 

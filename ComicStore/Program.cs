@@ -41,6 +41,7 @@ namespace ComicStore
                 try
                 {
                     choice = Console.ReadLine();
+                    Console.Clear();
                     if (choice == "0")
                     {
                         break;
@@ -54,6 +55,7 @@ namespace ComicStore
                         Console.WriteLine("2: Delete a Store");
                         Console.WriteLine("3: Update a Store");
                         choice = Console.ReadLine();
+                        Console.Clear();
                         if (choice == "1")
                         {
                             Console.WriteLine("Please enter a Store Name to add");
@@ -95,6 +97,7 @@ namespace ComicStore
                         Console.WriteLine("1: Show All Stores. ");
                         Console.WriteLine("2: Show One Store. ");
                         choice = Console.ReadLine();
+                        Console.Clear();
                         if (choice == "1")
                         {
                             var stores = csrepo.GetComicStore().ToList();
@@ -130,6 +133,7 @@ namespace ComicStore
                         Console.WriteLine("2: Delete a Product");
                         Console.WriteLine("3: Update a Product");
                         choice = Console.ReadLine();
+                        Console.Clear();
                         if (choice == "1")
                         {
                             var placeholder = new Product();
@@ -193,7 +197,7 @@ namespace ComicStore
                         Console.WriteLine("1: Show All Products");
                         Console.WriteLine("2: Show A Product");
                         choice = Console.ReadLine();
-
+                        Console.Clear();
                         if (choice == "1")
                         {
                             var stores = csrepo.GetProduct().ToList();
@@ -234,6 +238,7 @@ namespace ComicStore
                         Console.WriteLine("2: Delete a Customer");
                         Console.WriteLine("3: Update a Customer");
                         choice = Console.ReadLine();
+                        Console.Clear();
                         if (choice == "1")
                         {
                             Console.WriteLine("Please enter the name of the customer. ");
@@ -280,9 +285,9 @@ namespace ComicStore
                             throw new ArgumentException("Please pick a valid option. ");
                         }
                     }
-
                     else if (choice == "6")
                     {
+                        Console.Clear();
                         crepo.GetCustomer(curr_name);
                         //ToDo: add in order history show.
                     }
@@ -294,7 +299,7 @@ namespace ComicStore
                         Console.WriteLine("1: Add a product to your cart");
                         Console.WriteLine("2: Delete a product from your cart");
                         choice = Console.ReadLine();
-
+                        Console.Clear();
                         if (choice == "1")
                         {
                             int inv = 1;
@@ -325,6 +330,7 @@ namespace ComicStore
                     }
                     else if (choice == "8")
                     {
+                        Console.Clear();
                         double total = 0;
                         var cart = crepo.GetProduct(curr_name);
                         foreach (var item in cart)
@@ -334,9 +340,10 @@ namespace ComicStore
                         }
                         Console.WriteLine("Total: " + total);
                     }
-                    else if (choice == "9")
+                    else if (choice == "9")//working
                     {
-                        Console.WriteLine("ToDo");
+                        Console.Clear();
+
                     }
                     else
                     {
@@ -356,6 +363,7 @@ namespace ComicStore
              * Todo: Show customer order history
              * Todo: All unit tests
              * Todo: SQL database for saving and loading
+             * ToDo: Add way/option to save cart to cust history.
              */
 
             //customer should have order list and product list
@@ -366,6 +374,7 @@ namespace ComicStore
 
         static public  void MainMenu()
         {
+            Console.Clear();
             Console.WriteLine("1. Edit a store Location. ");
             Console.WriteLine("2. Show a store Location. ");
             Console.WriteLine("3. Edit a Product. ");
