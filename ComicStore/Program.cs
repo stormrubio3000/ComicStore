@@ -343,6 +343,16 @@ namespace ComicStore
                     else if (choice == "9")//working
                     {
                         Console.Clear();
+                        var orders = crepo.GetHistory(curr_name);//list of orders
+                        foreach (var item in orders)
+                        {
+                            Console.WriteLine("Order ID: " + item.ID);
+                            Console.WriteLine("Order Total: " + item.Total);
+                            foreach(var prod in item.Products)
+                            {
+                                Console.WriteLine(prod.Name + "   " + prod.Price);
+                            }
+                        }
 
                     }
                     else
@@ -360,7 +370,6 @@ namespace ComicStore
             }
 
             /* 
-             * Todo: Show customer order history
              * Todo: All unit tests
              * Todo: SQL database for saving and loading
              * ToDo: Add way/option to save cart to cust history.
