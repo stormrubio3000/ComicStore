@@ -97,7 +97,7 @@ namespace ComicStore.Library
         }
 
 
-        public IEnumerable<Order> GetHistory(string cust)//working
+        public IEnumerable<Order> GetHistory(string cust)
         {
             var _cust = _data.First(x => x.Name == cust);
             foreach (var item in _cust.Orders)

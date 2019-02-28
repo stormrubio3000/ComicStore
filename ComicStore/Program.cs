@@ -399,6 +399,8 @@ namespace ComicStore
              * Todo: All unit tests
              * Todo: SQL database for saving and loading
              * ToDo: Add way/option to save cart to cust history.
+             * ToDo: Add checks in show functions if they are empty
+             * ToDo: stop after show functions so people can read before clear.
              */
         }
 
