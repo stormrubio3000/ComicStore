@@ -10,6 +10,7 @@ namespace ComicStore.Library
         private string _Name;
         private string _Email;
         private List<Order> _Orders;
+        private List<Product> _Products;
 
 
 
@@ -50,6 +51,19 @@ namespace ComicStore.Library
                     throw new ArgumentException("Cannot accept a null or empty list for customer orders. ");
                 }
                 _Orders = value;
+            }
+        }
+
+        public List<Product> Products
+        {
+            get => _Products;
+            set
+            {
+                if (value?.Any() != true)
+                {
+                    throw new ArgumentException("Cannot accept a null or empty list for customer orders. ");
+                }
+                _Products = value;
             }
         }
 

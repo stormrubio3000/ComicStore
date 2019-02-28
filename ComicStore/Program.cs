@@ -282,11 +282,31 @@ namespace ComicStore
                     else if (choice == "6")
                     {
                         crepo.GetCustomer(curr_name);
-                        //ToDo: add in product history show.
+                        //ToDo: add in order history show.
                     }
-                    else if (choice == "7")
+                    else if (choice == "7")//working
                     {
-                        Console.WriteLine("ToDo");
+                        choice = "11";
+                        Console.WriteLine("");
+                        Console.WriteLine("");
+                        Console.WriteLine("1: Add a product to your cart");
+                        Console.WriteLine("2: Delete a product from your cart");
+                        choice = Console.ReadLine();
+
+                        if (choice == "1")
+                        {
+                            Console.WriteLine("Please enter the name of the product you'd like to add. ");
+                            temp = Console.ReadLine();
+
+                        }
+                        else if (choice == "2")
+                        {
+
+                        }
+                        else
+                        {
+                            throw new ArgumentException("Please pick a valid option. ");
+                        }
                     }
                     else if (choice == "8")
                     {
@@ -315,13 +335,13 @@ namespace ComicStore
              * Todo: remove product from cart
              * Todo: Show cart and total
              * Todo: Show customer order history
-             * Todo: option to load stored data
-             * Todo: option to save datas
              * Todo: All unit tests
              * Todo: SQL database for saving and loading
              */
 
-
+            //customer should have order list and product list
+            //product list is current cart
+            //order list is just order history
        
         }
 

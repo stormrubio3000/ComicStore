@@ -69,6 +69,9 @@ namespace ComicStore.Library
         }
 
 
+        ////////////////////////////////
+
+
         //search product name
         
         public IEnumerable<Product> GetProduct(string search = null)

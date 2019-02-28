@@ -65,6 +65,14 @@ namespace ComicStore.Library
         }
 
 
+        /////////////////////
+
+
+        //show
+
+        //add
+
+        //remove
 
 
 
