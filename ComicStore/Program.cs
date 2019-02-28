@@ -401,6 +401,7 @@ namespace ComicStore
              * ToDo: Add way/option to save cart to cust history.
              * ToDo: Add checks in show functions if they are empty
              * ToDo: stop after show functions so people can read before clear.
+             * ToDo: Add Interface for repositories right click on class name and extract interface
              */
         }
 
