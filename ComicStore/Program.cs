@@ -325,7 +325,14 @@ namespace ComicStore
                     }
                     else if (choice == "8")
                     {
-                        Console.WriteLine("ToDo");
+                        double total = 0;
+                        var cart = crepo.GetProduct(curr_name);
+                        foreach (var item in cart)
+                        {
+                            Console.WriteLine(item.Name + ":   " + item.Price);
+                            total = total + item.Price;
+                        }
+                        Console.WriteLine("Total: " + total);
                     }
                     else if (choice == "9")
                     {
@@ -346,7 +353,6 @@ namespace ComicStore
             }
 
             /* 
-             * Todo: Show cart and total
              * Todo: Show customer order history
              * Todo: All unit tests
              * Todo: SQL database for saving and loading

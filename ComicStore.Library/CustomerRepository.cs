@@ -70,6 +70,20 @@ namespace ComicStore.Library
 
         //show
 
+        public IEnumerable<Product> GetProduct(string cust)
+        {
+            var _cust = _data.First(x => x.Name == cust);
+            foreach (var item in _cust.Products)
+            {
+                yield return item;
+            }
+        }
+
+
+
+
+
+
         //add
         public void AddProduct(Product product, string customer, int amount = 1)
         {
