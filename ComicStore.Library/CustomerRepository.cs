@@ -71,10 +71,30 @@ namespace ComicStore.Library
         //show
 
         //add
+        public void AddProduct(Product product, string customer, int amount = 1)
+        {
+            if (amount > 0)
+            {
+                for (int i = 0; i < amount;i++)
+                {
+                    var cust = _data.First(x => x.Name == customer);
+                    cust.Products.Add(product);
+                }
+            }
+            else
+            {
+                throw new InvalidOperationException("Must enter a positive non zero amount. ");
+            }
+        }
 
-        //remove
 
 
+        //delete product
+        public void DeleteProduct(string product, int amount = 1)
+        {
+            var cust = _data.First(x => x.Products.Any(y => y.Name == product));
+            cust.Products.Remove(cust.Products.First(x => x.Name == product));
+        }
 
     }
 }

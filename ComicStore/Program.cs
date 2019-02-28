@@ -23,6 +23,8 @@ namespace ComicStore
             curr_name = Console.ReadLine();
             Console.WriteLine("Please enter Customer email now. ");
             curr_email = Console.ReadLine();
+
+
             //ToDo: add check to see if current cust is a new cust or returning.
             var curr_cust = new Customer()
             {
