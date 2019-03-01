@@ -12,6 +12,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComicStore.Library", "Comic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComicStore.Testing", "ComicStore.Testing\ComicStore.Testing.csproj", "{A361F765-6A6D-4494-8035-29D0A3634E7C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ET.ComicStore.Library", "ET.ComicStore.Library\ET.ComicStore.Library.csproj", "{91C2040B-CAF8-471B-A293-D745AE1E4B07}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 		{A361F765-6A6D-4494-8035-29D0A3634E7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A361F765-6A6D-4494-8035-29D0A3634E7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A361F765-6A6D-4494-8035-29D0A3634E7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91C2040B-CAF8-471B-A293-D745AE1E4B07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91C2040B-CAF8-471B-A293-D745AE1E4B07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91C2040B-CAF8-471B-A293-D745AE1E4B07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91C2040B-CAF8-471B-A293-D745AE1E4B07}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
