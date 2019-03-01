@@ -11,7 +11,7 @@ namespace ET.ComicStore.Library
         }
 
         public int OrdersId { get; set; }
-        public decimal Total { get; set; }
+        public decimal? Total { get; set; }
         public int CustomerId { get; set; }
         public DateTime? OrderTime { get; set; }
 

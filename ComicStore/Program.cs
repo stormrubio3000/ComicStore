@@ -23,12 +23,6 @@ namespace ComicStore
             var optionsBuilder = new DbContextOptionsBuilder<Project0Context>();
             optionsBuilder.UseSqlServer(Secret.ConnectionString);
             var options = optionsBuilder.Options;
-
-            using (var dbContext = new Project0Context(options))
-            {
-                ShowStores(dbContext);
-                Console.ReadKey();
-            }
                 /*
                 Console.WriteLine("Welcome to Comic League United the 7th largest comic supply store in the tri-state area.");
                 Console.WriteLine("Please login in order make a new customer. ");
@@ -72,7 +66,6 @@ namespace ComicStore
                                 placeholder.Name = temp;
                                 csrepo.AddComicStore(placeholder);
                             }
-                           
                             else if (choice == "2")
                             {
                                 Console.WriteLine("Please enter a Store Name to delete");
@@ -97,7 +90,7 @@ namespace ComicStore
                             {
                                 throw new ArgumentException("Please pick a valid option. ");
                             }
-                        }}/*
+                        }
                         else if (choice == "2")
                         {
                             choice = "11";
@@ -109,10 +102,10 @@ namespace ComicStore
                             Console.Clear();
                             if (choice == "1")
                             {
-                                var stores = csrepo.GetComicStore().ToList();
-                                for (int i = 0; i < stores.Count; i++)
+                            using (var dbContext = new Project0Context(options))
                                 {
-                                    Console.WriteLine(i + ": " + stores[i].Name);
+                                    ShowStores(dbContext);
+                                    Console.ReadKey();
                                 }
                             }
                             else if (choice == "2")
@@ -120,22 +113,17 @@ namespace ComicStore
                                 Console.WriteLine("Please enter the store name. ");
                                 temp = Console.ReadLine();
                                 var store = csrepo.GetComicStore(temp).ToList();
-                                foreach (var item in store)
+                                using (var dbContext = new Project0Context(options))
                                 {
-                                    Console.WriteLine("");
-                                    Console.WriteLine("");
-                                    Console.WriteLine(item.Name);
-                                    foreach (var inv in item.Inventory)
-                                    {
-                                        Console.WriteLine(inv.Name + "   Price: " + inv.Price + "   In Stock: " + inv.Inventory);
-                                    }
+                                    ShowStores(dbContext);
+                                    Console.ReadKey();
                                 }
                             }
                             else
                             {
                                 throw new ArgumentException("Please pick a valid option. ");
                             }
-                        }
+                        }}/*
                         else if (choice == "3")
                         {
                             choice = "11";
@@ -417,7 +405,10 @@ namespace ComicStore
                  * ToDo: Add checks in show functions if they are empty
                  * ToDo: stop after show functions so people can read before clear.
                  * ToDo: Add Interface for repositories right click on class name and extract interface
-                 * ToDo: Add a self reference to the storeproducts so that 
+                 * ToDo: Add in logging
+                 * ToDo: Go through the console app and replace what can with the sql stuff that is easier.
+                 * ToDo: Map the things to the other things. 
+                 * ToDo: Add in sets to add complexity to the database and inventory. 
                  */
             }
 
@@ -437,12 +428,23 @@ namespace ComicStore
         }
 
 
-        static void ShowStores(Project0Context dbContext)
+        static void ShowStores(Project0Context dbContext, string name = null)
         {
-            foreach (var store in dbContext.ComicStore)
+            if (name == null)
             {
-                Console.WriteLine("Store Id: " + store.StoreId + "  Location: " + store.Location);
+                foreach (var store in dbContext.ComicStore)
+                {
+                    Console.WriteLine("Store Id: " + store.StoreId + "  Location: " + store.Location);
+                }
             }
+            else
+            {
+                foreach (var store in dbContext.ComicStore)
+                {
+                    Console.WriteLine("Store Id: " + store.StoreId + "  Location: " + store.Location);
+                }
+            }
+            
         }
     }
 }
