@@ -84,7 +84,7 @@ namespace ComicStore
                                 string temp2 = Console.ReadLine();
                                 using (var dbContext = new Project0Context(options))
                                 {
-                                    //UpdateStore(dbContext, temp);
+                                    UpdateStore(dbContext, temp, temp2);
                                 }
                         }
                             else
@@ -347,7 +347,7 @@ namespace ComicStore
                                 Console.WriteLine("Total: " + total);
                                 //ToDo: add cart to order history for customer
                                 Console.WriteLine("Thank you for shopping with us come back soon. ");
-                                Console.ReadLine();
+                                Console.ReadKey();
                                 break;
                             }
                             else
@@ -391,7 +391,7 @@ namespace ComicStore
                     {
                         Console.Clear();
                         Console.WriteLine(e);
-                        Console.ReadLine();
+                        Console.ReadKey();
                     }
 
 
@@ -414,7 +414,7 @@ namespace ComicStore
         static void MainMenu()
         {
             Console.Clear();
-            Console.WriteLine("1. Edit a store Location. ");//ToDo
+            Console.WriteLine("1. Edit a store Location. ");
             Console.WriteLine("2. Show a store Location. ");
             Console.WriteLine("3. Edit a Product. ");//ToDo
             Console.WriteLine("4. Show a Product. ");//ToDo
@@ -438,7 +438,13 @@ namespace ComicStore
             }
             else
             {
-                var store = dbContext.ComicStore.First(x => x.Location == name);
+                var store = dbContext.ComicStore.FirstOrDefault(x => x.Location == name);
+                if (store == null)
+                {
+                    Console.WriteLine("No store of that name found. ");
+                    Console.ReadKey();
+                    return;
+                }
                 Console.WriteLine("Store Id: " + store.StoreId + "  Location: " + store.Location);
             }
             
@@ -459,8 +465,32 @@ namespace ComicStore
 
         static void DeleteStore(Project0Context dbContext, string name)
         {
-            var ComicStore = dbContext.ComicStore.First(x => x.Location == name);
+            var ComicStore = dbContext.ComicStore.FirstOrDefault(x => x.Location == name);
+            if (ComicStore == null)
+            {
+                Console.WriteLine("No store of that name found. ");
+                Console.ReadKey();
+                return;
+            }
             dbContext.Remove(ComicStore);
+            dbContext.SaveChanges();
+        }
+
+
+
+        static void UpdateStore(Project0Context dbContext, string name , string ne)
+        {
+            var ComicStore = dbContext.ComicStore.FirstOrDefault(x => x.Location == name);
+            if (ComicStore == null)
+            {
+                Console.WriteLine("No store of that name found. ");
+                Console.ReadKey();
+                return;
+            }
+            dbContext.Remove(ComicStore);
+            var ComicStore2 = new ET.ComicStore.Library.ComicStore();
+            ComicStore2.Location = ne;
+            dbContext.Add(ComicStore2);
             dbContext.SaveChanges();
         }
     }
