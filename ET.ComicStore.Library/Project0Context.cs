@@ -22,14 +22,7 @@ namespace ET.ComicStore.Library
         public virtual DbSet<OrdersProduct> OrdersProduct { get; set; }
         public virtual DbSet<StoreProduct> StoreProduct { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=tcp:rubio1902sql.database.windows.net,1433;Initial Catalog=Project-0;Persist Security Info=False;User ID=rubio;Password=Ilovelucifer1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
-            }
-        }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
