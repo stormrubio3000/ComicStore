@@ -22,7 +22,14 @@ namespace ET.ComicStore.Library
         public virtual DbSet<OrdersProduct> OrdersProduct { get; set; }
         public virtual DbSet<StoreProduct> StoreProduct { get; set; }
 
-
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=tcp:rubio1902sql.database.windows.net,1433;Initial Catalog=Project-0;Persist Security Info=False;User ID=rubio;Password=Ilovelucifer1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -132,10 +139,17 @@ namespace ET.ComicStore.Library
 
                 entity.Property(e => e.Price).HasColumnType("money");
 
+                entity.Property(e => e.SetId).HasColumnName("SetID");
+
                 entity.HasOne(d => d.Inventory)
                     .WithMany(p => p.StoreProduct)
                     .HasForeignKey(d => d.InventoryId)
                     .HasConstraintName("Fk_StoreProduct_To_Inventory");
+
+                entity.HasOne(d => d.Set)
+                    .WithMany(p => p.InverseSet)
+                    .HasForeignKey(d => d.SetId)
+                    .HasConstraintName("Fk_StoreSet_To_StoreProduct");
             });
         }
     }
