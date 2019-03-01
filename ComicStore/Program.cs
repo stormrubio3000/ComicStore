@@ -36,10 +36,10 @@ namespace ComicStore
                 curr_name = Console.ReadLine();
                 Console.WriteLine("Please enter Customer email now. ");
                 curr_email = Console.ReadLine();
-
+                
 
                 crepo.CheckCustomer(curr_name, curr_email);
-
+                */
                 while (true)
                 {
                     MainMenu();
@@ -72,6 +72,7 @@ namespace ComicStore
                                 placeholder.Name = temp;
                                 csrepo.AddComicStore(placeholder);
                             }
+                           
                             else if (choice == "2")
                             {
                                 Console.WriteLine("Please enter a Store Name to delete");
@@ -88,7 +89,7 @@ namespace ComicStore
                                 placeholder.Name = temp;
                                 Console.WriteLine("Please enter the new name. ");
                                 string temp2 = Console.ReadLine();
-                                var placeholder2 = new Comicstore();
+                                var placeholder2 = new Comicstore(); 
                                 placeholder2.Name = temp2;
                                 csrepo.UpdateComicStore(placeholder, placeholder2);
                             }
@@ -96,7 +97,7 @@ namespace ComicStore
                             {
                                 throw new ArgumentException("Please pick a valid option. ");
                             }
-                        }
+                        }}/*
                         else if (choice == "2")
                         {
                             choice = "11";
@@ -396,7 +397,7 @@ namespace ComicStore
                         {
                             throw new ArgumentException("Please pick a valid option. ");
                         }
-                    }
+                    } */
                     catch(ArgumentException e)
                     {
                         Console.Clear();
@@ -408,7 +409,7 @@ namespace ComicStore
                     choice = "11";
                 }
 
-                */
+               
                 /* 
                  * Todo: All unit tests
                  * Todo: SQL database for saving and loading
@@ -416,6 +417,7 @@ namespace ComicStore
                  * ToDo: Add checks in show functions if they are empty
                  * ToDo: stop after show functions so people can read before clear.
                  * ToDo: Add Interface for repositories right click on class name and extract interface
+                 * ToDo: Add a self reference to the storeproducts so that 
                  */
             }
 
