@@ -124,7 +124,7 @@ namespace ComicStore
                             {
                                 throw new ArgumentException("Please pick a valid option. ");
                             }
-                        }}/*
+                        }
                         else if (choice == "3")
                         {
                             choice = "11";
@@ -227,9 +227,7 @@ namespace ComicStore
                             {
                                 throw new ArgumentException("Please pick a valid option. ");
                             }
-
-
-                        }
+                        }}/*
                         else if (choice == "5")
                         {
                             choice = "11";
