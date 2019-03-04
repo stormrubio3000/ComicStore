@@ -406,12 +406,10 @@ namespace ComicStore
 
             /* 
              * Todo: All unit tests
-             * ToDo: Add try/catch to save and delete functions for the save changes
              * ToDo: Add Interface for repositories right click on class name and extract interface
              * ToDo: Add in logging
              * ToDo: Add in sets to add complexity to the database and inventory. 
              * ToDo: Add 2 hour check for the cart.
-             * ToDo: Test the adding to and removing from cart as well as showing current cart. Alssoooooooooo the checlout thing tho.
              * ToDo: Cascade issues. on the delete and updates.
              */
         }
@@ -425,8 +423,8 @@ namespace ComicStore
             Console.WriteLine("4. Show a Product. ");
             Console.WriteLine("5. Edit a Customer. ");
             Console.WriteLine("6. Show Customer Info. ");
-            Console.WriteLine("7. Edit Cart. ");//ToDo
-            Console.WriteLine("8. Show Cart. ");//ToDo
+            Console.WriteLine("7. Edit Cart. ");
+            Console.WriteLine("8. Show Cart. ");
             Console.WriteLine("9. Show Order History. ");
             Console.WriteLine("0. Quit. ");
         }
@@ -680,7 +678,7 @@ namespace ComicStore
                 {
                     foreach (var order in customer.Orders)
                     {
-                        
+
                         if (order.OrdersId == cartid)
                         {
                             foreach (var history in order.OrdersProduct)
