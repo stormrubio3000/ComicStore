@@ -349,15 +349,13 @@ namespace ComicStore
                             }
 
                         }
-                        else if (choice == "3")
+                        else if (choice == "3")//ToDo:
                         {
                             Console.Clear();
-                            double total = 0;
-                            var cart = crepo.GetProduct(curr_name);
-                            foreach (var item in cart)
+                            decimal total = 0;
+                            using (var dbContext = new Project0Context(options))
                             {
-                                Console.WriteLine(item.Name + ":   " + item.Price);
-                                total = total + item.Price;
+                                CheckOut(dbContext, curr_name, curr_cart, out total);
                             }
                             Console.WriteLine("Total: " + total);
                             Console.WriteLine("Thank you for shopping with us come back soon. ");
@@ -412,7 +410,6 @@ namespace ComicStore
              * ToDo: Add try/catch to save and delete functions for the save changes
              * ToDo: Add Interface for repositories right click on class name and extract interface
              * ToDo: Add in logging
-             * ToDo: Go through the console app and replace what can with the sql stuff that is easier.
              * ToDo: Add in sets to add complexity to the database and inventory. 
              * ToDo: Add 2 hour check for the cart.
              * ToDo: Test the adding to and removing from cart as well as showing current cart. Alssoooooooooo the checlout thing tho.
@@ -742,7 +739,30 @@ namespace ComicStore
 
 
 
-
+        static void CheckOut(Project0Context dbContext, string name, int cartid, out decimal total)//ToDo: throws error. May just be when there are no orders in the cart.
+        {
+            var stores = dbContext.Customer.Include(order => order.Orders).ThenInclude(orderp => orderp.OrdersProduct).ToList();
+            decimal totals = 0;
+            foreach (var customer in stores)
+            {
+                if (customer.Name == name)
+                {
+                    foreach (var order in customer.Orders)
+                    {
+                        Console.WriteLine("Items in cart: ");
+                        if (order.OrdersId == cartid)
+                        {
+                            foreach (var history in order.OrdersProduct)
+                            {
+                                totals += history.Price * history.InventorySize;
+                                Console.WriteLine(history.Name + "     " + history.InventorySize);
+                            }
+                        }
+                    }
+                }
+            }
+            total = totals;
+        }
 
 
 
