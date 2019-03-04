@@ -23,18 +23,32 @@ namespace ComicStore
             var optionsBuilder = new DbContextOptionsBuilder<Project0Context>();
             optionsBuilder.UseSqlServer(Secret.ConnectionString);
             var options = optionsBuilder.Options;
-                /*
                 Console.WriteLine("Welcome to Comic League United the 7th largest comic supply store in the tri-state area.");
                 Console.WriteLine("Please login in order make a new customer. ");
                 Console.WriteLine("Please enter Customer name now. ");
                 curr_name = Console.ReadLine();
                 Console.WriteLine("Please enter Customer email now. ");
                 curr_email = Console.ReadLine();
-                
 
-                crepo.CheckCustomer(curr_name, curr_email);
-                */
-                while (true)
+            using (var dbContext = new Project0Context(options))
+            {
+                var store = dbContext.Customer.FirstOrDefault(x => x.Name == curr_name || x.Email == curr_email);
+                if (store == null)
+                {
+                    Console.WriteLine("Please enter your store location now. ");
+                    string temp = Console.ReadLine();
+                    AddCustomer(dbContext, curr_name, curr_email, temp);
+                    Console.WriteLine("Welcome New Customer. ");
+                }
+                else
+                {
+                    Console.WriteLine("Welcome Back " + curr_name);
+                }
+                Console.ReadKey();
+            }
+            
+
+            while (true)
                 {
                     MainMenu();
                     string choice = "11";
