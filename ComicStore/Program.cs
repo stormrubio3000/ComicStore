@@ -18,6 +18,7 @@ namespace ComicStore
             var crepo = new CustomerRepository(Cdata);
             string curr_name = "";
             string curr_email;
+            var curr_cart = new Order();
 
 
             var optionsBuilder = new DbContextOptionsBuilder<Project0Context>();
@@ -44,9 +45,11 @@ namespace ComicStore
                 {
                     Console.WriteLine("Welcome Back " + curr_name);
                 }
+                var custid = dbContext.Customer.FirstOrDefault(x => x.Name == curr_name);
+                curr_cart.ID = custid.CustomerId;
+                dbContext.Add(curr_cart);
                 Console.ReadKey();
             }
-
 
             while (true)
             {
@@ -639,29 +642,12 @@ namespace ComicStore
 
         static void ShowCart(Project0Context dbContext, string name = null)
         {
-            if (name == null)
-            {
-                foreach (var store in dbContext.Customer)
-                {
-                    Console.WriteLine(store.Name + "  -  " + store.Email + "  Store Location " + store.Location);
-                }
-            }
-            else
-            {
-                var store = dbContext.Customer.FirstOrDefault(x => x.Name == name || x.Email == name);
-                if (store == null)
-                {
-                    Console.WriteLine("No customer was found. ");
-                    Console.ReadKey();
-                    return;
-                }
-                Console.WriteLine(store.Name + "  -  " + store.Email + "  Store Location " + store.Location);
-            }
+            var stores = dbContext.Customer.Include(order => order.Orders).ThenInclude(orderp => orderp.OrdersProduct).ToList();
         }
 
-        static void ShowHistory(Project0Context dbcontext, string name)
+        static void ShowHistory(Project0Context dbContext, string name)
         {
-            var stores = dbcontext.Customer.Include(order => order.Orders).ThenInclude(orderp => orderp.OrdersProduct).ToList();
+            var stores = dbContext.Customer.Include(order => order.Orders).ThenInclude(orderp => orderp.OrdersProduct).ToList();
             foreach (var customer in stores)
             {
                 if (customer.Name == name)
