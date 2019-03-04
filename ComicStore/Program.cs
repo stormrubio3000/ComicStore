@@ -16,7 +16,7 @@ namespace ComicStore
 
             var csrepo = new ComiceStoreRepository(CSdata);
             var crepo = new CustomerRepository(Cdata);
-            string curr_name;
+            string curr_name = "";
             string curr_email;
 
 
@@ -226,7 +226,7 @@ namespace ComicStore
                         {
                             throw new ArgumentException("Please pick a valid option. ");
                         }
-                        }}/*
+                        }
                         else if (choice == "5")
                         {
                             choice = "11";
@@ -236,44 +236,48 @@ namespace ComicStore
                             choice = Console.ReadLine();
                             Console.Clear();
                             if (choice == "1")
-                            {
+                            {  
+                                string email;
+                                string id;
                                 Console.WriteLine("Please enter the name of the customer. ");
                                 temp = Console.ReadLine();
-                                var cust = new Customer();
-                                cust.Name = temp;
                                 Console.WriteLine("Please enter the customers email. ");
-                                temp = Console.ReadLine();
-                                cust.Email = temp;
-                                crepo.AddCustomer(cust);
+                                email = Console.ReadLine();
+                                Console.WriteLine("Please enter the customers store name. ");
+                                id = Console.ReadLine();
+                                using (var dbContext = new Project0Context(options))
+                                {
+                                    AddCustomer(dbContext,temp, email,id);
+                                }
                             }
                             else if (choice == "2")
                             {
+                                string email;
                                 Console.WriteLine("Please enter the name of the customer. ");
                                 temp = Console.ReadLine();
-                                var cust = new Customer();
-                                cust.Name = temp;
                                 Console.WriteLine("Please enter the customers email. ");
-                                temp = Console.ReadLine();
-                                cust.Email = temp;
-                                crepo.DeleteCustomer(cust);
+                                email = Console.ReadLine();
+                                using (var dbContext = new Project0Context(options))
+                                {
+                                    DeleteCustomer(dbContext,temp, email);
+                                }
                             }
                             else if (choice == "3")
                             {
+                            string email, oldn, olde;
                                 Console.WriteLine("Please enter the name of the customer to edit. ");
-                                temp = Console.ReadLine();
-                                var cust = new Customer();
-                                cust.Name = temp;
-                                Console.WriteLine("Please enter the customers email. ");
-                                temp = Console.ReadLine();
-                                cust.Email = temp;
-                                var cust2 = new Customer();
+                                oldn = Console.ReadLine();
+                                Console.WriteLine("Please enter the old customers email. ");
+                                olde = Console.ReadLine();
                                 Console.WriteLine("Please enter the new name of the customer. ");
                                 temp = Console.ReadLine();
-                                cust2.Name = temp;
                                 Console.WriteLine("Please enter the new customers email. ");
-                                temp = Console.ReadLine();
-                                cust2.Email = temp;
-                                crepo.UpdateCustomer(cust,cust2);
+                                email = Console.ReadLine();
+                                using (var dbContext = new Project0Context(options))
+                                {
+                                    UpdateCustomer(dbContext ,temp, email, oldn, olde);
+                                }
+                            
 
                             }
                             else
@@ -284,18 +288,13 @@ namespace ComicStore
                         else if (choice == "6")
                         {
                             Console.Clear();
-                            crepo.GetCustomer(curr_name);
-                            var orders = crepo.GetHistory(curr_name);
-                            foreach (var item in orders)
+                            using (var dbContext = new Project0Context(options))
                             {
-                                Console.WriteLine("Order ID: " + item.ID);
-                                Console.WriteLine("Order Total: " + item.Total);
-                                foreach (var prod in item.Products)
-                                {
-                                    Console.WriteLine(prod.Name + "   " + prod.Price);
-                                }
+                                ShowCustomers(dbContext);
+                                Console.ReadKey();
                             }
-                        }
+                    }
+                }/*
                         else if (choice == "7")
                         {
                             choice = "11";
@@ -395,7 +394,7 @@ namespace ComicStore
                 /* 
                  * Todo: All unit tests
                  * ToDo: Add way/option to save cart to cust history.
-                 * ToDo: Add checks in show functions if they are empty
+                 * ToDo: Add try/catch to save and delete functions for the save changes
                  * ToDo: Add Interface for repositories right click on class name and extract interface
                  * ToDo: Add in logging
                  * ToDo: Go through the console app and replace what can with the sql stuff that is easier.
@@ -409,10 +408,10 @@ namespace ComicStore
             Console.Clear();
             Console.WriteLine("1. Edit a store Location. ");
             Console.WriteLine("2. Show a store Location. ");
-            Console.WriteLine("3. Edit a Product. ");//ToDo
-            Console.WriteLine("4. Show a Product. ");//ToDo
-            Console.WriteLine("5. Edit a Customer. ");//ToDo
-            Console.WriteLine("6. Show Customer Info. ");//ToDo
+            Console.WriteLine("3. Edit a Product. ");
+            Console.WriteLine("4. Show a Product. ");
+            Console.WriteLine("5. Edit a Customer. ");
+            Console.WriteLine("6. Show Customer Info. ");
             Console.WriteLine("7. Edit Cart. ");//ToDo
             Console.WriteLine("8. Show Cart. ");//ToDo
             Console.WriteLine("9. Show Order History. ");//ToDo
@@ -563,13 +562,72 @@ namespace ComicStore
 
 
 
+        static void ShowCustomers(Project0Context dbContext, string name = null)
+        {
+            if (name == null)
+            {
+                foreach (var store in dbContext.Customer)
+                {
+                    Console.WriteLine(store.Name + "  -  " + store.Email + "  Store Location " + store.Location);
+                }
+            }
+            else
+            {
+                var store = dbContext.Customer.FirstOrDefault(x => x.Name == name || x.Email == name);
+                if (store == null)
+                {
+                    Console.WriteLine("No customer was found. ");
+                    Console.ReadKey();
+                    return;
+                }
+                Console.WriteLine(store.Name + "  -  " + store.Email + "  Store Location " + store.Location);
+            }
+        }
 
 
 
+        static void AddCustomer(Project0Context dbContext, string name, string email, string storeid)
+        {
+            var ComicStore = new ET.ComicStore.Library.Customer();
+            ComicStore.Name = name;
+            ComicStore.Email = email;
+            ComicStore.Location = storeid;
+            dbContext.Add(ComicStore);
+            dbContext.SaveChanges();
+        }
+
+        static void DeleteCustomer(Project0Context dbContext, string name, string email)
+        {
+            var ComicStore = dbContext.Customer.FirstOrDefault(x => x.Name == name && x.Email == email);
+            if (ComicStore == null)
+            {
+                Console.WriteLine("No customer of that name found. ");
+                Console.ReadKey();
+                return;
+            }
+            dbContext.Remove(ComicStore);
+            dbContext.SaveChanges();
+        }
 
 
 
-
+        static void UpdateCustomer(Project0Context dbContext, string name, string email, string oldn, string olde)
+        {
+            var oldstore = dbContext.Customer.FirstOrDefault(x => x.Name == oldn && x.Email == olde);
+            if (oldstore == null)
+            {
+                Console.WriteLine("No customer of that name found. ");
+                Console.ReadKey();
+                return;
+            }
+            var ComicStore = new ET.ComicStore.Library.Customer();
+            ComicStore.Name = name;
+            ComicStore.Email = email;
+            ComicStore.Location = oldstore.Location;
+            dbContext.Remove(oldstore);
+            dbContext.Add(ComicStore);
+            dbContext.SaveChanges();
+        }
 
 
 
