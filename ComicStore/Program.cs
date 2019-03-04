@@ -342,7 +342,10 @@ namespace ComicStore
                             Console.WriteLine("How many would you like to remove. ");
                             string temper = Console.ReadLine();
                             int.TryParse(temper, out inv);
-                            crepo.DeleteProduct(temp, curr_name, inv);
+                            using (var dbContext = new Project0Context(options))
+                            {
+                                DeleteCart(dbContext, temp, inv, curr_cart);
+                            }
 
                         }
                         else if (choice == "3")
@@ -411,6 +414,7 @@ namespace ComicStore
              * ToDo: Go through the console app and replace what can with the sql stuff that is easier.
              * ToDo: Add in sets to add complexity to the database and inventory. 
              * ToDo: Add 2 hour check for the cart.
+             * ToDo: Test the adding to and removing from cart as well as showing current cart. Alssoooooooooo the checlout thing tho.
              */
         }
 
@@ -707,7 +711,18 @@ namespace ComicStore
 
 
 
-
+        static void DeleteCart(Project0Context dbContext, string name, int size, int ID)
+        {
+            var product = dbContext.OrdersProduct.FirstOrDefault(x => x.Name == name);
+            if (product == null)
+            {
+                Console.WriteLine("No Product in the cart of that name found. ");
+                Console.ReadKey();
+                return;
+            }
+            dbContext.Remove(product);
+            dbContext.SaveChanges();
+        }
 
 
 
