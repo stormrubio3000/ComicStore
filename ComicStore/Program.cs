@@ -27,9 +27,9 @@ namespace ComicStore
             Console.WriteLine("Welcome to Comic League United the 7th largest comic supply store in the tri-state area.");
             Console.WriteLine("Please login in order make a new customer. ");
             Console.WriteLine("Please enter Customer name now. ");
-            curr_name = Console.ReadLine();
+            curr_name = "Matt";//Console.ReadLine();
             Console.WriteLine("Please enter Customer email now. ");
-            curr_email = Console.ReadLine();
+            curr_email = "akers@GGmail";//Console.ReadLine();
 
             using (var dbContext = new Project0Context(options))
             {
@@ -58,6 +58,7 @@ namespace ComicStore
                 MainMenu();
                 string choice = "11";
                 string temp = "";
+                
 
                 try
                 {
