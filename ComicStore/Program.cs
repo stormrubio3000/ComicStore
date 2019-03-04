@@ -720,7 +720,21 @@ namespace ComicStore
                 Console.ReadKey();
                 return;
             }
-            dbContext.Remove(product);
+            else if (product.InventorySize - size == 0)
+            {
+                dbContext.Remove(product);
+            }
+            else if (product.InventorySize - size > 0)
+            {
+                product.InventorySize = product.InventorySize - size;
+            }
+            else
+            {
+                Console.WriteLine("Trying to remove to many items. ");
+                Console.ReadKey();
+                return;
+            }
+            
             dbContext.SaveChanges();
         }
 
