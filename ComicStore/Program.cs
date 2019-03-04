@@ -18,7 +18,7 @@ namespace ComicStore
             var crepo = new CustomerRepository(Cdata);
             string curr_name = "";
             string curr_email;
-            var curr_cart = new Order();
+            int curr_cart;
 
 
             var optionsBuilder = new DbContextOptionsBuilder<Project0Context>();
@@ -45,9 +45,11 @@ namespace ComicStore
                 {
                     Console.WriteLine("Welcome Back " + curr_name);
                 }
-                var custid = dbContext.Customer.FirstOrDefault(x => x.Name == curr_name);
-                curr_cart.ID = custid.CustomerId;
-                dbContext.Add(curr_cart);
+                var cart = new Orders();
+                cart.CustomerId = store.CustomerId;
+                curr_cart = cart.OrdersId;
+                dbContext.Add(cart);
+                dbContext.SaveChanges();
                 Console.ReadKey();
             }
 
@@ -310,60 +312,40 @@ namespace ComicStore
                             ShowCustomers(dbContext);
                             Console.ReadKey();
                         }
-                    }/*
-                        else if (choice == "7")
+                    }
+                    else if (choice == "7")
+                    {
+                        choice = "11";
+                        Console.WriteLine("1: Add a product to your cart");
+                        Console.WriteLine("2: Delete a product from your cart");
+                        Console.WriteLine("3: Checkout");
+                        choice = Console.ReadLine();
+                        Console.Clear();
+                        if (choice == "1")
                         {
-                            choice = "11";
-                            Console.WriteLine("1: Add a product to your cart");
-                            Console.WriteLine("2: Delete a product from your cart");
-                            Console.WriteLine("3: Checkout");
-                            choice = Console.ReadLine();
-                            Console.Clear();
-                            if (choice == "1")
+                            int inv = 1;
+                            Console.WriteLine("Please enter the name of the product you'd like to add. ");
+                            temp = Console.ReadLine();
+                            Console.WriteLine("How many would you like to add. ");
+                            temp = Console.ReadLine();
+                            int.TryParse(temp, out inv);
+                            using (var dbContext = new Project0Context(options))
                             {
-                                int inv = 1;
-                                Console.WriteLine("Please enter the name of the product you'd like to add. ");
-                                temp = Console.ReadLine();
-                                var prod = csrepo.GetProduct(temp).ToList();
-                                Console.WriteLine("How many would you like to add. ");
-                                temp = Console.ReadLine();
-                                int.TryParse(temp, out inv);
-                                crepo.AddProduct(prod[0], curr_name, inv);
-
-                            }
-                            else if (choice == "2")
-                            {
-                                int inv = 1;
-                                Console.WriteLine("Please enter the name of the product you'd like to remove. ");
-                                temp = Console.ReadLine();
-                                Console.WriteLine("How many would you like to remove. ");
-                                string temper = Console.ReadLine();
-                                int.TryParse(temper, out inv);
-                                crepo.DeleteProduct(temp, curr_name, inv);
-
-                            }
-                            else if (choice == "3")
-                            {
-                                Console.Clear();
-                                double total = 0;
-                                var cart = crepo.GetProduct(curr_name);
-                                foreach (var item in cart)
-                                {
-                                    Console.WriteLine(item.Name + ":   " + item.Price);
-                                    total = total + item.Price;
-                                }
-                                Console.WriteLine("Total: " + total);
-                                //ToDo: add cart to order history for customer
-                                Console.WriteLine("Thank you for shopping with us come back soon. ");
-                                Console.ReadKey();
-                                break;
-                            }
-                            else
-                            {
-                                throw new ArgumentException("Please pick a valid option. ");
+                                AddCart(dbContext,temp,inv,curr_cart);
                             }
                         }
-                        else if (choice == "8")
+                        else if (choice == "2")
+                        {
+                            int inv = 1;
+                            Console.WriteLine("Please enter the name of the product you'd like to remove. ");
+                            temp = Console.ReadLine();
+                            Console.WriteLine("How many would you like to remove. ");
+                            string temper = Console.ReadLine();
+                            int.TryParse(temper, out inv);
+                            crepo.DeleteProduct(temp, curr_name, inv);
+
+                        }
+                        else if (choice == "3")
                         {
                             Console.Clear();
                             double total = 0;
@@ -374,21 +356,41 @@ namespace ComicStore
                                 total = total + item.Price;
                             }
                             Console.WriteLine("Total: " + total);
-                        }*/
-                        else if (choice == "9")
-                        {
-                            Console.Clear();
-                        using (var dbContext = new Project0Context(options))
-                        {
-                            ShowHistory(dbContext,curr_name);
+                            Console.WriteLine("Thank you for shopping with us come back soon. ");
                             Console.ReadKey();
+                            break;
                         }
-                    }
                         else
                         {
                             throw new ArgumentException("Please pick a valid option. ");
                         }
-                    } 
+                    }
+                    else if (choice == "8")
+                    {
+                        Console.Clear();
+                        double total = 0;
+                        var cart = crepo.GetProduct(curr_name);
+                        foreach (var item in cart)
+                        {
+                            Console.WriteLine(item.Name + ":   " + item.Price);
+                            total = total + item.Price;
+                        }
+                        Console.WriteLine("Total: " + total);
+                    }
+                    else if (choice == "9")
+                    {
+                        Console.Clear();
+                        using (var dbContext = new Project0Context(options))
+                        {
+                            ShowHistory(dbContext, curr_name);
+                            Console.ReadKey();
+                        }
+                    }
+                    else
+                    {
+                        throw new ArgumentException("Please pick a valid option. ");
+                    }
+                }
                 catch (ArgumentException e)
                 {
                     Console.Clear();
@@ -403,13 +405,12 @@ namespace ComicStore
 
             /* 
              * Todo: All unit tests
-             * ToDo: Add way/option to save cart to cust history.
              * ToDo: Add try/catch to save and delete functions for the save changes
              * ToDo: Add Interface for repositories right click on class name and extract interface
              * ToDo: Add in logging
              * ToDo: Go through the console app and replace what can with the sql stuff that is easier.
-             * ToDo: Map the things to the other things. 
              * ToDo: Add in sets to add complexity to the database and inventory. 
+             * ToDo: Add 2 hour check for the cart.
              */
         }
 
@@ -424,7 +425,7 @@ namespace ComicStore
             Console.WriteLine("6. Show Customer Info. ");
             Console.WriteLine("7. Edit Cart. ");//ToDo
             Console.WriteLine("8. Show Cart. ");//ToDo
-            Console.WriteLine("9. Show Order History. ");//ToDo
+            Console.WriteLine("9. Show Order History. ");
             Console.WriteLine("0. Quit. ");
         }
 
@@ -640,9 +641,26 @@ namespace ComicStore
         }
 
 
-        static void ShowCart(Project0Context dbContext, string name = null)
+        static void ShowCart(Project0Context dbContext, string name, int cartid)//ToDo: throws error. May just be when there are no orders in the cart.
         {
             var stores = dbContext.Customer.Include(order => order.Orders).ThenInclude(orderp => orderp.OrdersProduct).ToList();
+            foreach (var customer in stores)
+            {
+                if (customer.Name == name)
+                {
+                    foreach (var order in customer.Orders)
+                    {
+                        Console.WriteLine("Items in cart: ");
+                        if (order.OrdersId == cartid)
+                        {
+                            foreach (var history in order.OrdersProduct)
+                            {
+                                Console.WriteLine(history.Name + "     " + history.InventorySize);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         static void ShowHistory(Project0Context dbContext, string name)
@@ -662,5 +680,41 @@ namespace ComicStore
                 }
             }
         }
+
+
+
+
+        static void AddCart(Project0Context dbContext, string name, int size , int ID)
+        {
+            var SProduct = dbContext.StoreProduct.FirstOrDefault(x => x.Name == name);
+            if (SProduct.InventorySize - size > 0)
+            {
+                SProduct.InventorySize = SProduct.InventorySize - size;
+                var OProduct = new OrdersProduct();
+                OProduct.Name = SProduct.Name;
+                OProduct.Price = SProduct.Price;
+                OProduct.InventorySize = size;
+                OProduct.OrdersId = ID;
+                dbContext.Add(OProduct);
+                dbContext.SaveChanges();
+            }
+            else
+            {
+                Console.WriteLine("Sorry there are not enough products to fulfill your request at this time. ");
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }
