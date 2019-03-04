@@ -47,9 +47,9 @@ namespace ComicStore
                 }
                 var cart = new Orders();
                 cart.CustomerId = store.CustomerId;
-                curr_cart = cart.OrdersId;
                 dbContext.Add(cart);
                 dbContext.SaveChanges();
+                curr_cart = cart.OrdersId;
                 Console.ReadKey();
             }
 
@@ -58,7 +58,7 @@ namespace ComicStore
                 MainMenu();
                 string choice = "11";
                 string temp = "";
-                
+
 
                 try
                 {
@@ -325,14 +325,15 @@ namespace ComicStore
                         if (choice == "1")
                         {
                             int inv = 1;
+                            string name;
                             Console.WriteLine("Please enter the name of the product you'd like to add. ");
-                            temp = Console.ReadLine();
+                            name = Console.ReadLine();
                             Console.WriteLine("How many would you like to add. ");
                             temp = Console.ReadLine();
                             int.TryParse(temp, out inv);
                             using (var dbContext = new Project0Context(options))
                             {
-                                AddCart(dbContext,temp,inv,curr_cart);
+                                AddCart(dbContext, name, inv, curr_cart);
                             }
                         }
                         else if (choice == "2")
@@ -349,7 +350,7 @@ namespace ComicStore
                             }
 
                         }
-                        else if (choice == "3")//ToDo:
+                        else if (choice == "3")
                         {
                             Console.Clear();
                             decimal total = 0;
@@ -370,14 +371,12 @@ namespace ComicStore
                     else if (choice == "8")
                     {
                         Console.Clear();
-                        double total = 0;
-                        var cart = crepo.GetProduct(curr_name);
-                        foreach (var item in cart)
+                        using (var dbContext = new Project0Context(options))
                         {
-                            Console.WriteLine(item.Name + ":   " + item.Price);
-                            total = total + item.Price;
+                            ShowCart(dbContext, curr_name, curr_cart);
+                            Console.ReadKey();
                         }
-                        Console.WriteLine("Total: " + total);
+
                     }
                     else if (choice == "9")
                     {
@@ -413,6 +412,7 @@ namespace ComicStore
              * ToDo: Add in sets to add complexity to the database and inventory. 
              * ToDo: Add 2 hour check for the cart.
              * ToDo: Test the adding to and removing from cart as well as showing current cart. Alssoooooooooo the checlout thing tho.
+             * ToDo: Cascade issues. on the delete and updates.
              */
         }
 
@@ -461,8 +461,18 @@ namespace ComicStore
         {
             var ComicStore = new ET.ComicStore.Library.ComicStore();
             ComicStore.Location = name;
-            dbContext.Add(ComicStore);
-            dbContext.SaveChanges();
+            var tri = dbContext.ComicStore.FirstOrDefault(x => x.Location == name);
+            if (tri == null)
+            {
+                dbContext.Add(ComicStore);
+                dbContext.SaveChanges();
+            }
+            else
+            {
+                Console.WriteLine("A store with that name already exists. ");
+                Console.ReadKey();
+            }
+
         }
 
 
@@ -477,8 +487,16 @@ namespace ComicStore
                 Console.ReadKey();
                 return;
             }
-            dbContext.Remove(ComicStore);
-            dbContext.SaveChanges();
+            try
+            {
+                dbContext.Remove(ComicStore);
+                dbContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Cannot delete this store it has database dependencies.");
+            }
+
         }
 
 
@@ -604,9 +622,19 @@ namespace ComicStore
             var ComicStore = new ET.ComicStore.Library.Customer();
             ComicStore.Name = name;
             ComicStore.Email = email;
-            ComicStore.Location = storeid;
-            dbContext.Add(ComicStore);
-            dbContext.SaveChanges();
+            var tri = dbContext.ComicStore.FirstOrDefault(x => x.Location == storeid);
+            if (tri == null)
+            {
+                Console.WriteLine("This is no store on record with that name. ");
+                Console.ReadKey();
+                return;
+            }
+            else
+            {
+                ComicStore.Location = storeid;
+                dbContext.Add(ComicStore);
+                dbContext.SaveChanges();
+            }
         }
 
         static void DeleteCustomer(Project0Context dbContext, string name, string email)
@@ -652,11 +680,12 @@ namespace ComicStore
                 {
                     foreach (var order in customer.Orders)
                     {
-                        Console.WriteLine("Items in cart: ");
+                        
                         if (order.OrdersId == cartid)
                         {
                             foreach (var history in order.OrdersProduct)
                             {
+                                Console.WriteLine("Items in cart: ");
                                 Console.WriteLine(history.Name + "     " + history.InventorySize);
                             }
                         }
@@ -686,9 +715,15 @@ namespace ComicStore
 
 
 
-        static void AddCart(Project0Context dbContext, string name, int size , int ID)
+        static void AddCart(Project0Context dbContext, string name, int size, int ID)
         {
-            var SProduct = dbContext.StoreProduct.FirstOrDefault(x => x.Name == name);
+            var SProduct = dbContext.StoreProduct.Where(x => x.Name == name).FirstOrDefault();//ToDo: this search isn't working properly
+            if (SProduct == null)
+            {
+                Console.WriteLine("Sorry that isn't a current product name. ");
+                Console.ReadKey();
+                return;
+            }
             if (SProduct.InventorySize - size > 0)
             {
                 SProduct.InventorySize = SProduct.InventorySize - size;
@@ -711,7 +746,7 @@ namespace ComicStore
 
         static void DeleteCart(Project0Context dbContext, string name, int size, int ID)
         {
-            var product = dbContext.OrdersProduct.FirstOrDefault(x => x.Name == name);
+            var product = dbContext.OrdersProduct.Where(x => x.Name == name).FirstOrDefault();
             if (product == null)
             {
                 Console.WriteLine("No Product in the cart of that name found. ");
@@ -732,7 +767,7 @@ namespace ComicStore
                 Console.ReadKey();
                 return;
             }
-            
+
             dbContext.SaveChanges();
         }
 
