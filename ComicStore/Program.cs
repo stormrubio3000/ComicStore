@@ -51,8 +51,6 @@ namespace ComicStore
                         else if (choice == "1")
                         {
                             choice = "11";
-                            Console.WriteLine("");
-                            Console.WriteLine("");
                             Console.WriteLine("1: Add a Store");
                             Console.WriteLine("2: Delete a Store");
                             Console.WriteLine("3: Update a Store");
@@ -95,8 +93,6 @@ namespace ComicStore
                         else if (choice == "2")
                         {
                             choice = "11";
-                            Console.WriteLine("");
-                            Console.WriteLine("");
                             Console.WriteLine("1: Show All Stores. ");
                             Console.WriteLine("2: Show One Store. ");
                             choice = Console.ReadLine();
@@ -128,8 +124,6 @@ namespace ComicStore
                         else if (choice == "3")
                         {
                             choice = "11";
-                            Console.WriteLine("");
-                            Console.WriteLine("");
                             Console.WriteLine("1: Add a Product");
                             Console.WriteLine("2: Delete a Product");
                             Console.WriteLine("3: Update a Product");
@@ -137,53 +131,64 @@ namespace ComicStore
                             Console.Clear();
                             if (choice == "1")
                             {
-                                var placeholder = new Product();
+                                string placeholder;
                                 int inv = 1;
-                                double price = 5.00;
+                                decimal price = 5.00m;
+                                int id;
                                 Console.WriteLine("Please enter a Product Name.");
-                                temp = Console.ReadLine();
-                                placeholder.Name = temp;
+                                placeholder = Console.ReadLine();
                                 Console.WriteLine("Please enter the number of products in inventory.");
                                 temp = Console.ReadLine();
                                 int.TryParse(temp, out inv);
-                                placeholder.Inventory = inv;
                                 Console.WriteLine("Please enter the price of the product.");
                                 temp = Console.ReadLine();
-                                double.TryParse(temp, out price);
-                                placeholder.Price = price;
-                                Console.WriteLine("Please enter a Store Name to add the Product.");
+                                decimal.TryParse(temp, out price);
+                                Console.WriteLine("Please enter a Store ID to add the Product.");
                                 temp = Console.ReadLine();
+                                int.TryParse(temp, out id);
+                                
 
-                                csrepo.AddProduct(placeholder, temp);
-                            }
+                                using (var dbContext = new Project0Context(options))
+                                {
+                                    AddProduct(dbContext, placeholder, price, inv, id);
+                                }
+                        }
                             else if (choice == "2")
                             {
                                 Console.WriteLine("Please enter a product Name to delete");
                                 temp = Console.ReadLine();
-                                csrepo.DeleteProduct(temp);
+                                using (var dbContext = new Project0Context(options))
+                                {
+                                    DeleteProduct(dbContext, temp);
+                                }
                             }
                             else if (choice == "3")
                             {
-                                Console.WriteLine("Please enter a product Name to Update");
-                                temp = Console.ReadLine();
-                                csrepo.DeleteProduct(temp);
-                                var placeholder = new Product();
-                                double price = 5.00;
-                                int inv = 1;
-                                Console.WriteLine("Please enter a new Product Name.");
-                                temp = Console.ReadLine();
-                                placeholder.Name = temp;
-                                Console.WriteLine("Please enter the new price of the product.");
-                                temp = Console.ReadLine();
-                                double.TryParse(temp, out price);
-                                placeholder.Price = price;
-                                Console.WriteLine("Please enter the new number of products in inventory.");
-                                temp = Console.ReadLine();
-                                int.TryParse(temp, out inv);
-                                placeholder.Inventory = inv;
+                            string placeholder;
+                            string old;
+                            int inv = 1;
+                            decimal price = 5.00m;
+                            int id;
+                            Console.WriteLine("Please enter the old Product Name.");
+                            old = Console.ReadLine();
+                            Console.WriteLine("Please enter the new Product Name.");
+                            placeholder = Console.ReadLine();
+                            Console.WriteLine("Please enter the number of products in inventory.");
+                            temp = Console.ReadLine();
+                            int.TryParse(temp, out inv);
+                            Console.WriteLine("Please enter the price of the product.");
+                            temp = Console.ReadLine();
+                            decimal.TryParse(temp, out price);
+                            Console.WriteLine("Please enter a Store ID to add the Product.");
+                            temp = Console.ReadLine();
+                            int.TryParse(temp, out id);
 
-                                csrepo.AddProduct(placeholder, temp);
+
+                            using (var dbContext = new Project0Context(options))
+                            {
+                                UpdateProduct(dbContext, placeholder, price, inv, id, old);
                             }
+                        }
 
                             else
                             {
@@ -193,46 +198,38 @@ namespace ComicStore
                         else if (choice == "4")
                         {
                             choice = "11";
-                            Console.WriteLine("");
-                            Console.WriteLine("");
                             Console.WriteLine("1: Show All Products");
                             Console.WriteLine("2: Show A Product");
                             choice = Console.ReadLine();
                             Console.Clear();
-                            if (choice == "1")
+                        if (choice == "1")
+                        {
+                            using (var dbContext = new Project0Context(options))
                             {
-                                var stores = csrepo.GetProduct().ToList();
-                                for (int i = 0; i < stores.Count; i++)
-                                {
-                                    Console.WriteLine(i + ": " + stores[i].Name);
-                                }
+                                ShowProducts(dbContext);
+                                Console.ReadKey();
+                            }
+                        }
+                        else if (choice == "2")
+                        {
+                            Console.WriteLine("Please enter the product name. ");
+                            temp = Console.ReadLine();
+                            var store = csrepo.GetProduct(temp).ToList();
+                            using (var dbContext = new Project0Context(options))
+                            {
+                                ShowProducts(dbContext, temp);
+                                Console.ReadKey();
+                            }
 
-                            }
-                            else if (choice == "2")
-                            {
-                                Console.WriteLine("Please enter the product name. ");
-                                temp = Console.ReadLine();
-                                var store = csrepo.GetProduct(temp).ToList();
-                                for (int i = 0; i < store.Count; i++)
-                                {
-                                    Console.WriteLine("");
-                                    Console.WriteLine("");
-                                    Console.WriteLine(store[i].Name);
-                                    Console.WriteLine("In Inventory: " + store[i].Inventory);
-                                    Console.WriteLine("Current Price: " + store[i].Price);
-                                }
-
-                            }
-                            else
-                            {
-                                throw new ArgumentException("Please pick a valid option. ");
-                            }
+                        }
+                        else
+                        {
+                            throw new ArgumentException("Please pick a valid option. ");
+                        }
                         }}/*
                         else if (choice == "5")
                         {
                             choice = "11";
-                            Console.WriteLine("");
-                            Console.WriteLine("");
                             Console.WriteLine("1: Add a Customer");
                             Console.WriteLine("2: Delete a Customer");
                             Console.WriteLine("3: Update a Customer");
@@ -302,8 +299,6 @@ namespace ComicStore
                         else if (choice == "7")
                         {
                             choice = "11";
-                            Console.WriteLine("");
-                            Console.WriteLine("");
                             Console.WriteLine("1: Add a product to your cart");
                             Console.WriteLine("2: Delete a product from your cart");
                             Console.WriteLine("3: Checkout");
@@ -491,5 +486,92 @@ namespace ComicStore
             dbContext.Add(ComicStore2);
             dbContext.SaveChanges();
         }
+
+
+
+        static void ShowProducts(Project0Context dbContext, string name = null)
+        {
+            if (name == null)
+            {
+                foreach (var store in dbContext.StoreProduct)
+                {
+                    Console.WriteLine(store.Name + "  -  " + store.Price + "  Left in stock: " + store.InventorySize); 
+                }
+            }
+            else
+            {
+                var store = dbContext.StoreProduct.FirstOrDefault(x => x.Name == name);
+                if (store == null)
+                {
+                    Console.WriteLine("No comic of that name found. ");
+                    Console.ReadKey();
+                    return;
+                }
+                Console.WriteLine(store.Name + "  -  " + store.Price + "  Left in stock: " + store.InventorySize);
+            }
+        }
+
+
+        static void AddProduct(Project0Context dbContext, string name,decimal price,int size, int store)
+        {
+            var stores = dbContext.ComicStore.Include(x => x.Inventory).ThenInclude(y => y.StoreProduct);
+            var ComicStore = new ET.ComicStore.Library.StoreProduct();
+            ComicStore.Name = name;
+            ComicStore.InventorySize = size;
+            ComicStore.Price = price;
+            ComicStore.InventoryId = store;
+            dbContext.Add(ComicStore);
+            dbContext.SaveChanges();
+        }
+
+
+
+        static void DeleteProduct(Project0Context dbContext, string name)
+        {
+            var ComicStore = dbContext.StoreProduct.FirstOrDefault(x => x.Name == name);
+            if (ComicStore == null)
+            {
+                Console.WriteLine("No Comic of that name found. ");
+                Console.ReadKey();
+                return;
+            }
+            dbContext.Remove(ComicStore);
+            dbContext.SaveChanges();
+        }
+
+
+        static void UpdateProduct(Project0Context dbContext, string name, decimal price, int size, int store, string old)
+        {
+            var stores = dbContext.ComicStore.Include(x => x.Inventory).ThenInclude(y => y.StoreProduct);
+            var oldstore = dbContext.StoreProduct.FirstOrDefault(x => x.Name == old);
+            if (oldstore == null)
+            {
+                Console.WriteLine("No Comic of that name found. ");
+                Console.ReadKey();
+                return;
+            }
+            var ComicStore = new ET.ComicStore.Library.StoreProduct();
+            ComicStore.Name = name;
+            ComicStore.InventorySize = size;
+            ComicStore.Price = price;
+            ComicStore.InventoryId = store;
+            dbContext.Remove(oldstore);
+            dbContext.Add(ComicStore);
+            dbContext.SaveChanges();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }
