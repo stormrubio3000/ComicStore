@@ -369,9 +369,11 @@ namespace ComicStore
                             {
                                 if (Repo.CheckCartTime(dbContext, curr_name, curr_cart, newt))
                                 {
+                                    var ordertotal = dbContext.Orders.First(x => x.OrdersId == curr_cart);
                                     Repo.CheckOut(dbContext, curr_name, curr_cart, out total);
                                     Console.WriteLine("Total: " + total);
                                     Console.WriteLine("Thank you for shopping with us come back soon. ");
+                                    ordertotal.Total = total;
                                     Console.ReadKey();
                                     break;
                                 }
