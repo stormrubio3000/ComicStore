@@ -30,6 +30,7 @@ namespace ET.ComicStore.Library
 
         public void ShowStores(Project0Context dbContext, string name = null)
         {
+            var stores = dbContext.ComicStore.Include(inventory => inventory.Inventory).ThenInclude(products => products.StoreProduct);
             if (name == null)
             {
                 foreach (var store in dbContext.ComicStore)
@@ -424,6 +425,30 @@ namespace ET.ComicStore.Library
                 }
             }
             total = totals;
+        }
+
+
+        public bool CheckCartTime(Project0Context dbContext, string cust,int orderid, DateTime curr_order)
+        {
+            var customer = dbContext.Customer.Include(order => order.Orders).ThenInclude(orderp => orderp.OrdersProduct).ToList();
+            foreach (var customers in customer)
+            {
+                if (customers.Name == cust)
+                {
+                    foreach( var inv in customers.Orders)
+                    {
+                        if ( inv.CustomerId == customers.CustomerId && inv.OrdersId <= orderid)
+                        {
+                            DateTime check = (DateTime)inv.OrderTime;
+                            if(check.AddHours(2.00) >= curr_order)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
         }
 
     }

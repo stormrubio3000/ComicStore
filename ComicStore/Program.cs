@@ -15,6 +15,7 @@ namespace ComicStore
             string curr_name = "";
             string curr_email;
             int curr_cart;
+            DateTime newt = DateTime.Now;
 
 
             var optionsBuilder = new DbContextOptionsBuilder<Project0Context>();
@@ -43,6 +44,7 @@ namespace ComicStore
                 }
                 var cart = new Orders();
                 cart.CustomerId = store.CustomerId;
+                cart.OrderTime = newt;
                 dbContext.Add(cart);
                 dbContext.SaveChanges();
                 curr_cart = cart.OrdersId;
@@ -355,14 +357,23 @@ namespace ComicStore
                         {
                             Console.Clear();
                             decimal total = 0;
+
                             using (var dbContext = new Project0Context(options))
                             {
-                                Repo.CheckOut(dbContext, curr_name, curr_cart, out total);
+                                if (Repo.CheckCartTime(dbContext, curr_name, curr_cart, newt))
+                                {
+                                    Repo.CheckOut(dbContext, curr_name, curr_cart, out total);
+                                    Console.WriteLine("Total: " + total);
+                                    Console.WriteLine("Thank you for shopping with us come back soon. ");
+                                    Console.ReadKey();
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Cannot checkout at this time.");
+                                    Console.ReadKey();
+                                }
                             }
-                            Console.WriteLine("Total: " + total);
-                            Console.WriteLine("Thank you for shopping with us come back soon. ");
-                            Console.ReadKey();
-                            break;
                         }
                         else
                         {
@@ -408,11 +419,11 @@ namespace ComicStore
             /* 
              * Todo: All unit tests
              * ToDo: Add in logging//NLog.Extensions.Logging
-             * ToDo: Add 2 hour check for the cart.
              * ToDo: Display all order history of a store location
              * ToDo: Display order history sorted by earliest, latest, cheapest, most expensive
              * ToDo: Display some statistics based on order history
              * ToDo: Cascade issues. on the delete and updates.
+             * ToDo: Make Inventory show pretty.
              */
         }
 
