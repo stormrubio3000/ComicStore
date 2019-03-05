@@ -30,12 +30,12 @@ namespace ET.ComicStore.Library
             modelBuilder.Entity<ComicStore>(entity =>
             {
                 entity.HasKey(e => e.StoreId)
-                    .HasName("PK__ComicSto__3B82F0E1728DA595");
+                    .HasName("PK__ComicSto__3B82F0E10F2A20CC");
 
                 entity.ToTable("ComicStore", "Comic");
 
                 entity.HasIndex(e => e.Location)
-                    .HasName("UQ__ComicSto__E55D3B1029394459")
+                    .HasName("UQ__ComicSto__E55D3B10D48C7300")
                     .IsUnique();
 
                 entity.Property(e => e.StoreId).HasColumnName("StoreID");
@@ -65,6 +65,7 @@ namespace ET.ComicStore.Library
                     .WithMany(p => p.Customer)
                     .HasPrincipalKey(p => p.Location)
                     .HasForeignKey(d => d.Location)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("Fk_Customer_To_Location");
             });
 
@@ -75,6 +76,7 @@ namespace ET.ComicStore.Library
                 entity.HasOne(d => d.Store)
                     .WithMany(p => p.Inventory)
                     .HasForeignKey(d => d.StoreId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("Fk_Inventory_To_ComicStore");
             });
 
@@ -93,7 +95,6 @@ namespace ET.ComicStore.Library
                 entity.HasOne(d => d.Customer)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.CustomerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("Fk_Orders_To_Customer");
             });
 
@@ -114,6 +115,7 @@ namespace ET.ComicStore.Library
                 entity.HasOne(d => d.Orders)
                     .WithMany(p => p.OrdersProduct)
                     .HasForeignKey(d => d.OrdersId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("Fk_OrderProduct_To_OrdersInventory");
             });
 
@@ -136,6 +138,7 @@ namespace ET.ComicStore.Library
                 entity.HasOne(d => d.Inventory)
                     .WithMany(p => p.StoreProduct)
                     .HasForeignKey(d => d.InventoryId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("Fk_StoreProduct_To_Inventory");
 
                 entity.HasOne(d => d.Set)
