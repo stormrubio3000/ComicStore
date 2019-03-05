@@ -394,7 +394,7 @@ namespace ET.ComicStore.Library
         }
 
 
-        public void ShowStatistics(Project0Context dbContext)//working
+        public void ShowStatistics(Project0Context dbContext)
         {
             decimal totalsales = 0;
             int customerss = 0;
