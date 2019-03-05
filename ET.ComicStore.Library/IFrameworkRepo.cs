@@ -23,6 +23,6 @@ namespace ET.ComicStore.Library
         void UpdateProduct(Project0Context dbContext, string name, decimal price, int size, int store, string old);
         void UpdateStore(Project0Context dbContext, string name, string ne);
         bool CheckCartTime(Project0Context dbContext, string cust, int orderid, DateTime curr_order);
-        void ShowStatistics(Project0Context dbContext)
+        void ShowStatistics(Project0Context dbContext);
     }
 }
