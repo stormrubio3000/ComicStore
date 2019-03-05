@@ -163,7 +163,14 @@ namespace ComicStore
                             Console.WriteLine("Please enter a Store ID to add the Product.");
                             temp = Console.ReadLine();
                             int.TryParse(temp, out id);
-
+                            if (id == 2)
+                            {
+                                id = 6;
+                            }
+                            if (id == 3)
+                            {
+                                id = 11;
+                            }
 
                             using (var dbContext = new Project0Context(options))
                             {
@@ -419,11 +426,9 @@ namespace ComicStore
             /* 
              * Todo: All unit tests
              * ToDo: Add in logging//NLog.Extensions.Logging
-             * ToDo: Display all order history of a store location
              * ToDo: Display order history sorted by earliest, latest, cheapest, most expensive
              * ToDo: Display some statistics based on order history
              * ToDo: Cascade issues. on the delete and updates.
-             * ToDo: Make Inventory show pretty.
              */
         }
 

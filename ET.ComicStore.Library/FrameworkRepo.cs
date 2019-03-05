@@ -135,13 +135,27 @@ namespace ET.ComicStore.Library
 
 
 
-        public void ShowProducts(Project0Context dbContext, string name = null)//
+        public void ShowProducts(Project0Context dbContext, string name = null)
         {
             if (name == null)
             {
-                foreach (var store in dbContext.StoreProduct)
+                var stores = dbContext.ComicStore.Include(inventory => inventory.Inventory).ThenInclude(products => products.StoreProduct).ToList();
+                foreach (var store in stores)
                 {
-                    Console.WriteLine(store.Name + "  -  " + store.Price + "  Left in stock: " + store.InventorySize);
+                    Console.WriteLine(store.Location + "  -");
+                    foreach ( var inv in store.Inventory)
+                    {
+                        if (inv.StoreId == store.StoreId)
+                        {
+                            foreach (var product in inv.StoreProduct)
+                            {
+                                if (product.InventoryId == inv.InventoryId)
+                                {
+                                    Console.WriteLine("    " + product.Name + "  -  " + product.Price + "  Left in stock: " + product.InventorySize);
+                                }
+                            }
+                        }
+                    }
                 }
             }
             else
