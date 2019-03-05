@@ -52,13 +52,13 @@ namespace ET.ComicStore.Library
                 {
                     if (comicstores.Location == name)
                     {
-                        foreach( var customer in comicstores.Customer)
+                        foreach (var customer in comicstores.Customer)
                         {
                             if (customer.Location == name)
                             {
-                                foreach( var order in customer.Orders)
+                                foreach (var order in customer.Orders)
                                 {
-                                    foreach(var item in order.OrdersProduct)
+                                    foreach (var item in order.OrdersProduct)
                                     {
                                         Console.WriteLine(item.Name + "  -  " + item.Price + "    Order id: " + item.OrdersId + "   at: " + order.OrderTime);
                                     }
@@ -143,7 +143,7 @@ namespace ET.ComicStore.Library
                 foreach (var store in stores)
                 {
                     Console.WriteLine(store.Location + "  -");
-                    foreach ( var inv in store.Inventory)
+                    foreach (var inv in store.Inventory)
                     {
                         if (inv.StoreId == store.StoreId)
                         {
@@ -324,18 +324,69 @@ namespace ET.ComicStore.Library
             }
         }
 
-        public void ShowHistory(Project0Context dbContext, string name, string option)//working
+        public void ShowHistory(Project0Context dbContext, string name, string option)
         {
             var stores = dbContext.Customer.Include(order => order.Orders).ThenInclude(orderp => orderp.OrdersProduct).ToList();
-            foreach (var customer in stores)
+            if (option == "1")
             {
-                if (customer.Name == name)
+                foreach (var customer in stores)
                 {
-                    foreach (var order in customer.Orders)
+                    if (customer.Name == name)
                     {
-                        foreach (var history in order.OrdersProduct)
+                        foreach (var order in customer.Orders)
                         {
-                            Console.WriteLine(history.Name + "     " + history.InventorySize);
+                            foreach (var history in order.OrdersProduct)
+                            {
+                                Console.WriteLine(history.Name + "     " + history.InventorySize);
+                            }
+                        }
+                    }
+                }
+            }
+            else if (option == "2")
+            {
+                foreach (var customer in stores)
+                {
+                    if (customer.Name == name)
+                    {
+                        foreach (var order in customer.Orders)
+                        {
+                            foreach (var history in order.OrdersProduct.Reverse())
+                            {
+                                Console.WriteLine(history.Name + "     " + history.InventorySize);
+                            }
+                        }
+                    }
+                }
+            }
+            else if (option == "3")
+            {
+                foreach (var customer in stores)
+                {
+                    if (customer.Name == name)
+                    {
+                        foreach (var order in customer.Orders)
+                        {
+                            foreach (var history in order.OrdersProduct.OrderBy(p => p.Price))
+                            {
+                                Console.WriteLine(history.Name + "     " + history.InventorySize);
+                            }
+                        }
+                    }
+                }
+            }
+            else if (option == "4")
+            {
+                foreach (var customer in stores)
+                {
+                    if (customer.Name == name)
+                    {
+                        foreach (var order in customer.Orders)
+                        {
+                            foreach (var history in order.OrdersProduct.OrderBy(p => p.Price).Reverse())
+                            {
+                                Console.WriteLine(history.Name + "     " + history.InventorySize);
+                            }
                         }
                     }
                 }
@@ -343,7 +394,7 @@ namespace ET.ComicStore.Library
         }
 
 
-        public void ShowStatistics(Project0Context dbContext)//ToDo:
+        public void ShowStatistics(Project0Context dbContext)//working
         {
 
         }
@@ -467,19 +518,19 @@ namespace ET.ComicStore.Library
         }
 
 
-        public bool CheckCartTime(Project0Context dbContext, string cust,int orderid, DateTime curr_order)
+        public bool CheckCartTime(Project0Context dbContext, string cust, int orderid, DateTime curr_order)
         {
             var customer = dbContext.Customer.Include(order => order.Orders).ThenInclude(orderp => orderp.OrdersProduct).ToList();
             foreach (var customers in customer)
             {
                 if (customers.Name == cust)
                 {
-                    foreach( var inv in customers.Orders)
+                    foreach (var inv in customers.Orders)
                     {
-                        if ( inv.CustomerId == customers.CustomerId && inv.OrdersId <= orderid)
+                        if (inv.CustomerId == customers.CustomerId && inv.OrdersId <= orderid)
                         {
                             DateTime check = (DateTime)inv.OrderTime;
-                            if(check.AddHours(2.00) >= curr_order)
+                            if (check.AddHours(2.00) >= curr_order)
                             {
                                 return false;
                             }

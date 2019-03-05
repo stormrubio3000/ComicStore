@@ -407,12 +407,12 @@ namespace ComicStore
                         Console.WriteLine("5: Sort by most expensive");
                         choice = Console.ReadLine();
                         Console.Clear();
-                       
+
                         using (var dbContext = new Project0Context(options))
                         {
-                            if ( choice == "1" || choice == "2" || choice == "3" || choice == "4")
+                            if (choice == "1" || choice == "2" || choice == "3" || choice == "4")
                             {
-                                Repo.ShowHistory(dbContext, curr_name,choice);
+                                Repo.ShowHistory(dbContext, curr_name, choice);
                                 Console.ReadKey();
                             }
                             else if (choice == "5")
@@ -424,7 +424,7 @@ namespace ComicStore
                             {
                                 Console.WriteLine("Please only enter a valid option ");
                             }
-                            
+
                         }
                     }
                     else
@@ -447,7 +447,6 @@ namespace ComicStore
             /* 
              * Todo: All unit tests
              * ToDo: Add in logging//NLog.Extensions.Logging
-             * ToDo: Display order history sorted by earliest, latest, cheapest, most expensive
              * ToDo: Display some statistics based on order history
              * ToDo: Cascade issues. on the delete and updates.
              */
