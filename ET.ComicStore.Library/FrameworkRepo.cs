@@ -396,7 +396,25 @@ namespace ET.ComicStore.Library
 
         public void ShowStatistics(Project0Context dbContext)//working
         {
+            decimal totalsales = 0;
+            int customerss = 0;
+            var customers = dbContext.Customer.Include(orders => orders.Orders).ThenInclude(products => products.OrdersProduct).ToList();
+            foreach (var customer in customers)
+            {
+                customerss++;
+                foreach (var order in customer.Orders)
+                {
+                    foreach (var product in order.OrdersProduct)
+                    {
+                        totalsales = totalsales + product.Price;
+                    }
+                }
+            }
 
+
+            
+            Console.WriteLine("The total sales amount for this quarter is: " + totalsales);
+            Console.WriteLine("The average amount of sales product per customer was: " + Decimal.Divide(totalsales,(decimal)customerss));
         }
 
 
