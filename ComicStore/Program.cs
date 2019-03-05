@@ -127,7 +127,7 @@ namespace ComicStore
                             temp = Console.ReadLine();
                             using (var dbContext = new Project0Context(options))
                             {
-                                Repo.ShowStores(dbContext, temp);
+                                Repo.ShowStores(dbContext, temp);//ToDo: add in inventory show.
                                 Console.ReadKey();
                             }
                         }
@@ -327,7 +327,14 @@ namespace ComicStore
                             int.TryParse(temp, out inv);
                             using (var dbContext = new Project0Context(options))
                             {
-                                Repo.AddCart(dbContext, name, inv, curr_cart);
+                                if (name.Substring(name.Length - 4, 3) == "Set")
+                                {
+                                    Repo.AddSet(dbContext, name, inv, curr_cart);
+                                }
+                                else
+                                {
+                                    Repo.AddCart(dbContext, name, inv, curr_cart);
+                                }
                             }
                         }
                         else if (choice == "2")
@@ -400,13 +407,15 @@ namespace ComicStore
 
             /* 
              * Todo: All unit tests
-             * ToDo: Add in logging
-             * ToDo: Add in sets to add complexity to the database and inventory. 
+             * ToDo: Add in logging//NLog.Extensions.Logging
              * ToDo: Add 2 hour check for the cart.
+             * ToDo: Display all order history of a store location
+             * ToDo: Display order history sorted by earliest, latest, cheapest, most expensive
+             * ToDo: Display some statistics based on order history
              * ToDo: Cascade issues. on the delete and updates.
              */
         }
-        
+
 
 
     }

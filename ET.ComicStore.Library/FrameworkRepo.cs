@@ -267,7 +267,7 @@ namespace ET.ComicStore.Library
         }
 
 
-        public void ShowCart(Project0Context dbContext, string name, int cartid)//ToDo: throws error. May just be when there are no orders in the cart.
+        public void ShowCart(Project0Context dbContext, string name, int cartid)
         {
             var stores = dbContext.Customer.Include(order => order.Orders).ThenInclude(orderp => orderp.OrdersProduct).ToList();
             foreach (var customer in stores)
@@ -277,7 +277,7 @@ namespace ET.ComicStore.Library
                     foreach (var order in customer.Orders)
                     {
 
-                        if (order.OrdersId == cartid)
+                        if (order.OrdersId >= cartid)
                         {
                             foreach (var history in order.OrdersProduct)
                             {
@@ -313,7 +313,7 @@ namespace ET.ComicStore.Library
 
         public void AddCart(Project0Context dbContext, string name, int size, int ID)
         {
-            var SProduct = dbContext.StoreProduct.Where(x => x.Name == name).FirstOrDefault();//ToDo: this search isn't working properly
+            var SProduct = dbContext.StoreProduct.Where(x => x.Name == name).FirstOrDefault();
             if (SProduct == null)
             {
                 Console.WriteLine("Sorry that isn't a current product name. ");
@@ -334,6 +334,37 @@ namespace ET.ComicStore.Library
             else
             {
                 Console.WriteLine("Sorry there are not enough products to fulfill your request at this time. ");
+            }
+        }
+
+
+        public void AddSet(Project0Context dbContext, string name, int size, int ID)
+        {
+            var SProduct = dbContext.StoreProduct.Where(x => x.Name == name).FirstOrDefault();
+            while (SProduct != null)
+            {
+                if (SProduct == null)
+                {
+                    Console.WriteLine("Sorry that isn't a current product name. ");
+                    Console.ReadKey();
+                    return;
+                }
+                if (SProduct.InventorySize - size > 0)
+                {
+                    SProduct.InventorySize = SProduct.InventorySize - size;
+                    var OProduct = new OrdersProduct();
+                    OProduct.Name = SProduct.Name;
+                    OProduct.Price = SProduct.Price;
+                    OProduct.InventorySize = size;
+                    OProduct.OrdersId = ID;
+                    dbContext.Add(OProduct);
+                    dbContext.SaveChanges();
+                }
+                else
+                {
+                    Console.WriteLine("Sorry there are not enough products to fulfill your request at this time. ");
+                }
+                SProduct = dbContext.StoreProduct.Where(x => x.InventoryId == SProduct.SetId).FirstOrDefault();
             }
         }
 
@@ -370,7 +401,7 @@ namespace ET.ComicStore.Library
 
 
 
-        public void CheckOut(Project0Context dbContext, string name, int cartid, out decimal total)//ToDo: throws error. May just be when there are no orders in the cart.
+        public void CheckOut(Project0Context dbContext, string name, int cartid, out decimal total)
         {
             var stores = dbContext.Customer.Include(order => order.Orders).ThenInclude(orderp => orderp.OrdersProduct).ToList();
             decimal totals = 0;
