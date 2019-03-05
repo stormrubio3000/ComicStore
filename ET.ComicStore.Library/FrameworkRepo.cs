@@ -28,9 +28,9 @@ namespace ET.ComicStore.Library
         }
 
 
-        public void ShowStores(Project0Context dbContext, string name = null)
+        public void ShowStores(Project0Context dbContext, string name = null)//working
         {
-            var stores = dbContext.ComicStore.Include(inventory => inventory.Inventory).ThenInclude(products => products.StoreProduct);
+            var stores = dbContext.ComicStore.Include(customer => customer.Customer).ThenInclude(order => order.Orders).ThenInclude(orderp => orderp.OrdersProduct).ToList();
             if (name == null)
             {
                 foreach (var store in dbContext.ComicStore)
@@ -48,6 +48,25 @@ namespace ET.ComicStore.Library
                     return;
                 }
                 Console.WriteLine("Store Id: " + store.StoreId + "  Location: " + store.Location);
+                foreach (var comicstores in stores)
+                {
+                    if (comicstores.Location == name)
+                    {
+                        foreach( var customer in comicstores.Customer)
+                        {
+                            if (customer.Location == name)
+                            {
+                                foreach( var order in customer.Orders)
+                                {
+                                    foreach(var item in order.OrdersProduct)
+                                    {
+                                        Console.WriteLine(item.Name + "  -  " + item.Price + "    Order id: " + item.OrdersId + "   at: " + order.OrderTime);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
         }

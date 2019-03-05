@@ -129,7 +129,7 @@ namespace ComicStore
                             temp = Console.ReadLine();
                             using (var dbContext = new Project0Context(options))
                             {
-                                Repo.ShowStores(dbContext, temp);//ToDo: add in inventory show.
+                                Repo.ShowStores(dbContext, temp);
                                 Console.ReadKey();
                             }
                         }
