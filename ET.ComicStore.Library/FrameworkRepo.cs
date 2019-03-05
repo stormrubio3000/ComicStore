@@ -28,7 +28,7 @@ namespace ET.ComicStore.Library
         }
 
 
-        public void ShowStores(Project0Context dbContext, string name = null)//working
+        public void ShowStores(Project0Context dbContext, string name = null)
         {
             var stores = dbContext.ComicStore.Include(customer => customer.Customer).ThenInclude(order => order.Orders).ThenInclude(orderp => orderp.OrdersProduct).ToList();
             if (name == null)

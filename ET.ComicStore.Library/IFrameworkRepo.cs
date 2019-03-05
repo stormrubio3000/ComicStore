@@ -1,4 +1,6 @@
-﻿namespace ET.ComicStore.Library
+﻿using System;
+
+namespace ET.ComicStore.Library
 {
     public interface IFrameworkRepo
     {
@@ -20,5 +22,6 @@
         void UpdateCustomer(Project0Context dbContext, string name, string email, string oldn, string olde);
         void UpdateProduct(Project0Context dbContext, string name, decimal price, int size, int store, string old);
         void UpdateStore(Project0Context dbContext, string name, string ne);
+        bool CheckCartTime(Project0Context dbContext, string cust, int orderid, DateTime curr_order);
     }
 }
