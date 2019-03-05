@@ -324,7 +324,7 @@ namespace ET.ComicStore.Library
             }
         }
 
-        public void ShowHistory(Project0Context dbContext, string name)
+        public void ShowHistory(Project0Context dbContext, string name, string option)//working
         {
             var stores = dbContext.Customer.Include(order => order.Orders).ThenInclude(orderp => orderp.OrdersProduct).ToList();
             foreach (var customer in stores)
@@ -341,6 +341,10 @@ namespace ET.ComicStore.Library
                 }
             }
         }
+
+
+        public void ShowStatistics(Project0Context dbContext)//ToDo:
+        { }
 
 
 

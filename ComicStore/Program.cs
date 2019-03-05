@@ -399,11 +399,32 @@ namespace ComicStore
                     }
                     else if (choice == "9")
                     {
+                        choice = "11";
+                        Console.WriteLine("1: Sort by earliest");
+                        Console.WriteLine("2: Sort by latest");
+                        Console.WriteLine("3: Sort by cheapest");
+                        Console.WriteLine("4: Sort by most expensive");
+                        Console.WriteLine("5: Sort by most expensive");
+                        choice = Console.ReadLine();
                         Console.Clear();
+                       
                         using (var dbContext = new Project0Context(options))
                         {
-                            Repo.ShowHistory(dbContext, curr_name);
-                            Console.ReadKey();
+                            if ( choice == "1" || choice == "2" || choice == "3" || choice == "4")
+                            {
+                                Repo.ShowHistory(dbContext, curr_name,);
+                                Console.ReadKey();
+                            }
+                            else if (choice == "5")
+                            {
+                                Repo.ShowStatistics(dbContext);
+                                Console.ReadKey();
+                            }
+                            else
+                            {
+                                Console.WriteLine("Please only enter a valid option ");
+                            }
+                            
                         }
                     }
                     else
