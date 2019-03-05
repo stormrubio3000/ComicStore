@@ -412,7 +412,7 @@ namespace ComicStore
                         {
                             if ( choice == "1" || choice == "2" || choice == "3" || choice == "4")
                             {
-                                Repo.ShowHistory(dbContext, curr_name,);
+                                Repo.ShowHistory(dbContext, curr_name,choice);
                                 Console.ReadKey();
                             }
                             else if (choice == "5")
