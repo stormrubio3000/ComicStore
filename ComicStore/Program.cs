@@ -4,11 +4,19 @@ using System.Linq;
 using ComicStore.Library;
 using ET.ComicStore.Library;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
+
 
 namespace ComicStore
 {
     static class Program
     {
+
+        public static readonly LoggerFactory AppLoggerFactory =
+        #pragma warning disable CS0618 // Type or member is obsolete
+        new LoggerFactory(new[] { new ConsoleLoggerProvider((_, __) => true, true) });
+        #pragma warning restore CS0618 // Type or member is obsolete
         static void Main(string[] args)
         {
             var Repo = new FrameworkRepo();
@@ -20,6 +28,7 @@ namespace ComicStore
 
             var optionsBuilder = new DbContextOptionsBuilder<Project0Context>();
             optionsBuilder.UseSqlServer(Secret.ConnectionString);
+            //optionsBuilder.UseLoggerFactory(AppLoggerFactory);
             var options = optionsBuilder.Options;
             Console.WriteLine("Welcome to Comic League United the 7th largest comic supply store in the tri-state area.");
             Console.WriteLine("Please login in order make a new customer. ");
@@ -444,11 +453,6 @@ namespace ComicStore
 
                 choice = "11";
             }
-
-
-            /* 
-             * ToDo: Add in logging//NLog.Extensions.Logging
-             */
         }
 
 
