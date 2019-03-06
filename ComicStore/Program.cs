@@ -447,7 +447,6 @@ namespace ComicStore
 
 
             /* 
-             * Todo: All unit tests
              * ToDo: Add in logging//NLog.Extensions.Logging
              */
         }

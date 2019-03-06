@@ -20,14 +20,14 @@ namespace ComicStore.Testing
                 int inv = 1;
                 int ID = 1;
                 repo.AddCart(dbContext, name, inv, ID);
-                Assert.True(true);
             }
-                
+            Assert.True(true);
         }
 
         [Fact]
         public void Add_Cart_Error()
         {
+            
             var optionsBuilder = new DbContextOptionsBuilder<Project0Context>();
             optionsBuilder.UseSqlServer(Secret.ConnectionString);
             var options = optionsBuilder.Options;
@@ -40,9 +40,10 @@ namespace ComicStore.Testing
                     string fal = "not a comic";
                     int inv = 1;
                     int ID = 1;
+                    Assert.True(true);
                     repo.AddCart(dbContext, fal, inv, ID);
                 }
-                catch
+                catch (Exception e)
                 {
                     Assert.True(true);
                 }
@@ -94,18 +95,72 @@ namespace ComicStore.Testing
         }
 
 
+        [Fact]
+        public void Checkout_No_Error()
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<Project0Context>();
+            optionsBuilder.UseSqlServer(Secret.ConnectionString);
+            var options = optionsBuilder.Options;
+            var repo = new FrameworkRepo();
+            decimal ID = 0;
+            using (var dbContext = new Project0Context(options))
+            {
+                string name = "Matt";
+                int inv = 1;
+                repo.CheckOut(dbContext, name, inv,out ID);
+            }
+            Assert.True(ID > 0);
+        }
+
+        [Fact]
+        public void Checkout_Error()
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<Project0Context>();
+            optionsBuilder.UseSqlServer(Secret.ConnectionString);
+            var options = optionsBuilder.Options;
+            var repo = new FrameworkRepo();
+            using (var dbContext = new Project0Context(options))
+            {
+
+                try
+                {
+                    string fal = "not a name";
+                    int inv = 1;
+                    decimal ID = 1;
+                    repo.CheckOut(dbContext, fal, inv, out ID);
+                }
+                catch
+                {
+                    Assert.True(true);
+                }
+            }
+        }
 
 
-
-
+        [Fact]
+        public void CheckCartTime_Error()
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<Project0Context>();
+            optionsBuilder.UseSqlServer(Secret.ConnectionString);
+            var options = optionsBuilder.Options;
+            var repo = new FrameworkRepo();
+            using (var dbContext = new Project0Context(options))
+            {
+                try
+                {
+                    string name = "matt";
+                    int id = 1;
+                    repo.CheckCartTime(dbContext, name, id, DateTime.Now);
+                }
+                catch
+                {
+                    Assert.True(true);
+                }
+            }
+        }
 
 
 
 
     }
 }
-/*
-
-void CheckOut(Project0Context dbContext, string name, int cartid, out decimal total);
-bool CheckCartTime(Project0Context dbContext, string cust, int orderid, DateTime curr_order);
-*/
