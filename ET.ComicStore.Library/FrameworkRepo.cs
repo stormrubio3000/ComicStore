@@ -331,64 +331,52 @@ namespace ET.ComicStore.Library
             {
                 foreach (var customer in stores)
                 {
-                    if (customer.Name == name)
-                    {
                         foreach (var order in customer.Orders)
                         {
                             foreach (var history in order.OrdersProduct)
                             {
-                                Console.WriteLine(history.Name + "     " + history.InventorySize);
+                                Console.WriteLine(history.Name + "     " + history.InventorySize + "    At " + customer.Location);
                             }
                         }
-                    }
                 }
             }
             else if (option == "2")
             {
                 foreach (var customer in stores)
                 {
-                    if (customer.Name == name)
-                    {
                         foreach (var order in customer.Orders)
                         {
                             foreach (var history in order.OrdersProduct.Reverse())
                             {
-                                Console.WriteLine(history.Name + "     " + history.InventorySize);
+                                Console.WriteLine(history.Name + "     " + history.InventorySize + "    At " + customer.Location);
                             }
                         }
-                    }
                 }
             }
             else if (option == "3")
             {
                 foreach (var customer in stores)
                 {
-                    if (customer.Name == name)
-                    {
                         foreach (var order in customer.Orders)
                         {
                             foreach (var history in order.OrdersProduct.OrderBy(p => p.Price))
                             {
-                                Console.WriteLine(history.Name + "     " + history.InventorySize);
+                                Console.WriteLine(history.Name + "     " + history.InventorySize + "    At " + customer.Location);
                             }
                         }
-                    }
                 }
             }
             else if (option == "4")
             {
                 foreach (var customer in stores)
                 {
-                    if (customer.Name == name)
-                    {
                         foreach (var order in customer.Orders)
                         {
                             foreach (var history in order.OrdersProduct.OrderBy(p => p.Price).Reverse())
                             {
-                                Console.WriteLine(history.Name + "     " + history.InventorySize);
+                                Console.WriteLine(history.Name + "     " + history.InventorySize + "    At " + customer.Location);
                             }
                         }
-                    }
                 }
             }
         }
@@ -521,7 +509,6 @@ namespace ET.ComicStore.Library
                 {
                     foreach (var order in customer.Orders)
                     {
-                        Console.WriteLine("Items in cart: ");
                         if (order.OrdersId == cartid)
                         {
                             foreach (var history in order.OrdersProduct)
@@ -546,10 +533,10 @@ namespace ET.ComicStore.Library
                 {
                     foreach (var inv in customers.Orders)
                     {
-                        if (inv.CustomerId == customers.CustomerId && inv.OrdersId <= orderid)
+                        if (inv.CustomerId == customers.CustomerId && inv.OrdersId < orderid)
                         {
                             DateTime check = (DateTime)inv.OrderTime;
-                            if (check.AddHours(2.00) >= curr_order)
+                            if (check.AddHours(2.00) <= curr_order)
                             {
                                 return false;
                             }

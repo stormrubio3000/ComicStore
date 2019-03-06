@@ -415,7 +415,7 @@ namespace ComicStore
                         Console.WriteLine("2: Sort by latest");
                         Console.WriteLine("3: Sort by cheapest");
                         Console.WriteLine("4: Sort by most expensive");
-                        Console.WriteLine("5: Sort by most expensive");
+                        Console.WriteLine("5: Show Order Statistics.");
                         choice = Console.ReadLine();
                         Console.Clear();
 
@@ -454,8 +454,5 @@ namespace ComicStore
                 choice = "11";
             }
         }
-
-
-
     }
 }
