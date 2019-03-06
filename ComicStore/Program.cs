@@ -28,7 +28,7 @@ namespace ComicStore
 
             var optionsBuilder = new DbContextOptionsBuilder<Project0Context>();
             optionsBuilder.UseSqlServer(Secret.ConnectionString);
-            //optionsBuilder.UseLoggerFactory(AppLoggerFactory);
+            //optionsBuilder.UseLoggerFactory(AppLoggerFactory); This works but spams the console with data.
             var options = optionsBuilder.Options;
             Console.WriteLine("Welcome to Comic League United the 7th largest comic supply store in the tri-state area.");
             Console.WriteLine("Please login in order make a new customer. ");
