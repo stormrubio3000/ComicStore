@@ -443,6 +443,7 @@ namespace ET.ComicStore.Library
             else
             {
                 Console.WriteLine("Sorry there are not enough products to fulfill your request at this time. ");
+                throw new ArgumentException();
             }
         }
 
