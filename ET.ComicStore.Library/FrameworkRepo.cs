@@ -483,7 +483,7 @@ namespace ET.ComicStore.Library
 
         public void DeleteCart(Project0Context dbContext, string name, int size, int ID)
         {
-            var product = dbContext.OrdersProduct.Where(x => x.Name == name).FirstOrDefault();
+            var product = dbContext.OrdersProduct.Where(x => x.Name == name && x.OrdersId >= ID).FirstOrDefault();
             if (product == null)
             {
                 Console.WriteLine("No Product in the cart of that name found. ");
