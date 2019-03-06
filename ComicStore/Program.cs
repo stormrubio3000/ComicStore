@@ -45,6 +45,7 @@ namespace ComicStore
                     Console.WriteLine("Please enter your store location now. ");
                     string temp = Console.ReadLine();
                     Repo.AddCustomer(dbContext, curr_name, curr_email, temp);
+                    dbContext.SaveChanges();
                     Console.WriteLine("Welcome New Customer. ");
                 }
                 else
@@ -404,6 +405,7 @@ namespace ComicStore
                         using (var dbContext = new Project0Context(options))
                         {
                             Repo.ShowCart(dbContext, curr_name, curr_cart);
+                            Console.WriteLine("Please press any key to return. ");
                             Console.ReadKey();
                         }
 
