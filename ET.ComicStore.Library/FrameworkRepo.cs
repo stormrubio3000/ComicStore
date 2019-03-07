@@ -11,6 +11,14 @@ namespace ET.ComicStore.Library
 
         private readonly Project0Context _db;
 
+        public FrameworkRepo(Project0Context db)
+        {
+            _db = db;
+        }
+
+        public FrameworkRepo()
+        {
+        }
 
         public void MainMenu()
         {
