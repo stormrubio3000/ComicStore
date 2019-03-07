@@ -4,15 +4,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComicStore", "ComicStore\ComicStore.csproj", "{DBEBADC6-28A3-4342-96C8-17A14815B373}"
-	ProjectSection(ProjectDependencies) = postProject
-		{D671B3AE-5A53-4E1A-B9B9-C68A30179F5D} = {D671B3AE-5A53-4E1A-B9B9-C68A30179F5D}
-	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComicStore.Library", "ComicStore.Library\ComicStore.Library.csproj", "{D671B3AE-5A53-4E1A-B9B9-C68A30179F5D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComicStore.Testing", "ComicStore.Testing\ComicStore.Testing.csproj", "{A361F765-6A6D-4494-8035-29D0A3634E7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ET.ComicStore.Library", "ET.ComicStore.Library\ET.ComicStore.Library.csproj", "{91C2040B-CAF8-471B-A293-D745AE1E4B07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ET.ComicStore.Library", "ET.ComicStore.Library\ET.ComicStore.Library.csproj", "{91C2040B-CAF8-471B-A293-D745AE1E4B07}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,10 +19,6 @@ Global
 		{DBEBADC6-28A3-4342-96C8-17A14815B373}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBEBADC6-28A3-4342-96C8-17A14815B373}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBEBADC6-28A3-4342-96C8-17A14815B373}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D671B3AE-5A53-4E1A-B9B9-C68A30179F5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D671B3AE-5A53-4E1A-B9B9-C68A30179F5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D671B3AE-5A53-4E1A-B9B9-C68A30179F5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D671B3AE-5A53-4E1A-B9B9-C68A30179F5D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A361F765-6A6D-4494-8035-29D0A3634E7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A361F765-6A6D-4494-8035-29D0A3634E7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A361F765-6A6D-4494-8035-29D0A3634E7C}.Release|Any CPU.ActiveCfg = Release|Any CPU

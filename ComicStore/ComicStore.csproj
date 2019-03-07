@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ComicStore.Library\ComicStore.Library.csproj" />
     <ProjectReference Include="..\ET.ComicStore.Library\ET.ComicStore.Library.csproj" />
   </ItemGroup>
 
