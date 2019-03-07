@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ET.ComicStore.Library;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,6 +11,20 @@ namespace ComicStore.WebApp.Controllers
     public class ComicStoreController : Controller
     {
         // GET: ComicStore
+
+
+
+
+        public FrameworkRepo ComicDB;
+
+
+        public ComicStoreController(FrameworkRepo comicDB)
+        {
+            ComicDB = comicDB;
+        }
+
+
+
         public ActionResult Index()
         {
             return View();

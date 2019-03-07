@@ -116,7 +116,7 @@ namespace ET.ComicStore.Library
                 dbContext.Remove(ComicStore);
                 dbContext.SaveChanges();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Console.WriteLine("Cannot delete this store it has database dependencies.");
             }
