@@ -12,8 +12,6 @@ namespace ET.ComicStore.Library
      * ToDo: Add Crud for StoreProducts
      * ToDo: Add model state checks
      * ToDo: Make it pretty
-     * 
-     * 
      */
     public class FrameworkRepo
     {
