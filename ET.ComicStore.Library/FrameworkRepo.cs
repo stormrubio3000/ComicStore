@@ -80,16 +80,10 @@ namespace ET.ComicStore.Library
 
         public void UpdateStore(int id, string store)
         {
-            try
-            {
+
                 var ComicStore = _db.ComicStore.First(x => x.StoreId == id);
                 ComicStore.Location = store;
                 _db.SaveChanges();
-            }
-            catch(Exception e)
-            {
-
-            }
         }
 
 
@@ -119,7 +113,14 @@ namespace ET.ComicStore.Library
             }
         }
 
-
+        public void UpdateCustomer(Customer customer)
+        {
+            var cust = _db.Customer.First(x => x.CustomerId == customer.CustomerId);
+            cust.Name = customer.Name;
+            cust.Email = customer.Email;
+            cust.StoreId = customer.StoreId;
+            _db.SaveChanges();
+        }
 
         /*
 

@@ -80,23 +80,38 @@ namespace ComicStore.WebApp.Controllers
         // GET: Customer/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var customer = ComicDB.GetCustomer(id);
+            var viewmodel = new CustomerModelView
+            {
+                Id = customer.CustomerId,
+                Name = customer.Name,
+                Email = customer.Email,
+                StoreId = customer.StoreId
+            };
+            return View(viewmodel);
         }
 
         // POST: Customer/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, CustomerModelView customer)
         {
             try
             {
-                // TODO: Add update logic here
+                var cust = new Customer
+                {
+                    CustomerId = id,
+                    Name = customer.Name,
+                    Email = customer.Email,
+                    StoreId = customer.StoreId
+                };
+                ComicDB.UpdateCustomer(cust);
 
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return View(customer);
             }
         }
 
