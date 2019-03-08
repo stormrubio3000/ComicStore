@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ET.ComicStore.Library;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ComicStore.WebApp.ViewModel;
 
 namespace ComicStore.WebApp.Controllers
 {
@@ -25,8 +26,15 @@ namespace ComicStore.WebApp.Controllers
         public ActionResult Index()
         {
             var stores = ComicDB.GetStores();
+            var Inventory = ComicDB.GetInventory();
+            var Products = ComicDB.GetStoreProducts();
+            var viewmodel = Products.Select(s => new StoreProductModelView
+            {
 
-            return View();
+
+            });
+
+            return View(viewmodel);
         }
 
         // GET: StoreProducts/Details/5

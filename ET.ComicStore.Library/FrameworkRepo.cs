@@ -143,6 +143,14 @@ namespace ET.ComicStore.Library
             _db.SaveChanges();
         }
 
+
+        public IEnumerable<StoreProduct> GetStoreProducts()
+        {
+            return _db.StoreProduct.OrderBy(x => x.Id).ToList();
+        }
+
+
+
         /*
 
         public void ShowProducts(Project0Context dbContext, string name = null)
