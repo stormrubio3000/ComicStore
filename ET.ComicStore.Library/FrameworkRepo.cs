@@ -26,6 +26,14 @@ namespace ET.ComicStore.Library
             return _db.ComicStore.ToList();
         }
 
+
+
+        public ComicStore GetStore(int id)
+        {
+            return _db.ComicStore.First(x => x.StoreId == id);
+
+        }
+
         public void MainMenu()
         {
             Console.Clear();

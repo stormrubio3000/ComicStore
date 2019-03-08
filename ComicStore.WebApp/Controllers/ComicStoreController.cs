@@ -40,7 +40,13 @@ namespace ComicStore.WebApp.Controllers
         // GET: ComicStore/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var store = ComicDB.GetStore(id);
+            var viewmodel = new ComicStoreModelView
+            {
+                Id = store.StoreId,
+                Location = store.Location
+            };
+            return View(viewmodel);
         }
 
         // GET: ComicStore/Create
