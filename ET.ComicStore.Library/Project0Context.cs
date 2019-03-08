@@ -30,12 +30,12 @@ namespace ET.ComicStore.Library
             modelBuilder.Entity<ComicStore>(entity =>
             {
                 entity.HasKey(e => e.StoreId)
-                    .HasName("PK__ComicSto__3B82F0E10F2A20CC");
+                    .HasName("PK__ComicSto__3B82F0E1CB8A0DEB");
 
                 entity.ToTable("ComicStore", "Comic");
 
                 entity.HasIndex(e => e.Location)
-                    .HasName("UQ__ComicSto__E55D3B10D48C7300")
+                    .HasName("UQ__ComicSto__E55D3B1023F08655")
                     .IsUnique();
 
                 entity.Property(e => e.StoreId).HasColumnName("StoreID");

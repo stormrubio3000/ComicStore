@@ -73,11 +73,7 @@ namespace ET.ComicStore.Library
 
         public void UpdateStore(int id, string store)
         {
-            var ComicStore = _db.ComicStore.FirstOrDefault(x => x.StoreId == id);
-            if (ComicStore == null)
-            {
-                throw new ArgumentException("Store Location not found.");
-            }
+            var ComicStore = _db.ComicStore.First(x => x.StoreId == id);
             ComicStore.Location = store;
             _db.SaveChanges();
         }

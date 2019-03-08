@@ -27,7 +27,7 @@ create table Comic.ComicStore (
 create table Comic.Inventory (
 	InventoryId int primary key identity(1,1),
 	StoreId int,
-	constraint Fk_Inventory_To_ComicStore Foreign Key (StoreID) references Comic.ComicStore(StoreID) on delete cascade 
+	constraint Fk_Inventory_To_ComicStore Foreign Key (StoreID) references Comic.ComicStore(StoreID) on update cascade on delete cascade
 )
 
 
@@ -43,7 +43,7 @@ create table Comic.StoreProduct (
 	constraint Price_Is_Positive check (Price > 0),
 	constraint Name_Not_Empty check (Name != ''),
 	constraint Inventory_Not_Empty check (InventorySize > 0),
-	constraint Fk_StoreProduct_To_Inventory Foreign Key (InventoryID) references Comic.Inventory(InventoryID)  on delete cascade,
+	constraint Fk_StoreProduct_To_Inventory Foreign Key (InventoryID) references Comic.Inventory(InventoryID)  on delete cascade on update cascade,
 	constraint Fk_StoreSet_To_StoreProduct Foreign Key (SetID) references Comic.StoreProduct(ID)
 )
 
@@ -56,7 +56,7 @@ create table Comic.Customer (
 	Name nvarchar(100) not null,
 	Email nvarchar(300) not null,
 	Location nvarchar(200),
-	constraint Fk_Customer_To_Location foreign key (Location) references Comic.ComicStore(Location) on delete cascade ,
+	constraint Fk_Customer_To_Location foreign key (Location) references Comic.ComicStore(Location) on delete cascade on update cascade,
 	constraint Email_Not_Empty check (Email != ''),
 )
 
@@ -68,7 +68,7 @@ create table Comic.Orders (
 	Total money,
 	CustomerID int not null,
 	OrderTime Datetime2 default(CURRENT_TIMESTAMP),
-	constraint Fk_Orders_To_Customer Foreign Key (CustomerID) references Comic.Customer(CustomerID) on delete cascade 
+	constraint Fk_Orders_To_Customer Foreign Key (CustomerID) references Comic.Customer(CustomerID) on delete cascade on update cascade
 )
 
 
@@ -82,7 +82,7 @@ create table Comic.OrdersProduct (
 	Price money  not null,
 	InventorySize int not null,
 	OrdersID int, 
-	constraint Fk_OrderProduct_To_OrdersInventory Foreign Key (OrdersID) references Comic.Orders(OrdersID) on delete cascade 
+	constraint Fk_OrderProduct_To_OrdersInventory Foreign Key (OrdersID) references Comic.Orders(OrdersID) on delete cascade on update cascade
 )
 
 
