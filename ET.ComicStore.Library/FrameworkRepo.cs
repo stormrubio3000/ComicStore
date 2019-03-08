@@ -92,6 +92,13 @@ namespace ET.ComicStore.Library
             }
         }
 
+
+        public IEnumerable<Customer> GetCustomers()
+        {
+            return _db.Customer.OrderBy(x => x.CustomerId).ToList();
+        }
+
+
         /*
 
         public void ShowProducts(Project0Context dbContext, string name = null)

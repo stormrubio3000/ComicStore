@@ -12,10 +12,6 @@ namespace ComicStore.WebApp.Controllers
     public class ComicStoreController : Controller
     {
         
-
-
-
-
         public FrameworkRepo ComicDB { get; set; }
 
          
