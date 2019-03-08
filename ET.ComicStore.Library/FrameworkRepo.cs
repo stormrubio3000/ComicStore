@@ -122,6 +122,14 @@ namespace ET.ComicStore.Library
             _db.SaveChanges();
         }
 
+
+        public void DeleteCustomer( int id)
+        {
+            var cust = _db.Customer.First(x => x.CustomerId == id);
+            _db.Remove(cust);
+            _db.SaveChanges();
+        }
+
         /*
 
         public void ShowProducts(Project0Context dbContext, string name = null)
