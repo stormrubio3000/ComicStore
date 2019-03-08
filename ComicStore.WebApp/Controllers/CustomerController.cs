@@ -36,7 +36,15 @@ namespace ComicStore.WebApp.Controllers
         // GET: Customer/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var customer = ComicDB.GetCustomer(id);
+            var viewmodel = new CustomerModelView
+            {
+                Id = customer.CustomerId,
+                Name = customer.Name,
+                Email = customer.Email,
+                StoreId = customer.StoreId
+            };
+            return View(viewmodel);
         }
 
         // GET: Customer/Create

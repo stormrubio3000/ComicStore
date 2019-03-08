@@ -99,6 +99,13 @@ namespace ET.ComicStore.Library
         }
 
 
+        public Customer GetCustomer(int id)
+        {
+            return _db.Customer.First(x => x.CustomerId == id);
+        }
+
+
+
         /*
 
         public void ShowProducts(Project0Context dbContext, string name = null)
