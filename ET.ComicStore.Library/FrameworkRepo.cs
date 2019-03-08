@@ -16,14 +16,10 @@ namespace ET.ComicStore.Library
             _db = db;
         }
 
-        public FrameworkRepo()
-        {
-        }
-
 
         public IEnumerable<ComicStore> GetStores()
         {
-            return _db.ComicStore.ToList();
+            return _db.ComicStore.OrderBy(x => x.StoreId).ToList();
         }
 
 
