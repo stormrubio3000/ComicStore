@@ -105,6 +105,21 @@ namespace ET.ComicStore.Library
         }
 
 
+        public void AddCustomer(Customer customer)
+        {
+            var tri = _db.Customer.FirstOrDefault(x => x.Name == customer.Name);
+            if (tri == null)
+            {
+                _db.Add(customer);
+                _db.SaveChanges();
+            }
+            else
+            {
+                throw new ArgumentException("A store of that name already exists.");
+            }
+        }
+
+
 
         /*
 

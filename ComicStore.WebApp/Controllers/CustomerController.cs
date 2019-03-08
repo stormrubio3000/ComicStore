@@ -56,11 +56,18 @@ namespace ComicStore.WebApp.Controllers
         // POST: Customer/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(CustomerModelView customer)
         {
             try
             {
-                // TODO: Add insert logic here
+                var cust = new ET.ComicStore.Library.Customer
+                {
+                    Name = customer.Name,
+                    Email = customer.Email,
+                    StoreId = customer.StoreId
+                };
+
+                ComicDB.AddCustomer(cust);
 
                 return RedirectToAction(nameof(Index));
             }
