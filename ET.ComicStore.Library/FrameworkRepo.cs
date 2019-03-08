@@ -27,26 +27,22 @@ namespace ET.ComicStore.Library
         public ComicStore GetStore(int id)
         {
             return _db.ComicStore.First(x => x.StoreId == id);
-
         }
 
     
 
 
-        public void AddStore(Project0Context dbContext, string name)
+        public void AddStore(ComicStore store)
         {
-            var ComicStore = new ET.ComicStore.Library.ComicStore();
-            ComicStore.Location = name;
-            var tri = dbContext.ComicStore.FirstOrDefault(x => x.Location == name);
+            var tri = _db.ComicStore.FirstOrDefault(x => x.Location == store.Location);
             if (tri == null)
             {
-                dbContext.Add(ComicStore);
-                dbContext.SaveChanges();
+                _db.Add(store);
+                _db.SaveChanges();
             }
             else
             {
-                Console.WriteLine("A store with that name already exists. ");
-                Console.ReadKey();
+                throw new ArgumentException("A store of that name already exists.");
             }
 
         }

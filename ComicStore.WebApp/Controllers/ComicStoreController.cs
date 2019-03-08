@@ -58,11 +58,16 @@ namespace ComicStore.WebApp.Controllers
         // POST: ComicStore/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(ComicStoreModelView store)
         {
             try
             {
-                // TODO: Add insert logic here
+                var stor = new ET.ComicStore.Library.ComicStore
+                {
+                    Location = store.Location
+                };
+
+                ComicDB.AddStore(stor);
 
                 return RedirectToAction(nameof(Index));
             }
