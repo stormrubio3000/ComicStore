@@ -6,7 +6,7 @@ using System.Text;
 
 namespace ET.ComicStore.Library
 {
-    public class FrameworkRepo : IFrameworkRepo
+    public class FrameworkRepo
     {
 
         private readonly Project0Context _db;
@@ -34,65 +34,7 @@ namespace ET.ComicStore.Library
 
         }
 
-        public void MainMenu()
-        {
-            Console.Clear();
-            Console.WriteLine("1. Edit a store Location. ");
-            Console.WriteLine("2. Show a store Location. ");
-            Console.WriteLine("3. Edit a Product. ");
-            Console.WriteLine("4. Show a Product. ");
-            Console.WriteLine("5. Edit a Customer. ");
-            Console.WriteLine("6. Show Customer Info. ");
-            Console.WriteLine("7. Edit Cart. ");
-            Console.WriteLine("8. Show Cart. ");
-            Console.WriteLine("9. Show Order History. ");
-            Console.WriteLine("0. Quit. ");
-        }
-
-
-        public void ShowStores(Project0Context dbContext, string name = null)
-        {
-            var stores = dbContext.ComicStore.Include(customer => customer.Customer).ThenInclude(order => order.Orders).ThenInclude(orderp => orderp.OrdersProduct).ToList();
-            if (name == null)
-            {
-                foreach (var store in dbContext.ComicStore)
-                {
-                    Console.WriteLine("Store Id: " + store.StoreId + "  Location: " + store.Location);
-                }
-            }
-            else
-            {
-                var store = dbContext.ComicStore.FirstOrDefault(x => x.Location == name);
-                if (store == null)
-                {
-                    Console.WriteLine("No store of that name found. ");
-                    Console.ReadKey();
-                    return;
-                }
-                Console.WriteLine("Store Id: " + store.StoreId + "  Location: " + store.Location);
-                foreach (var comicstores in stores)
-                {
-                    if (comicstores.Location == name)
-                    {
-                        foreach (var customer in comicstores.Customer)
-                        {
-                            if (customer.Location == name)
-                            {
-                                foreach (var order in customer.Orders)
-                                {
-                                    foreach (var item in order.OrdersProduct)
-                                    {
-                                        Console.WriteLine(item.Name + "  -  " + item.Price + "    Order id: " + item.OrdersId + "   at: " + order.OrderTime);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-        }
-
+    
 
 
         public void AddStore(Project0Context dbContext, string name)
