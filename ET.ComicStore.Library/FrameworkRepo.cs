@@ -130,6 +130,19 @@ namespace ET.ComicStore.Library
             _db.SaveChanges();
         }
 
+        public IEnumerable<Inventory> GetInventory()
+        {
+            return _db.Inventory.OrderBy(x => x.InventoryId).ToList();
+        }
+
+
+        public void AddInventory(int storeid)
+        {
+            var inv = new Inventory { StoreId = storeid };
+            _db.Add(inv);
+            _db.SaveChanges();
+        }
+
         /*
 
         public void ShowProducts(Project0Context dbContext, string name = null)
