@@ -80,7 +80,14 @@ namespace ComicStore.WebApp.Controllers
         // GET: ComicStore/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+
+            var store = ComicDB.GetStore(id);
+            var viewmodel = new ComicStoreModelView
+            {
+                Id = store.StoreId,
+                Location = store.Location
+            };
+            return View(viewmodel);
         }
 
         // POST: ComicStore/Edit/5
@@ -90,7 +97,7 @@ namespace ComicStore.WebApp.Controllers
         {
             try
             {
-                // TODO: Add update logic here
+                
 
                 return RedirectToAction(nameof(Index));
             }

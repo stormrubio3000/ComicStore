@@ -73,20 +73,15 @@ namespace ET.ComicStore.Library
 
 
 
-        public void UpdateStore(Project0Context dbContext, string name, string ne)
+        public void UpdateStore(ComicStore store)
         {
-            var ComicStore = dbContext.ComicStore.FirstOrDefault(x => x.Location == name);
+            var ComicStore = _db.ComicStore.FirstOrDefault(x => x.StoreId == store.StoreId);
             if (ComicStore == null)
             {
-                Console.WriteLine("No store of that name found. ");
-                Console.ReadKey();
-                return;
+                throw new ArgumentException("Store Location not found.");
             }
-            dbContext.Remove(ComicStore);
-            var ComicStore2 = new ET.ComicStore.Library.ComicStore();
-            ComicStore2.Location = ne;
-            dbContext.Add(ComicStore2);
-            dbContext.SaveChanges();
+            ComicStore.Location = store.Location;
+            _db.SaveChanges();
         }
 
 
