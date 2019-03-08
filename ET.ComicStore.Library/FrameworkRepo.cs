@@ -50,19 +50,17 @@ namespace ET.ComicStore.Library
 
 
 
-        public void DeleteStore(Project0Context dbContext, string name)
+        public void DeleteStore(int id)
         {
-            var ComicStore = dbContext.ComicStore.FirstOrDefault(x => x.Location == name);
+            var ComicStore = _db.ComicStore.FirstOrDefault(x => x.StoreId == id);
             if (ComicStore == null)
             {
-                Console.WriteLine("No store of that name found. ");
-                Console.ReadKey();
-                return;
+                throw new ArgumentException("Store of that name not Found.");
             }
             try
             {
-                dbContext.Remove(ComicStore);
-                dbContext.SaveChanges();
+                _db.Remove(ComicStore);
+                _db.SaveChanges();
             }
             catch (Exception)
             {
@@ -73,14 +71,14 @@ namespace ET.ComicStore.Library
 
 
 
-        public void UpdateStore(ComicStore store)
+        public void UpdateStore(int id, string store)
         {
-            var ComicStore = _db.ComicStore.FirstOrDefault(x => x.StoreId == store.StoreId);
+            var ComicStore = _db.ComicStore.FirstOrDefault(x => x.StoreId == id);
             if (ComicStore == null)
             {
                 throw new ArgumentException("Store Location not found.");
             }
-            ComicStore.Location = store.Location;
+            ComicStore.Location = store;
             _db.SaveChanges();
         }
 

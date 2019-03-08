@@ -93,24 +93,32 @@ namespace ComicStore.WebApp.Controllers
         // POST: ComicStore/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id,  ComicStoreModelView store)
         {
             try
             {
-                
+                string stor = store.Location;
+
+                ComicDB.UpdateStore(id, stor);
 
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return View(store);
             }
         }
 
         // GET: ComicStore/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var store = ComicDB.GetStore(id);
+            var viewmodel = new ComicStoreModelView
+            {
+                Id = store.StoreId,
+                Location = store.Location
+            };
+            return View(viewmodel);
         }
 
         // POST: ComicStore/Delete/5
@@ -120,7 +128,7 @@ namespace ComicStore.WebApp.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
+                ComicDB.DeleteStore(id);
 
                 return RedirectToAction(nameof(Index));
             }
