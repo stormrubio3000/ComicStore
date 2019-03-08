@@ -6,6 +6,15 @@ using System.Text;
 
 namespace ET.ComicStore.Library
 {
+    /*
+     * ToDo: Add Crud For Customer
+     * ToDo: Add Crud for OrderProducts
+     * ToDo: Add Crud for StoreProducts
+     * ToDo: Add model state checks
+     * ToDo: Make it pretty
+     * 
+     * 
+     */
     public class FrameworkRepo
     {
 
@@ -73,12 +82,19 @@ namespace ET.ComicStore.Library
 
         public void UpdateStore(int id, string store)
         {
-            var ComicStore = _db.ComicStore.First(x => x.StoreId == id);
-            ComicStore.Location = store;
-            _db.SaveChanges();
+            try
+            {
+                var ComicStore = _db.ComicStore.First(x => x.StoreId == id);
+                ComicStore.Location = store;
+                _db.SaveChanges();
+            }
+            catch(Exception e)
+            {
+
+            }
         }
 
-
+        /*
 
         public void ShowProducts(Project0Context dbContext, string name = null)
         {
@@ -491,6 +507,6 @@ namespace ET.ComicStore.Library
             }
             return true;
         }
-
+        */
     }
 }

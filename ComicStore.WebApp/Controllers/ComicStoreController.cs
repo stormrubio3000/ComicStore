@@ -97,9 +97,8 @@ namespace ComicStore.WebApp.Controllers
         {
             try
             {
-                string stor = store.Location;
 
-                ComicDB.UpdateStore(id, stor);
+                ComicDB.UpdateStore(id, store.Location);
 
                 return RedirectToAction(nameof(Index));
             }

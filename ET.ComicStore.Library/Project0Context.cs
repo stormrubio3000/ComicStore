@@ -30,12 +30,12 @@ namespace ET.ComicStore.Library
             modelBuilder.Entity<ComicStore>(entity =>
             {
                 entity.HasKey(e => e.StoreId)
-                    .HasName("PK__ComicSto__3B82F0E1CB8A0DEB");
+                    .HasName("PK__ComicSto__3B82F0E1BF0A16AC");
 
                 entity.ToTable("ComicStore", "Comic");
 
                 entity.HasIndex(e => e.Location)
-                    .HasName("UQ__ComicSto__E55D3B1023F08655")
+                    .HasName("UQ__ComicSto__E55D3B106C0C8350")
                     .IsUnique();
 
                 entity.Property(e => e.StoreId).HasColumnName("StoreID");
@@ -55,16 +55,15 @@ namespace ET.ComicStore.Library
                     .IsRequired()
                     .HasMaxLength(300);
 
-                entity.Property(e => e.Location).HasMaxLength(200);
-
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(100);
 
-                entity.HasOne(d => d.LocationNavigation)
+                entity.Property(e => e.StoreId).HasColumnName("StoreID");
+
+                entity.HasOne(d => d.Store)
                     .WithMany(p => p.Customer)
-                    .HasPrincipalKey(p => p.Location)
-                    .HasForeignKey(d => d.Location)
+                    .HasForeignKey(d => d.StoreId)
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("Fk_Customer_To_Location");
             });

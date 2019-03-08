@@ -55,8 +55,8 @@ create table Comic.Customer (
 	CustomerID int not null primary key identity(1,1),
 	Name nvarchar(100) not null,
 	Email nvarchar(300) not null,
-	Location nvarchar(200),
-	constraint Fk_Customer_To_Location foreign key (Location) references Comic.ComicStore(Location) on delete cascade on update cascade,
+	StoreID int,
+	constraint Fk_Customer_To_Location foreign key (StoreID) references Comic.ComicStore(StoreID) on delete cascade on update cascade,
 	constraint Email_Not_Empty check (Email != ''),
 )
 
@@ -142,10 +142,10 @@ insert into Comic.StoreProduct(Name,Price,InventorySize,InventoryID) values
 
 
 
-insert into Comic.Customer (Name, Email, Location) values
-		('Rhonda','rubiorhonda@exists.com','Storming Comics'),
-		('Lucy','Lucyisadog@.gmail','CloudKill Covers'),
-		('Matt','Akers@GGmail','Raining Rivers Bookstore')
+insert into Comic.Customer (Name, Email, StoreID) values
+		('Rhonda','rubiorhonda@exists.com',1),
+		('Lucy','Lucyisadog@.gmail',2),
+		('Matt','Akers@GGmail',3)
 
 
 
