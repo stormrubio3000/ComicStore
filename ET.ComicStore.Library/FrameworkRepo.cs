@@ -20,6 +20,12 @@ namespace ET.ComicStore.Library
         {
         }
 
+
+        public IEnumerable<ComicStore> GetStores()
+        {
+            return _db.ComicStore.ToList();
+        }
+
         public void MainMenu()
         {
             Console.Clear();
