@@ -26,6 +26,12 @@ namespace ComicStore.WebApp.ViewModel
 
 
         public List<ET.ComicStore.Library.ComicStore> Stores { get; set; }
+        
+
+        public ET.ComicStore.Library.ComicStore Store { get; set; }
+
+
+        public ET.ComicStore.Library.Inventory Inv { get; set; }
 
 
         public List<ET.ComicStore.Library.Inventory> Inventory { get; set; }

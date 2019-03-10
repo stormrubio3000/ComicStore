@@ -93,19 +93,7 @@ insert into Comic.ComicStore (Location) values ('Raining Rivers Bookstore')
 
 insert into Comic.Inventory (StoreId) values 
 		(1),
-		(1),
-		(1),
-		(1),
-		(1),
 		(2),
-		(2),
-		(2),
-		(2),
-		(2),
-		(3),
-		(3),
-		(3),
-		(3),
 		(3)
 
 
@@ -122,21 +110,21 @@ insert into Comic.StoreProduct(Name,Price,InventorySize,InventoryID) values
 
 
 insert into Comic.StoreProduct(Name,Price,InventorySize,InventoryID) values 
-		('Astonishing X-Men',4.99,20,6),
-		('Justice League of America',4.99,20,6),
-		('New Avengers',4.99,20,6),
-		('Batman',4.99,20,6),
-		('Amazing Spider-Man',4.99,20,6)
+		('Astonishing X-Men',4.99,20,2),
+		('Justice League of America',4.99,20,2),
+		('New Avengers',4.99,20,2),
+		('Batman',4.99,20,2),
+		('Amazing Spider-Man',4.99,20,2)
 
 
 
 
 insert into Comic.StoreProduct(Name,Price,InventorySize,InventoryID) values 
-		('Astonishing X-Men',4.99,20,11),
-		('Justice League of America',4.99,20,11),
-		('New Avengers',4.99,20,11),
-		('Batman',4.99,20,11),
-		('Amazing Spider-Man',4.99,20,11)
+		('Astonishing X-Men',4.99,20,3),
+		('Justice League of America',4.99,20,3),
+		('New Avengers',4.99,20,3),
+		('Batman',4.99,20,3),
+		('Amazing Spider-Man',4.99,20,3)
 
 		
 

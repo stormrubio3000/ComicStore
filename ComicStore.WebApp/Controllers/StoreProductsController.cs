@@ -28,11 +28,17 @@ namespace ComicStore.WebApp.Controllers
             var stores = ComicDB.GetStores();
             var Inventory = ComicDB.GetInventory();
             var Products = ComicDB.GetStoreProducts();
+
             var viewmodel = Products.Select(s => new StoreProductModelView
             {
-
-
+                Id = s.Id,
+                Name = s.Name,
+                Price = s.Price,
+                Inventorysize = s.InventorySize,
+                Inv = Inventory.First(x => x.InventoryId == s.InventoryId),
+                Store = stores.First(x => x.StoreId == s.InventoryId)
             });
+
 
             return View(viewmodel);
         }

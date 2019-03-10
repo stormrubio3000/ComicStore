@@ -7,7 +7,6 @@ using System.Text;
 namespace ET.ComicStore.Library
 {
     /*
-     * ToDo: Add Crud For Customer
      * ToDo: Add Crud for OrderProducts
      * ToDo: Add Crud for StoreProducts
      * ToDo: Add model state checks
