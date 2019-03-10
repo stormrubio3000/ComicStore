@@ -174,7 +174,19 @@ namespace ComicStore.WebApp.Controllers
         // GET: StoreProducts/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var stores = ComicDB.GetStores();
+            var Inventory = ComicDB.GetInventory();
+            var Products = ComicDB.GetStoreProduct(id);
+
+            var viewmodel = new StoreProductModelView
+            {
+                Id = Products.Id,
+                Name = Products.Name,
+                Price = Products.Price,
+                Inventorysize = Products.InventorySize,
+                Store = stores.First(x => x.StoreId == Products.InventoryId)
+            };
+            return View(viewmodel);
         }
 
         // POST: StoreProducts/Delete/5
@@ -184,7 +196,8 @@ namespace ComicStore.WebApp.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
+
+                ComicDB.DeleteStoreProduct(id);
 
                 return RedirectToAction(nameof(Index));
             }

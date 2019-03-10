@@ -174,6 +174,22 @@ namespace ET.ComicStore.Library
             _db.SaveChanges();
         }
 
+
+
+
+        public void DeleteStoreProduct(int id)
+        {
+            try
+            {
+                var pro = _db.StoreProduct.First(x => x.Id == id);
+                _db.Remove(pro);
+                _db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
         /*
 
         public void ShowProducts(Project0Context dbContext, string name = null)
