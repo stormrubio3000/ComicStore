@@ -150,6 +150,11 @@ namespace ET.ComicStore.Library
 
 
 
+        public StoreProduct GetStoreProduct(int id)
+        {
+            return _db.StoreProduct.First(x => x.Id == id);
+        }
+
         /*
 
         public void ShowProducts(Project0Context dbContext, string name = null)

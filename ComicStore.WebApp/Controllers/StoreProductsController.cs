@@ -46,7 +46,19 @@ namespace ComicStore.WebApp.Controllers
         // GET: StoreProducts/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var stores = ComicDB.GetStores();
+            var Inventory = ComicDB.GetInventory();
+            var Products = ComicDB.GetStoreProduct(id);
+
+            var viewmodel =  new StoreProductModelView
+            {
+                Id = Products.Id,
+                Name = Products.Name,
+                Price = Products.Price,
+                Inventorysize = Products.InventorySize,
+                Store = stores.First(x => x.StoreId == Products.InventoryId)
+            };
+            return View(viewmodel);
         }
 
         // GET: StoreProducts/Create
