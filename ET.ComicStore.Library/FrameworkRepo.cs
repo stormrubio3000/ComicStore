@@ -155,6 +155,14 @@ namespace ET.ComicStore.Library
             return _db.StoreProduct.First(x => x.Id == id);
         }
 
+
+        public void AddStoreProduct(StoreProduct product)
+        {
+            
+            _db.Add(product);
+            _db.SaveChanges();
+        }
+
         /*
 
         public void ShowProducts(Project0Context dbContext, string name = null)

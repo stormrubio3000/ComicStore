@@ -25,7 +25,7 @@ namespace ComicStore.WebApp.Controllers
         // GET: StoreProducts
         public ActionResult Index()
         {
-            var stores = ComicDB.GetStores();
+            var stores = ComicDB.GetStores().OrderBy(x => x.Location);
             var Inventory = ComicDB.GetInventory();
             var Products = ComicDB.GetStoreProducts();
 
@@ -64,17 +64,38 @@ namespace ComicStore.WebApp.Controllers
         // GET: StoreProducts/Create
         public ActionResult Create()
         {
-            return View();
+            var stores = ComicDB.GetStores();
+            var viewmodel = new StoreProductModelView
+            {
+                Stores = stores.ToList()
+            };
+            return View(viewmodel);
         }
 
         // POST: StoreProducts/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(StoreProductModelView collection)
         {
             try
             {
-                // TODO: Add insert logic here
+                var stores = ComicDB.GetStores();
+                var Inventory = ComicDB.GetInventory();
+
+
+                int storeid = collection.Store.StoreId;
+
+
+                int InvId = ComicDB.GetInventory().First(x => x.StoreId == storeid).InventoryId;
+                var Product = new StoreProduct
+                {
+                    Name = collection.Name,
+                    Price = collection.Price,
+                    InventorySize = collection.Inventorysize,
+                    InventoryId = InvId
+                };
+
+                ComicDB.AddStoreProduct(Product);
 
                 return RedirectToAction(nameof(Index));
             }
