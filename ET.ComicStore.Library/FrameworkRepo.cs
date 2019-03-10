@@ -35,7 +35,7 @@ namespace ET.ComicStore.Library
             return _db.ComicStore.First(x => x.StoreId == id);
         }
 
-    
+
 
 
         public void AddStore(ComicStore store)
@@ -80,9 +80,9 @@ namespace ET.ComicStore.Library
         public void UpdateStore(int id, string store)
         {
 
-                var ComicStore = _db.ComicStore.First(x => x.StoreId == id);
-                ComicStore.Location = store;
-                _db.SaveChanges();
+            var ComicStore = _db.ComicStore.First(x => x.StoreId == id);
+            ComicStore.Location = store;
+            _db.SaveChanges();
         }
 
 
@@ -122,7 +122,7 @@ namespace ET.ComicStore.Library
         }
 
 
-        public void DeleteCustomer( int id)
+        public void DeleteCustomer(int id)
         {
             var cust = _db.Customer.First(x => x.CustomerId == id);
             _db.Remove(cust);
@@ -158,7 +158,7 @@ namespace ET.ComicStore.Library
 
         public void AddStoreProduct(StoreProduct product)
         {
-            
+
             _db.Add(product);
             _db.SaveChanges();
         }
@@ -179,16 +179,10 @@ namespace ET.ComicStore.Library
 
         public void DeleteStoreProduct(int id)
         {
-            try
-            {
-                var pro = _db.StoreProduct.First(x => x.Id == id);
-                _db.Remove(pro);
-                _db.SaveChanges();
-            }
-            catch (Exception e)
-            {
+            var pro = _db.StoreProduct.First(x => x.Id == id);
+            _db.Remove(pro);
+            _db.SaveChanges();
 
-            }
         }
         /*
 
