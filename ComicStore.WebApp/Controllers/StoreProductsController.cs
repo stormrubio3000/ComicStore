@@ -108,23 +108,66 @@ namespace ComicStore.WebApp.Controllers
         // GET: StoreProducts/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var stores = ComicDB.GetStores();
+            var Inventory = ComicDB.GetInventory();
+            var Products = ComicDB.GetStoreProduct(id);
+
+            var viewmodel = new StoreProductModelView
+            {
+                Id = Products.Id,
+                Name = Products.Name,
+                Price = Products.Price,
+                Inventorysize = Products.InventorySize,
+                Store = stores.First(x => x.StoreId == Products.InventoryId),
+                Stores = stores.ToList()
+            };
+            return View(viewmodel);
         }
 
         // POST: StoreProducts/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, StoreProductModelView collection)
         {
             try
             {
-                // TODO: Add update logic here
+                var stores = ComicDB.GetStores();
+                var Inventory = ComicDB.GetInventory();
+
+
+                int storeid = collection.Store.StoreId;
+
+
+                int InvId = ComicDB.GetInventory().First(x => x.StoreId == storeid).InventoryId;
+                var Product = new StoreProduct
+                {
+                    Id = collection.Id,
+                    Name = collection.Name,
+                    Price = collection.Price,
+                    InventorySize = collection.Inventorysize,
+                    InventoryId = InvId
+                };
+
+                ComicDB.UpdateStoreProduct(Product);
 
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                var stores = ComicDB.GetStores();
+                var Inventory = ComicDB.GetInventory();
+                var Products = ComicDB.GetStoreProduct(id);
+
+                var viewmodel = new StoreProductModelView
+                {
+                    Id = Products.Id,
+                    Name = Products.Name,
+                    Price = Products.Price,
+                    Inventorysize = Products.InventorySize,
+                    Store = stores.First(x => x.StoreId == Products.InventoryId),
+                    Stores = stores.ToList()
+                };
+                return View(viewmodel);
             }
         }
 

@@ -163,6 +163,17 @@ namespace ET.ComicStore.Library
             _db.SaveChanges();
         }
 
+
+        public void UpdateStoreProduct(StoreProduct product)
+        {
+            var pro = _db.StoreProduct.First(x => x.Id == product.Id);
+            pro.Name = product.Name;
+            pro.Price = product.Price;
+            pro.InventorySize = product.InventorySize;
+            pro.InventoryId = product.InventoryId;
+            _db.SaveChanges();
+        }
+
         /*
 
         public void ShowProducts(Project0Context dbContext, string name = null)

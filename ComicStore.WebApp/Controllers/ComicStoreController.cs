@@ -65,6 +65,12 @@ namespace ComicStore.WebApp.Controllers
 
                 ComicDB.AddStore(stor);
 
+                int stores = ComicDB.GetStores().Last().StoreId;
+
+                
+
+                ComicDB.AddInventory(stores);
+
                 return RedirectToAction(nameof(Index));
             }
             catch
