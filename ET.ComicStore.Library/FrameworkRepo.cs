@@ -8,7 +8,13 @@ namespace ET.ComicStore.Library
 {
     /*
      * ToDo: Add Crud for OrderProducts
-     * ToDo: Add Crud for StoreProducts
+     * ToDo: display store order history
+     * ToDo: display customer order history
+     * ToDo: display all order history sorted
+     * ToDo: display statistics
+     * ToDo: Show current cart
+     * ToDo: Add/Remove from cart
+     * ToDo: Place order
      * ToDo: Add model state checks
      * ToDo: Make it pretty
      */
