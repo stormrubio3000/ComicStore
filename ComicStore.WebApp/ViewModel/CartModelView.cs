@@ -43,6 +43,7 @@ namespace ComicStore.WebApp.ViewModel
 
 		public ET.ComicStore.Library.StoreProduct Product { get; set; }
 
+
 		public ET.ComicStore.Library.OrdersProduct ProductO { get; set; }
 	}
 }
