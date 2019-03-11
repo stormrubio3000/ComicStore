@@ -1,0 +1,32 @@
+﻿@model ComicStore.WebApp.ViewModel.HistoryModelView
+
+
+@{
+    ViewData["Title"] = "ShowCustomer";
+}
+
+<h1>Show Customer History</h1>
+
+
+<table class="table">
+    <tbody>
+        @foreach (var item in Model.Customers)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.ActionLink("Show History", "Customer", new { id = item.CustomerId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

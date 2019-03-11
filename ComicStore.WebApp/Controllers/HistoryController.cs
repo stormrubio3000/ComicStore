@@ -9,8 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ComicStore.WebApp.Controllers
 {
-    public class HistoryController : Controller
-    {
+	public class HistoryController : Controller
+	{
 
 
 		public FrameworkRepo ComicDB { get; set; }
@@ -25,20 +25,20 @@ namespace ComicStore.WebApp.Controllers
 
 		// GET: History
 		public ActionResult Index()
-        {
-            return View();
-        }
+		{
+			return View();
+		}
 
-        // GET: History/ShowStore
-        public ActionResult ShowStore()
-        {
+		// GET: History/ShowStore
+		public ActionResult ShowStore()
+		{
 			var viewmodel = new HistoryModelView
 			{
 				Stores = ComicDB.GetStores().ToList()
 			};
 
-            return View(viewmodel);
-        }
+			return View(viewmodel);
+		}
 
 		public ActionResult Store(int id)
 		{
@@ -76,8 +76,50 @@ namespace ComicStore.WebApp.Controllers
 			return View(viewmodel);
 		}
 
-        
+
+		public ActionResult ShowCustomer()
+		{
+			var viewmodel = new HistoryModelView
+			{
+				Customers = ComicDB.GetCustomers().ToList()
+			};
+
+			return View(viewmodel);
+		}
 
 
-    }
+
+		public ActionResult Customer(int id)
+		{
+			var customer = ComicDB.GetCustomer(id);
+			var orders = ComicDB.GetOrders();
+			var products = ComicDB.GetOrderProducts();
+			List<OrdersProduct> history = new List<OrdersProduct>();
+			foreach (var order in orders)
+			{
+				if (id == order.CustomerId)
+				{
+					foreach (var product in products)
+					{
+						if (product.OrdersId == order.OrdersId)
+						{
+							history.Add(product);
+						}
+					}
+				}
+			}
+
+
+
+			var viewmodel = new HistoryModelView
+			{
+				Customer = customer,
+				Products = history
+			};
+
+			return View(viewmodel);
+		}
+
+
+	}
 }
