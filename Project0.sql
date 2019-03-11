@@ -139,7 +139,8 @@ insert into Comic.Customer (Name, Email, StoreID) values
 
 insert into Comic.Orders (CustomerID) values
 	(1),
-	(3)
+	(3),
+	(2)
 
 
 

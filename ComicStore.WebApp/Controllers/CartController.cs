@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ComicStore.WebApp.ViewModel;
+using ET.ComicStore.Library;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,20 +11,24 @@ namespace ComicStore.WebApp.Controllers
 {
     public class CartController : Controller
     {
+		public FrameworkRepo ComicDB { get; set; }
 
 
+		public CartController(FrameworkRepo comicDB)
+		{
+			ComicDB = comicDB;
+		}
 
-        // GET: Cart
-        public ActionResult Index()
+
+		// GET: Cart
+		public ActionResult Index()
         {
-            return View();
+			var cart = ComicDB.GetCart(ComicDB.GetOrders().Last().OrdersId).ToList();
+
+			var viewmodel = new CartModelView { Cart = cart };
+            return View(viewmodel);
         }
 
-        // GET: Cart/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
 
         // GET: Cart/Create
         public ActionResult Create()

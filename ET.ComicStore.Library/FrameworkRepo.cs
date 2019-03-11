@@ -7,7 +7,6 @@ using System.Text;
 namespace ET.ComicStore.Library
 {
 	/*
-     * ToDo: Show current cart
      * ToDo: Add/Remove from cart
      * ToDo: Place order
      * ToDo: Add model state checks
@@ -246,6 +245,11 @@ namespace ET.ComicStore.Library
 			};
 			_db.Add(Product);
 			_db.SaveChanges();
+		}
+
+		public IEnumerable<OrdersProduct> GetCart(int id)
+		{
+			return _db.OrdersProduct.Where(y  => y.OrdersId == id).OrderBy(x => x.Id).ToList();
 		}
 	}
 }
