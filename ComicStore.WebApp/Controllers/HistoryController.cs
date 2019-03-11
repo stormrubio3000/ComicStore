@@ -121,5 +121,47 @@ namespace ComicStore.WebApp.Controllers
 		}
 
 
+		public ActionResult ShowEarly()
+		{
+			var viewmodel = new HistoryModelView
+			{
+				Products = ComicDB.GetOrderProducts().OrderBy(x => x.Id).ToList()
+			};
+
+			return View(viewmodel);
+		}
+
+
+		public ActionResult ShowLate()
+		{
+			var viewmodel = new HistoryModelView
+			{
+				Products = ComicDB.GetOrderProducts().OrderByDescending(x => x.Id).ToList()
+			};
+
+			return View(viewmodel);
+		}
+
+		public ActionResult ShowCheap()
+		{
+			var viewmodel = new HistoryModelView
+			{
+				Products = ComicDB.GetOrderProducts().OrderBy(x => x.Price).ToList()
+			};
+
+			return View(viewmodel);
+		}
+
+
+		public ActionResult ShowExpensive()
+		{
+			var viewmodel = new HistoryModelView
+			{
+				Products = ComicDB.GetOrderProducts().OrderByDescending(x => x.Price).ToList()
+			};
+
+			return View(viewmodel);
+		}
+
 	}
 }

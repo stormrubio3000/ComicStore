@@ -1,0 +1,30 @@
+﻿@model ComicStore.WebApp.ViewModel.HistoryModelView
+
+@{
+    ViewData["Title"] = "Store";
+}
+
+<h1>Orders sorted by most expensive</h1>
+
+<table class="table">
+    <tbody>
+        @foreach (var item in Model.Products)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InventorySize)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

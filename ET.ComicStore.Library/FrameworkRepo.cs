@@ -7,7 +7,6 @@ using System.Text;
 namespace ET.ComicStore.Library
 {
 	/*
-     * ToDo: display all order history sorted
      * ToDo: display statistics
      * ToDo: Show current cart
      * ToDo: Add/Remove from cart
