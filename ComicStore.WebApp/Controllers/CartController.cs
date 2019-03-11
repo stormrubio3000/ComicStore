@@ -43,18 +43,19 @@ namespace ComicStore.WebApp.Controllers
         // POST: Cart/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(StoreProduct collection)
+        public ActionResult Create(CartModelView collection)
         {
             try
             {
 				var product = new OrdersProduct
 				{
-					Name = collection.Name,
-					Price = collection.Price,
+					Name = collection.Product.Name,
+					Price = collection.Product.Price,
 					InventorySize = 1,
 					OrdersId = ComicDB.GetOrderss()
 				};
 
+				ComicDB.ProuductAdded(collection.Product);
 				ComicDB.AddOrderProduct(product);
 
                 return RedirectToAction(nameof(Index));
@@ -110,5 +111,22 @@ namespace ComicStore.WebApp.Controllers
                 return View();
             }
         }
-    }
+
+
+		public ActionResult Place()
+		{
+			
+			return View();
+		}
+
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Place(IFormCollection collection)
+		{
+			ComicDB.AddOrder();
+			return RedirectToAction(nameof(Index));
+		}
+
+	}
 }

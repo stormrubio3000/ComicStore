@@ -9,6 +9,9 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<p>
+    <a asp-action="Place">Check Out</a>
+</p>
 <table class="table">
     <thead>
         <tr>
@@ -17,9 +20,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InventorySize)
             </th>
             <th></th>
         </tr>
@@ -35,10 +35,6 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.InventorySize)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new {  id=item.Id}) |
                     @Html.ActionLink("Delete", "Delete", new {  id=item.Id })
                 </td>
             </tr>

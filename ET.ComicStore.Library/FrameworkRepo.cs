@@ -7,8 +7,7 @@ using System.Text;
 namespace ET.ComicStore.Library
 {
 	/*
-     * ToDo: Add/Remove from cart
-     * ToDo: Place order
+     * ToDo: Add to cart error
      */
 	public class FrameworkRepo
 	{
@@ -240,6 +239,13 @@ namespace ET.ComicStore.Library
 		public IEnumerable<OrdersProduct> GetCart(int id)
 		{
 			return _db.OrdersProduct.Where(y  => y.OrdersId == id).OrderBy(x => x.Id).ToList();
+		}
+
+		public void ProuductAdded(StoreProduct product)
+		{
+			var pro = _db.StoreProduct.First(x => x.Id == product.Id);
+			pro.InventorySize = pro.InventorySize - 1;
+			_db.SaveChanges();
 		}
 	}
 }
