@@ -163,5 +163,20 @@ namespace ComicStore.WebApp.Controllers
 			return View(viewmodel);
 		}
 
+
+		public ActionResult ShowStats()
+		{
+			int count = ComicDB.GetCount();
+			decimal total = ComicDB.GetTotal();
+			int ocount = ComicDB.GetOrderss();
+			var viewmodel = new HistoryModelView
+			{
+				CustomerCount = count/ ocount,
+				TotalSales = total,
+			};
+
+			return View(viewmodel);
+		}
+
 	}
 }

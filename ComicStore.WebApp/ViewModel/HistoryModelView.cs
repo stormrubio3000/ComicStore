@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -26,5 +27,13 @@ namespace ComicStore.WebApp.ViewModel
 
 
 		public ET.ComicStore.Library.ComicStore Store { get; set; }
+
+
+		[Display (Name = "Customer Ratio")]
+		public int CustomerCount { get; set; }
+
+		[Display(Name = "Total Sales")]
+		public decimal TotalSales { get; set; }
+
 	}
 }

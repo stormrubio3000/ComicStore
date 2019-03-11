@@ -1,0 +1,13 @@
+﻿@model ComicStore.WebApp.ViewModel.HistoryModelView
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Stats</h1>
+
+<p>
+    The Number of Orders per customer is @Html.DisplayFor(model => model.CustomerCount)
+    <br />
+    The Total amount of comics sold is @Html.DisplayFor(model => model.TotalSales)
+</p>

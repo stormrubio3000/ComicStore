@@ -7,7 +7,6 @@ using System.Text;
 namespace ET.ComicStore.Library
 {
 	/*
-     * ToDo: display statistics
      * ToDo: Show current cart
      * ToDo: Add/Remove from cart
      * ToDo: Place order
@@ -199,6 +198,24 @@ namespace ET.ComicStore.Library
 		}
 
 
+		public int GetCount()
+		{
+			return _db.Customer.Count();
+		}
 
+		public decimal GetTotal()
+		{
+			decimal total = 0;
+			foreach ( var item in _db.OrdersProduct)
+			{
+				total = total + item.Price * item.InventorySize;
+			}
+			return total;
+		}
+
+		public int GetOrderss()
+		{
+			return _db.Orders.Count();
+		}
 	}
 }
