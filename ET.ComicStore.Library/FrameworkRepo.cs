@@ -217,5 +217,35 @@ namespace ET.ComicStore.Library
 		{
 			return _db.Orders.Count();
 		}
+
+
+		public void AddOrder()
+		{
+			var order = new Orders { CustomerId = 1 };
+			_db.Add(order);
+			_db.SaveChanges();
+		}
+
+		public void UpdateOrder(Orders id)
+		{
+			var order = _db.Orders.First(x => x.OrdersId == id.OrdersId);
+			order.CustomerId = id.CustomerId;
+			_db.SaveChanges();
+		}
+
+
+		public void AddOrderProduct(StoreProduct product, int id)
+		{
+			var Product = new OrdersProduct
+			{
+				Name = product.Name,
+				Price = product.Price,
+				InventorySize = product.InventorySize,
+				OrdersId = id
+				
+			};
+			_db.Add(Product);
+			_db.SaveChanges();
+		}
 	}
 }
