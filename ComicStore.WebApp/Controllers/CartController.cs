@@ -33,17 +33,29 @@ namespace ComicStore.WebApp.Controllers
         // GET: Cart/Create
         public ActionResult Create()
         {
-            return View();
+			var products = ComicDB.GetStoreProducts().ToList();
+
+			var viewmodel = new CartModelView { Products = products };
+
+			return View(viewmodel);
         }
 
         // POST: Cart/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(StoreProduct collection)
         {
             try
             {
-                // TODO: Add insert logic here
+				var product = new OrdersProduct
+				{
+					Name = collection.Name,
+					Price = collection.Price,
+					InventorySize = 1,
+					OrdersId = ComicDB.GetOrderss()
+				};
+
+				ComicDB.AddOrderProduct(product);
 
                 return RedirectToAction(nameof(Index));
             }

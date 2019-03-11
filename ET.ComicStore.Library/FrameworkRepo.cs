@@ -9,8 +9,6 @@ namespace ET.ComicStore.Library
 	/*
      * ToDo: Add/Remove from cart
      * ToDo: Place order
-     * ToDo: Add model state checks
-     * ToDo: Make it pretty
      */
 	public class FrameworkRepo
 	{
@@ -233,17 +231,9 @@ namespace ET.ComicStore.Library
 		}
 
 
-		public void AddOrderProduct(StoreProduct product, int id)
+		public void AddOrderProduct(OrdersProduct product)
 		{
-			var Product = new OrdersProduct
-			{
-				Name = product.Name,
-				Price = product.Price,
-				InventorySize = product.InventorySize,
-				OrdersId = id
-				
-			};
-			_db.Add(Product);
+			_db.Add(product);
 			_db.SaveChanges();
 		}
 

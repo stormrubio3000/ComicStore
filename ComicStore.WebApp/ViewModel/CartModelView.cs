@@ -36,5 +36,11 @@ namespace ComicStore.WebApp.ViewModel
 
 
 		public List<ET.ComicStore.Library.OrdersProduct> Cart { get; set; }
+
+
+		public List<ET.ComicStore.Library.StoreProduct> Products { get; set; }
+
+
+		public ET.ComicStore.Library.StoreProduct Product { get; set; }
 	}
 }
