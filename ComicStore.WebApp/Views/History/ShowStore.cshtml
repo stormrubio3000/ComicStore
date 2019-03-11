@@ -1,0 +1,29 @@
+﻿@model ComicStore.WebApp.ViewModel.HistoryModelView
+
+@{
+    ViewData["Title"] = "ShowStore";
+}
+
+
+<table class="table">
+    <tbody>
+        @foreach (var item in Model.Stores)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StoreId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                    @Html.ActionLink("Show History", "Store", new { id = item.StoreId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

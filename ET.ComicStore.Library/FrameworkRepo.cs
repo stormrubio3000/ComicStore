@@ -7,7 +7,6 @@ using System.Text;
 namespace ET.ComicStore.Library
 {
 	/*
-     * ToDo: display store order history
      * ToDo: display customer order history
      * ToDo: display all order history sorted
      * ToDo: display statistics
@@ -190,6 +189,11 @@ namespace ET.ComicStore.Library
 
 		}
 
+
+		public IEnumerable<Orders> GetOrders()
+		{
+			return _db.Orders.OrderBy(x => x.OrdersId).ToList();
+		}
 
 		public IEnumerable<OrdersProduct> GetOrderProducts()
 		{

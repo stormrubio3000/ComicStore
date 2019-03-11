@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ComicStore.WebApp.ViewModel;
+using ET.ComicStore.Library;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,85 +11,73 @@ namespace ComicStore.WebApp.Controllers
 {
     public class HistoryController : Controller
     {
-        // GET: History
-        public ActionResult Index()
+
+
+		public FrameworkRepo ComicDB { get; set; }
+
+
+		public HistoryController(FrameworkRepo comicDB)
+		{
+			ComicDB = comicDB;
+		}
+
+
+
+		// GET: History
+		public ActionResult Index()
         {
             return View();
         }
 
-        // GET: History/Details/5
-        public ActionResult Details(int id)
+        // GET: History/ShowStore
+        public ActionResult ShowStore()
         {
-            return View();
+			var viewmodel = new HistoryModelView
+			{
+				Stores = ComicDB.GetStores().ToList()
+			};
+
+            return View(viewmodel);
         }
 
-        // GET: History/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+		public ActionResult Store(int id)
+		{
+			var store = ComicDB.GetStore(id);
+			var customers = ComicDB.GetCustomers();
+			var orders = ComicDB.GetOrders();
+			var products = ComicDB.GetOrderProducts();
+			List<OrdersProduct> history = new List<OrdersProduct>();
+			foreach (var customer in customers)
+			{
+				if (customer.StoreId == store.StoreId)
+				{
+					foreach (var order in orders)
+					{
+						if (customer.CustomerId == order.CustomerId)
+						{
+							foreach (var product in products)
+							{
+								if (product.OrdersId == order.OrdersId)
+								{
+									history.Add(product);
+								}
+							}
+						}
+					}
+				}
+			}
 
-        // POST: History/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
+			var viewmodel = new HistoryModelView
+			{
+				Store = store,
+				Products = history
+			};
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+			return View(viewmodel);
+		}
 
-        // GET: History/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
+        
 
-        // POST: History/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: History/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: History/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }
