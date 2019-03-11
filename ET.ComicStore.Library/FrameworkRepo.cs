@@ -236,6 +236,12 @@ namespace ET.ComicStore.Library
 			_db.SaveChanges();
 		}
 
+		public void RemoveOrderProduct(OrdersProduct product)
+		{
+			_db.Remove(product);
+			_db.SaveChanges();
+		}
+
 		public IEnumerable<OrdersProduct> GetCart(int id)
 		{
 			return _db.OrdersProduct.Where(y  => y.OrdersId == id).OrderBy(x => x.Id).ToList();

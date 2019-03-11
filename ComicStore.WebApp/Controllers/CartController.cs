@@ -33,9 +33,7 @@ namespace ComicStore.WebApp.Controllers
         // GET: Cart/Create
         public ActionResult Create()
         {
-			var products = ComicDB.GetStoreProducts().ToList();
-
-			var viewmodel = new CartModelView { Products = products };
+			var viewmodel = new CartModelView { Products = ComicDB.GetStoreProducts().ToList() };
 
 			return View(viewmodel);
         }
@@ -47,10 +45,11 @@ namespace ComicStore.WebApp.Controllers
         {
             try
             {
+				var pro = ComicDB.GetStoreProduct(collection.Product.Id);
 				var product = new OrdersProduct
 				{
-					Name = collection.Product.Name,
-					Price = collection.Product.Price,
+					Name = pro.Name,
+					Price = pro.Price,
 					InventorySize = 1,
 					OrdersId = ComicDB.GetOrderss()
 				};
@@ -66,33 +65,14 @@ namespace ComicStore.WebApp.Controllers
             }
         }
 
-        // GET: Cart/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Cart/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
         // GET: Cart/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+			var product = ComicDB.GetOrderProducts().First(x => x.Id == id);
+
+			var viewmodel = new CartModelView { ProductO = product };
+            return View(viewmodel);
         }
 
         // POST: Cart/Delete/5
@@ -102,9 +82,11 @@ namespace ComicStore.WebApp.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
+				var product = ComicDB.GetOrderProducts().First(x => x.Id == id);
 
-                return RedirectToAction(nameof(Index));
+				ComicDB.RemoveOrderProduct(product);
+
+				return RedirectToAction(nameof(Index));
             }
             catch
             {
